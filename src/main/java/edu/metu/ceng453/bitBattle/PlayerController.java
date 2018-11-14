@@ -1,7 +1,5 @@
 package edu.metu.ceng453.bitBattle;
 
-import java.util.function.Function;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +8,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 
 @RestController    // This means that this class is a Controller
@@ -24,8 +20,8 @@ public class PlayerController {
     }
 
     @GetMapping("/Player/{playerID}")
-    Optional<Player> getPlayer(@PathVariable Integer playerID) {
-       return repository.findById(Long.valueOf(playerID));
+    Player getPlayer(@PathVariable Integer playerID) {
+       return repository.findByID(playerID);
     }
 
     @PostMapping("/Player")
@@ -37,22 +33,16 @@ public class PlayerController {
     @PutMapping("/Player/{playerID}")
     Player replacePlayer(@RequestBody Player newPlayer, @PathVariable Integer playerID) {
 
-
-        return repository.findById(Long.valueOf(playerID))
-                .map(Player -> {
-                    Player.setName(newPlayer.getName());
-                    Player.setPassword(newPlayer.getPassword());
-                    return repository.save(Player);
-                })
-                .orElseGet(() -> {
-                    // Throw exception
-                });
+        Player p = repository.findByID(playerID); // need to handle exception
+        p.setName(newPlayer.getName());
+        p.setPassword(newPlayer.getPassword());
+        return repository.save(p);
 
     }
 
-    @DeleteMapping("/Player/{id}")
-    void deletePlayer(@PathVariable Long id) {
-        repository.deleteById(id);
+    @DeleteMapping("/Player/{playerID}")
+    void deletePlayer(@PathVariable Integer playerID) {
+        repository.deleteById(playerID);
     }
 
 
