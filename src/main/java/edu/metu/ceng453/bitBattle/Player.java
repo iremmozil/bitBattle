@@ -1,22 +1,29 @@
 package edu.metu.ceng453.bitBattle;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Player {
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column (name = "playerID")
     private Integer playerID;
+
+    @Column (name = "username")
     private String playerName;
+
+    @Column (name = "password")
     private String playerPassword;
 
-    Player(String playerName, Integer playerID, String playerPassword) {
+    @Column (name = "highScore")
+    private Integer highScore;
+
+    Player(String playerName, Integer playerID, String playerPassword, Integer highScore) {
         this.playerID = playerID;
         this.playerName = playerName;
         this.playerPassword = playerPassword;
+        this.highScore = highScore;
     }
 
     public Integer getID() {
@@ -41,5 +48,13 @@ public class Player {
 
     public void setName(String playerName) {
         this.playerName = playerName;
+    }
+
+    public Integer getHighScore() {
+        return highScore;
+    }
+
+    public void setHighScore(Integer highScore) {
+        this.highScore = highScore;
     }
 }
