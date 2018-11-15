@@ -52,7 +52,7 @@ public class Leaderboard {
         return gameTime;
     }
 
-    public void setGameTime() {
+    public void setGameTime(Date gameTime) {
         this.gameTime = gameTime;
     }
 }
