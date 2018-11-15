@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 
@@ -22,8 +23,8 @@ public class PlayerController {
     }
 
     @GetMapping("/Player/{playerID}")
-    Optional<Player> getPlayer(@PathVariable Integer playerID) {
-       return repository.findById(playerID);
+    Player getPlayer(@PathVariable Integer playerID) {
+       return repository.findById(playerID).orElseThrow(()->new EntityNotFoundException("This player does not exist!"));
     }
 
     @PostMapping("/Player")
@@ -35,6 +36,7 @@ public class PlayerController {
     Player replacePlayer(@RequestBody Player newPlayer, @PathVariable Integer playerID) {
         return repository.findById(playerID)
                 .map(player -> {
+                    player.setHighScore(newPlayer.getHighScore());
                     player.setName(newPlayer.getName());
                     player.setPassword(newPlayer.getPassword());
                     return repository.save(player);
