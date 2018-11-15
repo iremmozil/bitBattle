@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 
 @RestController    // This means that this class is a Controller
 public class PlayerController {
@@ -20,8 +22,8 @@ public class PlayerController {
     }
 
     @GetMapping("/Player/{playerID}")
-    Player getPlayer(@PathVariable Integer playerID) {
-       return repository.findByID(playerID);
+    Optional<Player> getPlayer(@PathVariable Integer playerID) {
+       return repository.findById(playerID);
     }
 
     @PostMapping("/Player")
@@ -31,10 +33,16 @@ public class PlayerController {
 
     @PutMapping("/Player/{playerID}")
     Player replacePlayer(@RequestBody Player newPlayer, @PathVariable Integer playerID) {
-        Player p = repository.findByID(playerID); // need to handle exception
-        p.setName(newPlayer.getName());
-        p.setPassword(newPlayer.getPassword());
-        return repository.save(p);
+        return repository.findById(playerID)
+                .map(player -> {
+                    player.setName(newPlayer.getName());
+                    player.setPassword(newPlayer.getPassword());
+                    return repository.save(player);
+                })
+                .orElseGet(() -> {
+                    newPlayer.setID(playerID);
+                    return repository.save(newPlayer);
+                });
     }
 
     @DeleteMapping("/Player/{playerID}")
