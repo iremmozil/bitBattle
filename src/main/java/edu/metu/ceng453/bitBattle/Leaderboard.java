@@ -9,7 +9,6 @@ public class Leaderboard {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer gameID;
 
-    @OneToMany
     @JoinColumn (name = "playerID")
     private Integer playerID;
 
