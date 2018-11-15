@@ -29,23 +29,16 @@ public class PlayerController {
         return repository.save(newPlayer);
     }
 
-
     @PutMapping("/Player/{playerID}")
     Player replacePlayer(@RequestBody Player newPlayer, @PathVariable Integer playerID) {
-
         Player p = repository.findByID(playerID); // need to handle exception
         p.setName(newPlayer.getName());
         p.setPassword(newPlayer.getPassword());
         return repository.save(p);
-
     }
 
     @DeleteMapping("/Player/{playerID}")
     void deletePlayer(@PathVariable Integer playerID) {
         repository.deleteById(playerID);
     }
-
-
-    // Several get functions can be implemented with a specified path.
-    // GET all, GET one by ID etc.
 }
