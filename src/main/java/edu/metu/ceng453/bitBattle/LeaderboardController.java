@@ -3,13 +3,12 @@ package edu.metu.ceng453.bitBattle;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -21,34 +20,32 @@ public class LeaderboardController {
         this.repository = repository;
     }
 
-    @GetMapping("/leaderboard/{afterDate}")
-    List<Leaderboard> getLeaderboard(@PathVariable Date afterDate) {
-        return repository.findByGameTimeAfter(afterDate);
+    // This method returns all leaderboard.
+    @GetMapping("/leaderboard")
+    List<Leaderboard> getLeaderboard() {
+        return repository.findAllByGameTimeAfterOrderByScoreDesc(Date.valueOf("1900-01-01"));
+    }
+
+    // This method return leaderboard of last X days.
+    @GetMapping("/leaderboard/last_week")
+    List<Leaderboard> getLeaderboardLastWeek(){
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+        Date tempDate = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
+        return repository.findAllByGameTimeAfterOrderByScoreDesc(tempDate);
     }
 
     @PostMapping("/leaderboard")
-    Leaderboard newGame(@RequestBody Leaderboard newLeaderboard) {
+    Leaderboard newLeaderboard(@RequestBody Leaderboard newLeaderboard) {
         return repository.save(newLeaderboard);
     }
 
-    @PutMapping("/leaderboard/{id}")
-    Leaderboard replaceLeaderboard(@RequestBody Leaderboard newGame, @PathVariable Integer id) {
-
-        return repository.findById(id)
-                .map(leaderboard -> {
-                    leaderboard.setPlayerId(newGame.getPlayerId());
-                    leaderboard.setScore(newGame.getScore());
-                    leaderboard.setGameTime(newGame.getGameTime());
-                    return repository.save(leaderboard);
-                })
-                .orElseGet(() -> {
-                    newGame.setId(id);
-                    return repository.save(newGame);
-                });
-    }
-
-    @DeleteMapping("/Leaderboard/{id}")
+    @DeleteMapping("/delete_leaderboard/{id}")
     void deleteGame(@PathVariable Integer id) {
         repository.deleteById(id);
+    }
+
+    @DeleteMapping("/delete_leaderboard")
+    void deleteAll() {
+        repository.deleteAll();
     }
 }
