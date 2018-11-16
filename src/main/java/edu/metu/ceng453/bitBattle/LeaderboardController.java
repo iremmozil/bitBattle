@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.EntityNotFoundException;
 import java.sql.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class LeaderboardController {
     // This method returns all leaderboard.
     @GetMapping("/leaderboard")
     List<Leaderboard> getLeaderboard() {
-        return repository.findAllByGameTimeAfterOrderByScoreDesc(Date.valueOf("1900-01-01"));
+        return repository.findAllByGameTimeAfterOrderByScoreDesc(Date.valueOf("1900-01-01")).orElseThrow(() -> new EntityNotFoundException("Leaderboard does not exist!"));
     }
 
     // This method return leaderboard of last X days.
@@ -31,7 +32,7 @@ public class LeaderboardController {
     List<Leaderboard> getLeaderboardLastWeek(){
         long DAY_IN_MS = 1000 * 60 * 60 * 24;
         Date tempDate = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
-        return repository.findAllByGameTimeAfterOrderByScoreDesc(tempDate);
+        return repository.findAllByGameTimeAfterOrderByScoreDesc(tempDate).orElseThrow(() -> new EntityNotFoundException("Leaderboard does not exist!"));
     }
 
     @PostMapping("/leaderboard")
