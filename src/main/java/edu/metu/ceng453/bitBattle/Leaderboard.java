@@ -19,6 +19,8 @@ public class Leaderboard {
     @Column(name = "game_time")
     private Date gameTime;
 
+    Leaderboard() {
+    }
 
     Leaderboard(Integer gameID, Integer playerid, Integer score, Date gameTime) {
         this.id = gameID;
@@ -27,7 +29,7 @@ public class Leaderboard {
         this.gameTime = gameTime;
     }
 
-    public Integer getGameid() {
+    public Integer getId() {
         return id;
     }
 
