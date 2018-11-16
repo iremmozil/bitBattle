@@ -21,34 +21,34 @@ public class LeaderboardController {
         this.repository = repository;
     }
 
-    @GetMapping("/Leaderboard/{afterDate}")
+    @GetMapping("/leaderboard/{afterDate}")
     List<Leaderboard> getLeaderboard(@PathVariable Date afterDate) {
         return repository.findByGameTimeAfter(afterDate);
     }
 
-    @PostMapping("/Leaderboard")
+    @PostMapping("/leaderboard")
     Leaderboard newGame(@RequestBody Leaderboard newLeaderboard) {
         return repository.save(newLeaderboard);
     }
 
-    @PutMapping("/Leaderboard/{gameID}")
-    Leaderboard replaceLeaderboard(@RequestBody Leaderboard newGame, @PathVariable Integer gameID) {
+    @PutMapping("/leaderboard/{gameid}")
+    Leaderboard replaceLeaderboard(@RequestBody Leaderboard newGame, @PathVariable Integer gameid) {
 
-        return repository.findById(gameID)
+        return repository.findById(gameid)
                 .map(leaderboard -> {
-                    leaderboard.setPlayerID(newGame.getPlayerID());
+                    leaderboard.setplayerid(newGame.getplayerid());
                     leaderboard.setScore(newGame.getScore());
                     leaderboard.setGameTime(newGame.getGameTime());
                     return repository.save(leaderboard);
                 })
                 .orElseGet(() -> {
-                    newGame.setID(gameID);
+                    newGame.setGameid(gameid);
                     return repository.save(newGame);
                 });
     }
 
-    @DeleteMapping("/Leaderboard/{gameID}")
-    void deleteGame(@PathVariable Integer gameID) {
-        repository.deleteById(gameID);
+    @DeleteMapping("/Leaderboard/{gameid}")
+    void deleteGame(@PathVariable Integer gameid) {
+        repository.deleteById(gameid);
     }
 }
