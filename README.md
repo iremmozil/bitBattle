@@ -13,8 +13,8 @@ At the end of the game, the player enters the leaderboard through his/her high s
 In the src/main/java/edu/metu/ceng453/bitBattle folder, there are 6 .java files. 
 
 * In the Player.java and Leaderboard.java files we simply implemented constructors and the getters and the setters and we bind the local variables to our database variables.
-* In PlayerRepository.java and LeaderboardRepository.java files, we implemented one method each in order to get player and leaderboard object with a given parameter.
-* In PlayerController.java and LeaderboardController.java files, we implemented the HTTP mapping methods that are PUT, POST, GET, DELETE.
+* In PlayerRepository.java and LeaderboardRepository.java files, we implemented one method each in order to get **player** and **leaderboard** object with a given parameter.
+* In PlayerController.java and LeaderboardController.java files, we implemented the HTTP mapping methods that are **PUT, POST, GET, DELETE**.
     * *GET: /players* : this method returns all players.
     * *GET: /player/{id}*: this method returns a single player from given id.
     * *GET: /leaderboard*:  this method returns all leaderboard.
@@ -30,7 +30,7 @@ In the src/main/java/edu/metu/ceng453/bitBattle folder, there are 6 .java files.
     
 In the src/main/resources folder, there is a file named application.properties. In this file, we specify the database connection properties.
 
-##Database Structure
+## Database Structure
 
 In the database, we have 2 tables named Player and Leaderboard.
 
