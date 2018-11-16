@@ -27,7 +27,7 @@ public class LeaderboardController {
         return repository.findAllByGameTimeAfterOrderByScoreDesc(Date.valueOf("1900-01-01")).orElseThrow(() -> new EntityNotFoundException("Leaderboard does not exist!"));
     }
 
-    // This method return leaderboard of last X days.
+    // This method returns leaderboard of last X days.
     @GetMapping("/leaderboard/last_week")
     List<Leaderboard> getLeaderboardLastWeek(){
         long DAY_IN_MS = 1000 * 60 * 60 * 24;
@@ -35,6 +35,7 @@ public class LeaderboardController {
         return repository.findAllByGameTimeAfterOrderByScoreDesc(tempDate).orElseThrow(() -> new EntityNotFoundException("Leaderboard does not exist!"));
     }
 
+    //this method adds gameTime, playerId and score to the leaderboard with a unique id.
     @PostMapping("/leaderboard")
     Leaderboard newLeaderboard(@RequestBody Leaderboard newLeaderboard) {
         return repository.save(newLeaderboard);
