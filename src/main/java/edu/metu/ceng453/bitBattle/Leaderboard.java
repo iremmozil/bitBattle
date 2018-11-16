@@ -6,37 +6,41 @@ import java.util.Date;
 @Entity
 public class Leaderboard {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer gameID;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "gameid")
+    private Integer gameid;
 
-    @JoinColumn (name = "playerID")
-    private Integer playerID;
+    @JoinColumn(name = "playerid")
+    private Integer playerid;
 
+    @Column(name = "score")
     private Integer score;
+
+    @Column(name = "gametime")
     private Date gameTime;
 
 
-    Leaderboard(Integer gameID, Integer playerID, Integer score, Date gameTime) {
-        this.gameID = gameID;
-        this.playerID = playerID;
+    Leaderboard(Integer gameID, Integer playerid, Integer score, Date gameTime) {
+        this.gameid = gameID;
+        this.playerid = playerid;
         this.score = score;
         this.gameTime = gameTime;
     }
 
-    public Integer getID() {
-        return gameID;
+    public Integer getGameid() {
+        return gameid;
     }
 
-    public void setID(Integer gameID) {
-        this.gameID = gameID;
+    public void setGameid(Integer gameID) {
+        this.gameid = gameID;
     }
 
-    public Integer getPlayerID() {
-        return playerID;
+    public Integer getplayerid() {
+        return playerid;
     }
 
-    public void setPlayerID(Integer playerID) {
-        this.playerID = playerID;
+    public void setplayerid(Integer playerid) {
+        this.playerid = playerid;
     }
 
     public Integer getScore() {
