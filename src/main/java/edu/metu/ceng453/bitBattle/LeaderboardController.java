@@ -31,24 +31,24 @@ public class LeaderboardController {
         return repository.save(newLeaderboard);
     }
 
-    @PutMapping("/leaderboard/{gameid}")
-    Leaderboard replaceLeaderboard(@RequestBody Leaderboard newGame, @PathVariable Integer gameid) {
+    @PutMapping("/leaderboard/{id}")
+    Leaderboard replaceLeaderboard(@RequestBody Leaderboard newGame, @PathVariable Integer id) {
 
-        return repository.findById(gameid)
+        return repository.findById(id)
                 .map(leaderboard -> {
-                    leaderboard.setplayerid(newGame.getplayerid());
+                    leaderboard.setPlayerId(newGame.getPlayerId());
                     leaderboard.setScore(newGame.getScore());
                     leaderboard.setGameTime(newGame.getGameTime());
                     return repository.save(leaderboard);
                 })
                 .orElseGet(() -> {
-                    newGame.setGameid(gameid);
+                    newGame.setId(id);
                     return repository.save(newGame);
                 });
     }
 
-    @DeleteMapping("/Leaderboard/{gameid}")
-    void deleteGame(@PathVariable Integer gameid) {
-        repository.deleteById(gameid);
+    @DeleteMapping("/Leaderboard/{id}")
+    void deleteGame(@PathVariable Integer id) {
+        repository.deleteById(id);
     }
 }

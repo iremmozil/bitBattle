@@ -7,40 +7,40 @@ import java.util.Date;
 public class Leaderboard {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "gameid")
-    private Integer gameid;
+    @Column(name = "id")
+    private Integer id;
 
-    @JoinColumn(name = "playerid")
-    private Integer playerid;
+    @JoinColumn(name = "player_id")
+    private Integer playerId;
 
     @Column(name = "score")
     private Integer score;
 
-    @Column(name = "gametime")
+    @Column(name = "game_time")
     private Date gameTime;
 
 
     Leaderboard(Integer gameID, Integer playerid, Integer score, Date gameTime) {
-        this.gameid = gameID;
-        this.playerid = playerid;
+        this.id = gameID;
+        this.playerId = playerid;
         this.score = score;
         this.gameTime = gameTime;
     }
 
     public Integer getGameid() {
-        return gameid;
+        return id;
     }
 
-    public void setGameid(Integer gameID) {
-        this.gameid = gameID;
+    public void setId(Integer gameID) {
+        this.id = gameID;
     }
 
-    public Integer getplayerid() {
-        return playerid;
+    public Integer getPlayerId() {
+        return playerId;
     }
 
-    public void setplayerid(Integer playerid) {
-        this.playerid = playerid;
+    public void setPlayerId(Integer playerid) {
+        this.playerId = playerid;
     }
 
     public Integer getScore() {

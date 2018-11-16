@@ -26,9 +26,9 @@ public class PlayerController {
         return repository.findAll();
     }
 
-    @GetMapping("/player/{playerid}")
-    Player getPlayer(@PathVariable Integer playerid) {
-       return repository.findById(playerid).orElseThrow(()->new EntityNotFoundException("This player does not exist!"));
+    @GetMapping("/player/{id}")
+    Player getPlayer(@PathVariable Integer id) {
+       return repository.findById(id).orElseThrow(()->new EntityNotFoundException("This player does not exist!"));
     }
 
     @PostMapping("/player")
@@ -36,23 +36,23 @@ public class PlayerController {
         return repository.save(newPlayer);
     }
 
-    @PutMapping("/player/{playerid}")
-    Player replacePlayer(@RequestBody Player newPlayer, @PathVariable Integer playerid) {
-        return repository.findById(playerid)
+    @PutMapping("/player/{id}")
+    Player replacePlayer(@RequestBody Player newPlayer, @PathVariable Integer id) {
+        return repository.findById(id)
                 .map(player -> {
                     player.setHighScore(newPlayer.getHighScore());
-                    player.setName(newPlayer.getName());
+                    player.setPlayername(newPlayer.getPlayername());
                     player.setPassword(newPlayer.getPassword());
                     return repository.save(player);
                 })
                 .orElseGet(() -> {
-                    newPlayer.setID(playerid);
+                    newPlayer.setID(id);
                     return repository.save(newPlayer);
                 });
     }
 
-    @DeleteMapping("/player/{playerid}")
-    void deletePlayer(@PathVariable Integer playerid) {
-        repository.deleteById(playerid);
+    @DeleteMapping("/player/{id}")
+    void deletePlayer(@PathVariable Integer id) {
+        repository.deleteById(id);
     }
 }

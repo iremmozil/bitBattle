@@ -9,48 +9,48 @@ public class Player {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column (name = "playerid")
-    private Integer playerid;
+    @Column(name = "id")
+    private Integer id;
 
-    @Column (name = "username")
-    private String playerName;
+    @Column(name = "playername")
+    private String playername;
 
-    @Column (name = "password")
-    private String playerPassword;
+    @Column(name = "password")
+    private String password;
 
-    @Column (name = "highscore")
+    @Column(name = "highscore")
     private Integer highScore;
 
     Player(String playerName, Integer playerId, String playerPassword, Integer highScore) {
-        this.playerid = playerId;
-        this.playerName = playerName;
-        this.playerPassword = playerPassword;
+        this.id = playerId;
+        this.playername = playerName;
+        this.password = playerPassword;
         this.highScore = highScore;
     }
 
 
     public Integer getID() {
-        return playerid;
+        return id;
     }
 
     public void setID(Integer playerId) {
-        this.playerid = playerId;
+        this.id = playerId;
     }
 
     public String getPassword() {
-        return playerPassword;
+        return password;
     }
 
     public void setPassword(String playerPassword) {
-        this.playerPassword = playerPassword;
+        this.password = playerPassword;
     }
 
-    public String getName() {
-        return playerName;
+    public String getPlayername() {
+        return playername;
     }
 
-    public void setName(String playerName) {
-        this.playerName = playerName;
+    public void setPlayername(String playername) {
+        this.playername = playername;
     }
 
     public Integer getHighScore() {
