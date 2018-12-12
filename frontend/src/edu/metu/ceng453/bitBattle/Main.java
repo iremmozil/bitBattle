@@ -1,4 +1,4 @@
-package edu.metu.ceng453.bitBattle.frontend;
+package edu.metu.ceng453.bitBattle;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,10 +10,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("signin.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("./levelThree.fxml"));
         primaryStage.setTitle("BitBattle");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 330, 475));
         primaryStage.show();
     }
 
