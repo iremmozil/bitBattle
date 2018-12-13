@@ -13,9 +13,9 @@
 
 <GridPane alignment="CENTER" hgap="10.0" prefHeight="474.0" prefWidth="340.0" style="" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.metu.ceng453.bitBattle.Controller">
   <children>
-    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <AnchorPane  id="anchorOne" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
-        <ImageView id="triange" fitHeight="40.0" fitWidth="77.0" layoutX="132.0" layoutY="420.0" pickOnBounds="true">
+        <ImageView fx:id="spaceship" fitHeight="40.0" fitWidth="77.0" layoutX="132.0" layoutY="420.0" pickOnBounds="true">
           <image>
             <Image url="@triange.png" preserveRatio="true" smooth="true" />
           </image>
