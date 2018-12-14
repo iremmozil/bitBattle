@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.CacheHint;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -38,7 +39,7 @@ public class LevelOneController extends Controller{
 
     Double alienMove = 48.0;
 
-   
+
 
      public void animateLogo() {
 
@@ -65,6 +66,7 @@ public class LevelOneController extends Controller{
          PathTransition tt11 =
                  new PathTransition(Duration.seconds(5), new Line(),ailen11);
 
+         tt.setPath(new Circle(20));
          tt2.setPath(new Circle(20));
          tt3.setPath(new Circle(20));
          tt4.setPath(new Circle(20));
@@ -75,8 +77,6 @@ public class LevelOneController extends Controller{
          tt9.setPath(new Circle(20));
          tt10.setPath(new Circle(20));
          tt11.setPath(new Circle(20));
-
-
 
         tt.setCycleCount( Timeline.INDEFINITE );
          tt2.setCycleCount( Timeline.INDEFINITE );
