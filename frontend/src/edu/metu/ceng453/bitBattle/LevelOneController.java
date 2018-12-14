@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -31,50 +32,17 @@ public class LevelOneController extends Controller{
     AnchorPane anchorOne;
 
     @FXML
-    Button newButton;
+    Pane ailens;
 
-    @FXML ImageView ailen1;
-    @FXML ImageView ailen2;
-    @FXML ImageView ailen3;
-    @FXML ImageView ailen4;
-    @FXML ImageView ailen5;
-    @FXML ImageView ailen6;
-    @FXML ImageView ailen7;
-    @FXML ImageView ailen8;
-    @FXML ImageView ailen9;
-    @FXML ImageView ailen10;
-    @FXML ImageView ailen11;
-
-    Group alienGroup = new Group();
-
-
-
-    public void newButtonPushed(ActionEvent event) throws IOException {
-        Parent levelOne = FXMLLoader.load(getClass().getResource("./levelOne.fxml"));
-        Scene sceneOne = new Scene(levelOne);
-        sceneOne.getRoot().requestFocus();
-        Node node = ((Node)event.getSource());
-        Stage window = (Stage) (node.getScene().getWindow());
-        window.setScene(sceneOne);
-        window.show();
+    public void initialize(){
+        animateLogo();
     }
 
 
      public void animateLogo() {
-         alienGroup.getChildren().add(ailen1);
-         alienGroup.getChildren().add(ailen2);
-         alienGroup.getChildren().add(ailen3);
-         alienGroup.getChildren().add(ailen4);
-         alienGroup.getChildren().add(ailen5);
-         alienGroup.getChildren().add(ailen6);
-         alienGroup.getChildren().add(ailen7);
-         alienGroup.getChildren().add(ailen8);
-         alienGroup.getChildren().add(ailen9);
-         alienGroup.getChildren().add(ailen10);
-         alienGroup.getChildren().add(ailen11);
 
          PathTransition tt =
-                new PathTransition(Duration.seconds(5), new Line(),alienGroup);
+                new PathTransition(Duration.seconds(5), new Line(),ailens);
 
          tt.setPath(new Rectangle(20,15));
 
