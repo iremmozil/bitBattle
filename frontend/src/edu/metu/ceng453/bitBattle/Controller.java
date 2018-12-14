@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,7 +32,10 @@ public class Controller extends Main{
         Parent levelOne = FXMLLoader.load(getClass().getResource("./levelOne.fxml"));
         Scene sceneOne = new Scene(levelOne);
         sceneOne.getRoot().requestFocus();
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Node node = ((Node)event.getSource());
+        node.setCache(true);
+        node.setCacheHint(CacheHint.SPEED);
+        Stage window = (Stage) (node.getScene().getWindow());
         window.setScene(sceneOne);
         window.show();
     }
