@@ -15,10 +15,10 @@ import java.util.List;
 @RestController
 public class LeaderboardController {
 
-    private final LeaderboardRepository repository;
+    private LeaderboardRepository leaderboardRepository;
 
     LeaderboardController(LeaderboardRepository repository) {
-        this.repository = repository;
+        this.leaderboardRepository = repository;
     }
 
     // This method returns all leaderboard.
@@ -38,16 +38,16 @@ public class LeaderboardController {
     //this method adds gameTime, playerId and score to the leaderboard with a unique id.
     @PostMapping("/leaderboard")
     Leaderboard newLeaderboard(@RequestBody Leaderboard newLeaderboard) {
-        return repository.save(newLeaderboard);
+        return leaderboardRepository.save(newLeaderboard);
     }
 
-    @DeleteMapping("/delete_leaderboard/{id}")
+    @DeleteMapping("/leaderboard/{id}")
     void deleteGame(@PathVariable Integer id) {
-        repository.deleteById(id);
+        leaderboardRepository.deleteById(id);
     }
 
-    @DeleteMapping("/delete_leaderboard")
+    @DeleteMapping("/leaderboard")
     void deleteAll() {
-        repository.deleteAll();
+        leaderboardRepository.deleteAll();
     }
 }
