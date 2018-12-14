@@ -26,14 +26,6 @@ public class Controller extends Main{
     @FXML
     Button sbutton;
 
-    @FXML
-    ImageView spaceship;
-
-    @FXML
-    Circle bullet;
-
-    @FXML
-    AnchorPane anchorOne;
 
     public void sbuttonPushed(ActionEvent event) throws IOException{
         Parent levelOne = FXMLLoader.load(getClass().getResource("./levelOne.fxml"));
@@ -44,43 +36,5 @@ public class Controller extends Main{
         window.show();
     }
 
-    @FXML
-    private void setKeyListener(KeyEvent event){
-        if (event.getCode() == KeyCode.RIGHT){
-            double x = spaceship.getLayoutX();
-            double y = spaceship.getLayoutY();
-            if (x < 630){
-                x = x + 4;
-            }
-            spaceship.relocate(x,y);
-        }
-        else if (event.getCode() == KeyCode.LEFT){
-            double x = spaceship.getLayoutX();
-            double y = spaceship.getLayoutY();
-            if( x > -20){
-                x = x - 4;
-            }
-            spaceship.relocate(x,y);
-
-        }
-        else if (event.getCode() == KeyCode.SPACE){
-            Circle b = new Circle(5.05);
-            b.setStroke(Color.BLACK);
-            b.setStrokeWidth(0.0);
-            b.setFill(Color.valueOf("99daff"));
-            b.setCenterX(spaceship.getLayoutX() + 35.0);
-            b.setCenterY(spaceship.getLayoutY());
-            anchorOne.getChildren().add(b);
-            /*
-            while(b.getCenterY() > 0){
-                double x = b.getCenterX();
-                double y = b.getCenterY();
-                y = y - 6;
-                b.relocate(x,y);
-            }*/
-
-        }
-        event.consume();
-    }
 
 }
