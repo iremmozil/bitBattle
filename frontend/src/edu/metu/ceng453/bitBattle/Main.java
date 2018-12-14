@@ -15,7 +15,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("./signin.fxml"));
 
         primaryStage.setTitle("BitBattle");
-        primaryStage.setScene(new Scene(root, 330, 475));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 

@@ -14,16 +14,16 @@
   <children>
     <AnchorPane prefHeight="610.0" prefWidth="340.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
-        <TextField layoutX="211.0" layoutY="341.0" prefWidth="143.0" />
+        <TextField layoutX="220.0" layoutY="341.0" prefWidth="143.0" />
         <Label layoutX="125.0" layoutY="344.0" text="Player Name" textAlignment="LEFT" wrapText="true" />
         <ImageView fitHeight="146.00000762939453" fitWidth="299.48720248891215" layoutX="97.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@photo_2018-11-06_22-35-21.jpg" />
           </image>
         </ImageView>
-        <Button fx:id="sbutton" layoutX="194.0" layoutY="420.0" mnemonicParsing="false" onAction="#sbuttonPushed" prefHeight="22.0" prefWidth="79.0" style="-fx-background-color: #d0dfd0;" text="Sign In" />
+        <Button fx:id="sbutton" layoutX="212.0" layoutY="420.0" mnemonicParsing="false" onAction="#sbuttonPushed" prefHeight="22.0" prefWidth="79.0" style="-fx-background-color: #d0dfd0;" text="Sign In" />
         <Label layoutX="135.0" layoutY="378.0" prefWidth="63.0" text="Password" />
-        <PasswordField fx:id="password" layoutX="211.0" layoutY="375.0" prefWidth="143.0" text="${password}">
+        <PasswordField fx:id="password" layoutX="220.0" layoutY="375.0" prefWidth="143.0" text="${password}">
           <contextMenu>
             <ContextMenu />
           </contextMenu>
