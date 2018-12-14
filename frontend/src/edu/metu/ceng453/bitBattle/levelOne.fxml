@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
@@ -11,46 +12,70 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" hgap="10.0" prefHeight="474.0" prefWidth="340.0" style="" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.metu.ceng453.bitBattle.Controller">
+<GridPane alignment="CENTER" hgap="10.0" onKeyPressed="#setKeyListener" prefHeight="639.9999000000025" prefWidth="499.0" style="" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.metu.ceng453.bitBattle.Controller">
   <children>
-    <AnchorPane  id="anchorOne" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <AnchorPane fx:id="anchorOne" prefHeight="474.0" prefWidth="400.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
-        <ImageView fx:id="spaceship" fitHeight="40.0" fitWidth="77.0" layoutX="132.0" layoutY="420.0" pickOnBounds="true">
-          <image>
-            <Image url="@triange.png" preserveRatio="true" smooth="true" />
-          </image>
-        </ImageView>
-        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="60.0" layoutY="69.0" pickOnBounds="true">
+        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="60.0" layoutY="109.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="148.0" layoutY="69.0" pickOnBounds="true">
+        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="287.0" layoutY="109.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="148.0" layoutY="157.0" pickOnBounds="true">
+        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="285.0" layoutY="226.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="104.0" layoutY="109.0" pickOnBounds="true">
+        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="227.0" layoutY="160.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="192.0" layoutY="109.0" pickOnBounds="true">
+        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="331.0" layoutY="169.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="236.0" layoutY="69.0" pickOnBounds="true">
+        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="397.0" layoutY="109.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <Circle fill="#99daff" layoutX="171.0" layoutY="384.0" radius="5.50006103515625" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="171.0" layoutY="109.0" pickOnBounds="true">
+          <image>
+            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="117.0" layoutY="169.0" pickOnBounds="true">
+          <image>
+            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="171.0" layoutY="226.0" pickOnBounds="true">
+          <image>
+            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="spaceship" fitHeight="39.999977111816406" fitWidth="69.9996566772461" layoutX="215.0" layoutY="573.0" pickOnBounds="true">
+          <image>
+            <Image url="@spaceship.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="73.0" layoutY="246.0" pickOnBounds="true">
+          <image>
+            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <ImageView id="alienTriangle" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="375.0" layoutY="246.0" pickOnBounds="true">
+          <image>
+            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
       </children>
     </AnchorPane>
   </children>
