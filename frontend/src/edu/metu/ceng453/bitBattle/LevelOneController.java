@@ -16,33 +16,15 @@ import static java.awt.Event.RIGHT;
 
 public class LevelOneController extends Controller{
 
-    @FXML
-    HBox ship;
-    ImageView spaceship;
-
-    public void setKeyListener(KeyEvent event){
-        if (event.getCode() == KeyCode.RIGHT){
-            spaceship.setSize(45,85);
+    public EventHandler<KeyEvent> keyListener = event -> {
+        if(event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT) {
+            spaceship.relocate(132,410);
         }
-        else if (event.getCode() == KeyCode.LEFT){
-
-        }
-        else if (event.getCode() == KeyCode.SPACE){
+        else if(event.getCode() == KeyCode.SPACE) {
+            System.out.print("Hello");
 
         }
         event.consume();
-    }
-        private EventHandler<KeyEvent> keyListener = new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT) {
-                    ship.setAlignment(Pos.BASELINE_RIGHT);
-                }
-                else if(event.getCode() == KeyCode.SPACE) {
-
-                }
-                event.consume();
-            }
-        };
+    };
 
 }
