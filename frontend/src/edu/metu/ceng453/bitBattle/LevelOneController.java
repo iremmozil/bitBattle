@@ -1,8 +1,15 @@
 package edu.metu.ceng453.bitBattle;
 
+import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
+
+import java.util.ArrayList;
 import java.util.Random;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -18,9 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sun.awt.SunToolkit;
@@ -54,9 +59,13 @@ public class LevelOneController extends Controller{
     @FXML ImageView ailen10;
     @FXML ImageView ailen11;
 
-    Circle b = new Circle(5.05);
+
+    int Counter = 0;
+    Object[] fires;
+
 
     public void initialize() throws InterruptedException {
+
         animateAilens();
         gridOne.setOnKeyPressed((KeyEvent event)->{
             if (event.getCode() == KeyCode.RIGHT){
@@ -81,12 +90,56 @@ public class LevelOneController extends Controller{
             }
             event.consume();
         });
-        alienFire1();
-        alienFire2();
+
+
+
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                Counter++;
+                if (Counter % 1000 == 0){
+                    Circle b = new Circle(5.05);
+                    b.setStroke(Color.BLACK);
+                    b.setStrokeWidth(0.0);
+                    b.setFill(Color.valueOf("99daff"));
+                    anchorOne.getChildren().add(b);
+                    alienRandomize(b);
+                    double x = b.getCenterX();
+                    double y = b.getCenterY();
+                    PathTransition tt =
+                            new PathTransition(Duration.seconds(4), new Line(x,y, x ,650),b);
+                    tt.play();
+                    }
+                    checkBounds();
+
+            }
+
+        }.start();
+
+
+    }
+    public void alienShot(){
+
 
     }
 
-    public void alienRandomize(){
+    private void checkBounds() {
+        boolean collisionDetected = false;
+        for (Node bullet : anchorOne.getChildren()) {
+            if(bullet != spaceship) {
+                if (spaceship.getBoundsInParent().intersects(bullet.getBoundsInParent())) {
+                    collisionDetected = true;
+                }
+            }
+        }
+
+        if (collisionDetected){
+            System.out.println("Shot fired!");
+        }
+    }
+    
+
+    public void alienRandomize(Circle b){
         int n = (int)(Math.random() * 11 + 1);
         switch (n){
             case 1: b.setCenterX(ailen1.getLayoutX() + 52.0);
@@ -125,25 +178,6 @@ public class LevelOneController extends Controller{
         }
     }
 
-    public void  alienFire2() throws InterruptedException {
-        alienFire1();
-    }
-
-    public void  alienFire1() throws InterruptedException {
-
-        b.setStroke(Color.BLACK);
-        b.setStrokeWidth(0.0);
-        b.setFill(Color.valueOf("99daff"));
-        alienRandomize();
-        anchorOne.getChildren().add(b);
-        double x = b.getCenterX();
-        double y = b.getCenterY();
-        PathTransition tt =
-                new PathTransition(Duration.seconds(4), new Line(b.getCenterX(),b.getCenterY(), b.getCenterX() ,650),b);
-        tt.setCycleCount( 1 );
-        tt.play();
-
-    }
 
      public void animateAilens() {
 
@@ -156,50 +190,22 @@ public class LevelOneController extends Controller{
         tt.play();
 
     }
-    /*
-    @FXML
-    public void HandleKeyEvent(KeyEvent event){
 
-        if (event.getCode() == KeyCode.RIGHT){
-            double x = spaceship.getLayoutX();
-            double y = spaceship.getLayoutY();
-            if (x < 630){
-                x = x + 4;
-            }
-            spaceship.relocate(x,y);
-        }
-        else if (event.getCode() == KeyCode.LEFT){
-            double x = spaceship.getLayoutX();
-            double y = spaceship.getLayoutY();
-            if( x > -20){
-                x = x - 4;
-            }
-            spaceship.relocate(x,y);
-
-        }
-        else if (event.getCode() == KeyCode.SPACE){
-            fire();
-
-        }
-        event.consume();
-    }*/
 
     public void fire(){
-        Circle b = new Circle(5.05);
-        b.setStroke(Color.BLACK);
-        b.setStrokeWidth(0.0);
-        b.setFill(Color.valueOf("99daff"));
-        b.setCenterX(spaceship.getLayoutX() + 35.0);
-        b.setCenterY(spaceship.getLayoutY());
-        anchorOne.getChildren().add(b);
+        Circle bullet = new Circle(5.05);
+        bullet.setStroke(Color.BLACK);
+        bullet.setStrokeWidth(0.0);
+        bullet.setFill(Color.valueOf("997aff"));
+        bullet.setCenterX(spaceship.getLayoutX() + 35.0);
+        bullet.setCenterY(spaceship.getLayoutY() - 7.0);
+        anchorOne.getChildren().add(bullet);
 
-            double x = b.getCenterX();
-            double y = b.getCenterY();
-            y = y - 60;
-            Duration.seconds(2);
-            b.relocate(x,y);
-
-
+            double x = bullet.getCenterX();
+            double y = bullet.getCenterY();
+        PathTransition tt =
+                new PathTransition(Duration.seconds(3), new Line(x,y, x ,-10),bullet);
+        tt.play();
 
     }
 
