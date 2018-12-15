@@ -15,16 +15,16 @@ import java.util.List;
 @RestController
 public class LeaderboardController {
 
-    private final LeaderboardRepository repository;
+    private LeaderboardRepository leaderboardRepository;
 
     LeaderboardController(LeaderboardRepository repository) {
-        this.repository = repository;
+        this.leaderboardRepository = repository;
     }
 
     // This method returns all leaderboard.
     @GetMapping("/leaderboard")
     List<Leaderboard> getLeaderboard() {
-        return repository.findAllByGameTimeAfterOrderByScoreDesc(Date.valueOf("1900-01-01")).orElseThrow(() -> new EntityNotFoundException("Leaderboard does not exist!"));
+        return leaderboardRepository.findAllByGameTimeAfterOrderByScoreDesc(Date.valueOf("1900-01-01")).orElseThrow(() -> new EntityNotFoundException("Leaderboard does not exist!"));
     }
 
     // This method returns leaderboard of last X days.
@@ -32,22 +32,22 @@ public class LeaderboardController {
     List<Leaderboard> getLeaderboardLastWeek(){
         long DAY_IN_MS = 1000 * 60 * 60 * 24;
         Date tempDate = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
-        return repository.findAllByGameTimeAfterOrderByScoreDesc(tempDate).orElseThrow(() -> new EntityNotFoundException("Leaderboard does not exist!"));
+        return leaderboardRepository.findAllByGameTimeAfterOrderByScoreDesc(tempDate).orElseThrow(() -> new EntityNotFoundException("Leaderboard does not exist!"));
     }
 
     //this method adds gameTime, playerId and score to the leaderboard with a unique id.
     @PostMapping("/leaderboard")
     Leaderboard newLeaderboard(@RequestBody Leaderboard newLeaderboard) {
-        return repository.save(newLeaderboard);
+        return leaderboardRepository.save(newLeaderboard);
     }
 
-    @DeleteMapping("/delete_leaderboard/{id}")
+    @DeleteMapping("/leaderboard/{id}")
     void deleteGame(@PathVariable Integer id) {
-        repository.deleteById(id);
+        leaderboardRepository.deleteById(id);
     }
 
-    @DeleteMapping("/delete_leaderboard")
+    @DeleteMapping("/leaderboard")
     void deleteAll() {
-        repository.deleteAll();
+        leaderboardRepository.deleteAll();
     }
 }

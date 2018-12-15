@@ -1,6 +1,7 @@
 package edu.metu.ceng453.bitBattle;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 
 @Entity
 public class Player {
@@ -8,7 +9,7 @@ public class Player {
     }
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    // @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -28,12 +29,11 @@ public class Player {
         this.highScore = highScore;
     }
 
-
-    public Integer getID() {
+    public Integer getId() {
         return id;
     }
 
-    public void setID(Integer playerId) {
+    public void setId(Integer playerId) {
         this.id = playerId;
     }
 
