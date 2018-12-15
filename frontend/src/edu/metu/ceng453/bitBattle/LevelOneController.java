@@ -54,11 +54,9 @@ public class LevelOneController extends Controller{
     @FXML ImageView ailen10;
     @FXML ImageView ailen11;
 
+    Circle b = new Circle(5.05);
 
-
-
-
-    public void initialize(){
+    public void initialize() throws InterruptedException {
         animateAilens();
         gridOne.setOnKeyPressed((KeyEvent event)->{
             if (event.getCode() == KeyCode.RIGHT){
@@ -83,64 +81,67 @@ public class LevelOneController extends Controller{
             }
             event.consume();
         });
-        alienFire();
+        alienFire1();
+        alienFire2();
 
     }
 
-
-    public void  alienFire(){
-        Circle b = new Circle(5.05);
-        b.setStroke(Color.BLACK);
-        b.setStrokeWidth(0.0);
-        b.setFill(Color.valueOf("99daff"));
+    public void alienRandomize(){
         int n = (int)(Math.random() * 11 + 1);
         switch (n){
             case 1: b.setCenterX(ailen1.getLayoutX() + 52.0);
-                    b.setCenterY(ailen1.getLayoutY() + 140.0);
-                    break;
+                b.setCenterY(ailen1.getLayoutY() + 140.0);
+                break;
             case 2: b.setCenterX(ailen2.getLayoutX() + 52.0);
-                    b.setCenterY(ailen2.getLayoutY() + 140.0);
-                    break;
+                b.setCenterY(ailen2.getLayoutY() + 140.0);
+                break;
             case 3: b.setCenterX(ailen3.getLayoutX() + 52.0);
-                    b.setCenterY(ailen3.getLayoutY() + 140.0);
-                    break;
+                b.setCenterY(ailen3.getLayoutY() + 140.0);
+                break;
             case 4: b.setCenterX(ailen4.getLayoutX() + 52.0);
-                    b.setCenterY(ailen4.getLayoutY() + 140.0);
-                    break;
+                b.setCenterY(ailen4.getLayoutY() + 140.0);
+                break;
             case 5: b.setCenterX(ailen5.getLayoutX() + 52.0);
-                    b.setCenterY(ailen5.getLayoutY() + 140.0);
-                    break;
+                b.setCenterY(ailen5.getLayoutY() + 140.0);
+                break;
             case 6: b.setCenterX(ailen6.getLayoutX() + 52.0);
-                    b.setCenterY(ailen6.getLayoutY() + 140.0);
-                    break;
+                b.setCenterY(ailen6.getLayoutY() + 140.0);
+                break;
             case 7: b.setCenterX(ailen7.getLayoutX() + 52.0);
-                    b.setCenterY(ailen7.getLayoutY() + 140.0);
-                    break;
+                b.setCenterY(ailen7.getLayoutY() + 140.0);
+                break;
             case 8: b.setCenterX(ailen8.getLayoutX() + 52.0);
-                    b.setCenterY(ailen8.getLayoutY() + 140.0);
-                    break;
+                b.setCenterY(ailen8.getLayoutY() + 140.0);
+                break;
             case 9: b.setCenterX(ailen9.getLayoutX() + 52.0);
-                    b.setCenterY(ailen9.getLayoutY() + 140.0);
-                    break;
+                b.setCenterY(ailen9.getLayoutY() + 140.0);
+                break;
             case 10: b.setCenterX(ailen10.getLayoutX() + 52.0);
-                     b.setCenterY(ailen10.getLayoutY() + 140.0);
-                     break;
+                b.setCenterY(ailen10.getLayoutY() + 140.0);
+                break;
             case 11: b.setCenterX(ailen11.getLayoutX() + 52.0);
-                     b.setCenterY(ailen11.getLayoutY() + 140.0);
-                     break;
-
+                b.setCenterY(ailen11.getLayoutY() + 140.0);
+                break;
         }
+    }
 
+    public void  alienFire2() throws InterruptedException {
+        alienFire1();
+    }
 
+    public void  alienFire1() throws InterruptedException {
+
+        b.setStroke(Color.BLACK);
+        b.setStrokeWidth(0.0);
+        b.setFill(Color.valueOf("99daff"));
+        alienRandomize();
         anchorOne.getChildren().add(b);
         double x = b.getCenterX();
         double y = b.getCenterY();
         PathTransition tt =
-                new PathTransition(Duration.seconds(5), new Line(b.getCenterX(),b.getCenterY(), b.getCenterX() ,650),b);
-        tt.setCycleCount( Timeline.INDEFINITE );
+                new PathTransition(Duration.seconds(4), new Line(b.getCenterX(),b.getCenterY(), b.getCenterX() ,650),b);
+        tt.setCycleCount( 1 );
         tt.play();
-
-
 
     }
 
