@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" hgap="10.0" prefHeight="474.0" prefWidth="340.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.metu.ceng453.bitBattle.Controller">
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="640.0" prefWidth="500.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.metu.ceng453.bitBattle.HomeController">
   <children>
     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
-        <Button layoutX="106.0" layoutY="156.0" mnemonicParsing="false" prefWidth="128.0" style="-fx-background-color: #a9df87;&#10;" text="New Game" />
-        <Button layoutX="106.0" layoutY="206.0" mnemonicParsing="false" prefWidth="128.0" style="-fx-background-color: #90a7ff;" text="Leaderboard" />
-        <Button layoutX="106.0" layoutY="260.0" mnemonicParsing="false" prefWidth="128.0" style="-fx-background-color: #d7d7d7;" text="Settings" />
+        <Button fx:id="newButton" layoutX="186.0" layoutY="216.0" mnemonicParsing="false" onAction="#newButtonPushed" prefWidth="128.0" style="-fx-background-color: #a9df87;&#10;" text="New Game" />
+        <Button layoutX="186.0" layoutY="284.0" mnemonicParsing="false" prefWidth="128.0" style="-fx-background-color: #90a7ff;" text="Leaderboard" />
+        <Button layoutX="186.0" layoutY="353.0" mnemonicParsing="false" prefWidth="128.0" style="-fx-background-color: #d7d7d7;" text="Settings" />
       </children>
     </AnchorPane>
   </children>
