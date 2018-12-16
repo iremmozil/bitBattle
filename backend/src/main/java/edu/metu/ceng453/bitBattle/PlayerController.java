@@ -26,9 +26,16 @@ public class PlayerController {
         return playerRepository.findAll();
     }
 
-    @GetMapping("/player/{id}")
-    Player getPlayer(@PathVariable Integer id) {
-       return playerRepository.findById(id).orElseThrow(()->new EntityNotFoundException("This player does not exist!"));
+
+    @GetMapping("/player/{playername}")
+    Player getPlayerByName(@PathVariable String playername) {
+        return playerRepository.findByPlayername(playername).orElseThrow(()->new EntityNotFoundException("This player does not exist!"));
+    }
+
+    @GetMapping("/player/id/{id}")
+    String getPlayernameById(@PathVariable Integer id) {
+        Player tempPlayer =  playerRepository.findById(id).orElseThrow(()->new EntityNotFoundException("This player does not exist!"));
+        return tempPlayer.getPlayername();
     }
 
     @PostMapping("/player")
@@ -37,18 +44,12 @@ public class PlayerController {
     }
 
     @PutMapping("/player/{id}")
-    Player replacePlayer(@RequestBody Player newPlayer, @PathVariable Integer id) {
+    Player replaceHighScore(@RequestBody Integer highScore, @PathVariable Integer id) {
         return playerRepository.findById(id)
                 .map(player -> {
-                    player.setHighScore(newPlayer.getHighScore());
-                    player.setPlayername(newPlayer.getPlayername());
-                    player.setPassword(newPlayer.getPassword());
+                    player.setHighScore(highScore);
                     return playerRepository.save(player);
-                })
-                .orElseGet(() -> {
-                    newPlayer.setId(id);
-                    return playerRepository.save(newPlayer);
-                });
+                }) .orElseThrow(() -> new RuntimeException("No player exists!"));
     }
 
     @DeleteMapping("/player/{id}")
