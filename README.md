@@ -19,7 +19,7 @@ In leaderboard, you can see the players and their bitBattle scores. The table on
 bitBattle contains 4 levels. Level 4 is under construction, so let's look how to play bitBattle with 3 levels.
 
 After clicking to "New Game" button, you encounter with Level 1. Game directly starts. So get prepared!
-You are the coolest, colorful spaceship, at the bottom of the page. You can move with left and right arrow keys to avoid from the shots of aliens, and shoot to enemy aliens with space key. You have 3 health points for each level.
+You are the coolest, colorful spaceship, at the bottom of the page. You can move with left and right arrow keys to avoid from the shots of aliens, and shoot to enemy aliens with space key. You have 4 health points for each level.
 
 There is 1 enemy alien type in Level 1, triangle alien. It moves in a circular path, and shoots randomly. You can kill the triangle alien with one shoot, and you will gain 5 points per 1 triangle alien. When you kill all the triangle aliens, you will pass to Level 2. Each shoot that reaches to you will decrease your health by 1 point.
 
