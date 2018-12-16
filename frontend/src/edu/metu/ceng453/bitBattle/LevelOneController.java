@@ -3,17 +3,19 @@ package edu.metu.ceng453.bitBattle;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
@@ -32,33 +34,45 @@ public class LevelOneController extends Controller{
     @FXML
     GridPane gridOne;
 
-    @FXML ImageView ailen1;
-    @FXML ImageView ailen2;
-    @FXML ImageView ailen3;
-    @FXML ImageView ailen4;
-    @FXML ImageView ailen5;
-    @FXML ImageView ailen6;
-    @FXML ImageView ailen7;
-    @FXML ImageView ailen8;
-    @FXML ImageView ailen9;
-    @FXML ImageView ailen10;
-    @FXML ImageView ailen11;
-    Integer[] bId = new Integer[1500];
-    int bulletCount = 0; // there are 11 alien but their id's start with 1
-    ImageView[] aliens = new ImageView[12];
+    @FXML ImageView alien1;
+    @FXML ImageView alien2;
+    @FXML ImageView alien3;
+    @FXML ImageView alien4;
+    @FXML ImageView alien5;
+    @FXML ImageView alien6;
+    @FXML ImageView alien7;
+    @FXML ImageView alien8;
+    @FXML ImageView alien9;
+    @FXML ImageView alien10;
+    @FXML ImageView alien11;
 
-    int Counter = 0;
+    @FXML Label scoreLabel;
+    @FXML Label endLevel;
+    @FXML Label healthCount;
+    @FXML Label gameOver;
+    @FXML
+    Button homeButton;
 
+    private int score = 0;
+    private int Counter = 0;
+    private Boolean isFinished = false;
+    private int health = 3;
+    private double alienHeight = 40.0;
+    private double alienHalfWidth = 22.0;
 
     public void initialize() {
+        scoreLabel.setText(Integer.toString(score));
+        endLevel.setVisible(false);
+        homeButton.setVisible(false);
+        gameOver.setVisible(false);
 
-        animateAilens();
+        animatealiens();
         gridOne.setOnKeyPressed((KeyEvent event)->{
             if (event.getCode() == KeyCode.RIGHT){
                 double x = spaceship.getLayoutX();
                 double y = spaceship.getLayoutY();
-                if (x < 630){
-                    x = x + 4;
+                if (x < 480){
+                    x = x + 6;
                 }
                 spaceship.relocate(x,y);
             }
@@ -66,7 +80,7 @@ public class LevelOneController extends Controller{
                 double x = spaceship.getLayoutX();
                 double y = spaceship.getLayoutY();
                 if( x > -20){
-                    x = x - 4;
+                    x = x - 6;
                 }
                 spaceship.relocate(x,y);
             }
@@ -79,18 +93,17 @@ public class LevelOneController extends Controller{
                 bullet.setCenterY(spaceship.getLayoutY() - 7.0);
                 bullet.setId("bullet");
                 anchorOne.getChildren().add(bullet);
-                //bId[bulletCount] = Integer.parseInt(bullet.getId());
-                bulletCount++;
                 double x = bullet.getCenterX();
                 double y = bullet.getCenterY();
                 PathTransition tt =
                         new PathTransition(Duration.seconds(3), new Line(x,y, x ,-10),bullet);
                 tt.play();
-
             }
             else if (event.getCode() == KeyCode.N){
                 try {
-                    secondLevel(event);
+                    if (isFinished){
+                        secondLevel(event);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -108,169 +121,196 @@ public class LevelOneController extends Controller{
                     b.setStroke(Color.BLACK);
                     b.setStrokeWidth(0.0);
                     b.setFill(Color.valueOf("99daff"));
-                    anchorOne.getChildren().add(b);
                     alienRandomize(b);
                     double x = b.getCenterX();
                     double y = b.getCenterY();
                     PathTransition tt =
-                            new PathTransition(Duration.seconds(4), new Line(x,y, x ,650),b);
+                            new PathTransition(Duration.seconds(3), new Line(x,y, x ,650),b);
                     tt.play();
                 }
-                checkBounds();
+                isSpaceshipDown();
                 alienShot();
+                scoreLabel.setText(Integer.toString(getScore()));
+                isLevelFinished();
             }
-
-
         }.start();
-
-
     }
-    public void alienShot(){
 
-        for(int i = 0; i < bulletCount; i++){
-            if (anchorOne.getChildren().get(i).getId() == "bullet"){
-                if(anchorOne.getChildren().get(i).getBoundsInParent().intersects(ailen1.getBoundsInParent())){
-                    anchorOne.getChildren().remove(anchorOne.getChildren().get(i));
-                    anchorOne.getChildren().remove(ailen1);
-                    ailen1.setId(null);
-                }
-                else if(anchorOne.getChildren().get(i).getBoundsInParent().intersects(ailen2.getBoundsInParent())){
-                    anchorOne.getChildren().remove(anchorOne.getChildren().get(i));
-                    anchorOne.getChildren().remove(ailen2);
-                    ailen2.setId(null);
-                }
-                else if(anchorOne.getChildren().get(i).getBoundsInParent().intersects(ailen3.getBoundsInParent())){
-                    anchorOne.getChildren().remove(anchorOne.getChildren().get(i));
-                    anchorOne.getChildren().remove(ailen3);
-                    ailen3.setId(null);
-                }
-                else if(anchorOne.getChildren().get(i).getBoundsInParent().intersects(ailen4.getBoundsInParent())){
-                    anchorOne.getChildren().remove(anchorOne.getChildren().get(i));
-                    anchorOne.getChildren().remove(ailen4);
-                    ailen4.setId(null);
-                }
-                else if(anchorOne.getChildren().get(i).getBoundsInParent().intersects(ailen5.getBoundsInParent())){
-                    anchorOne.getChildren().remove(anchorOne.getChildren().get(i));
-                    anchorOne.getChildren().remove(ailen5);
-                    ailen5.setId(null);
-                }
-                else if(anchorOne.getChildren().get(i).getBoundsInParent().intersects(ailen6.getBoundsInParent())){
-                    anchorOne.getChildren().remove(anchorOne.getChildren().get(i));
-                    anchorOne.getChildren().remove(ailen6);
-                    ailen6.setId(null);
-                }
-                else if(anchorOne.getChildren().get(i).getBoundsInParent().intersects(ailen7.getBoundsInParent())){
-                    anchorOne.getChildren().remove(anchorOne.getChildren().get(i));
-                    anchorOne.getChildren().remove(ailen7);
-                    ailen7.setId(null);
-                }
-                else if(anchorOne.getChildren().get(i).getBoundsInParent().intersects(ailen8.getBoundsInParent())){
-                    anchorOne.getChildren().remove(anchorOne.getChildren().get(i));
-                    anchorOne.getChildren().remove(ailen8);
-                    ailen8.setId(null);
-                }
-                else if(anchorOne.getChildren().get(i).getBoundsInParent().intersects(ailen9.getBoundsInParent())){
-                    anchorOne.getChildren().remove(anchorOne.getChildren().get(i));
-                    anchorOne.getChildren().remove(ailen9);
-                    ailen9.setId(null);
-                }
-                else if(anchorOne.getChildren().get(i).getBoundsInParent().intersects(ailen10.getBoundsInParent())){
-                    anchorOne.getChildren().remove(anchorOne.getChildren().get(i));
-                    anchorOne.getChildren().remove(ailen10);
-                    ailen10.setId(null);
-                }
-                else if(anchorOne.getChildren().get(i).getBoundsInParent().intersects(ailen11.getBoundsInParent())){
-                    anchorOne.getChildren().remove(anchorOne.getChildren().get(i));
-                    anchorOne.getChildren().remove(ailen11);
-                    ailen11.setId(null);
-                }
+
+    public int getScore(){
+        return score;
+    }
+
+    private void alienShot(){
+        for(Node o: anchorOne.getChildren()){
+            if (o.getId() == "bullet"){
+                if (isAlienShot(o, alien1)) break;
+                if (isAlienShot(o, alien2)) break;
+                if (isAlienShot(o, alien3)) break;
+                if (isAlienShot(o, alien4)) break;
+                if (isAlienShot(o, alien5)) break;
+                if (isAlienShot(o, alien6)) break;
+                if (isAlienShot(o, alien7)) break;
+                if (isAlienShot(o, alien8)) break;
+                if (isAlienShot(o, alien9)) break;
+                if (isAlienShot(o, alien10)) break;
+                if (isAlienShot(o, alien11)) break;
             }
         }
     }
 
-    private void checkBounds() {
+    private boolean isAlienShot(Node o, ImageView alien) {
+        if (anchorOne.getChildren().contains(alien)) {
+            if(o.getBoundsInParent().intersects(alien.getBoundsInParent())){
+                anchorOne.getChildren().remove(o);
+                anchorOne.getChildren().remove(alien);
+                score += 5;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void isSpaceshipDown() {
         boolean collisionDetected = false;
         for (Node bullet : anchorOne.getChildren()) {
             if(bullet != spaceship) {
                 if (spaceship.getBoundsInParent().intersects(bullet.getBoundsInParent())) {
                     collisionDetected = true;
+                    anchorOne.getChildren().remove(bullet);
+                    break;
                 }
             }
         }
 
         if (collisionDetected){
-            System.out.println("Shot fired!");
-        }
-    }
-
-    public void alienRandomize(Circle b){
-        anchorOne.getChildren();
-        int n = (int)(Math.random() * 10 + 0);
-        System.out.println(anchorOne.getChildren().get(n).getId());
-        if ((anchorOne.getChildren().get(n).getId() != null)){
-            switch (n){
-                case 1: b.setCenterX(ailen1.getLayoutX() + 20.0);
-                    b.setCenterY(ailen1.getLayoutY() + 40.0);
-                    break;
-                case 2: b.setCenterX(ailen2.getLayoutX() + 22.0);
-                    b.setCenterY(ailen2.getLayoutY() + 40.0);
-                    break;
-                case 3: b.setCenterX(ailen3.getLayoutX() + 22.0);
-                    b.setCenterY(ailen3.getLayoutY() + 40.0);
-                    break;
-                case 4: b.setCenterX(ailen4.getLayoutX() + 22.0);
-                    b.setCenterY(ailen4.getLayoutY() + 40.0);
-                    break;
-                case 5: b.setCenterX(ailen5.getLayoutX() + 22.0);
-                    b.setCenterY(ailen5.getLayoutY() + 40.0);
-                    break;
-                case 6: b.setCenterX(ailen6.getLayoutX() + 22.0);
-                    b.setCenterY(ailen6.getLayoutY() + 40.0);
-                    break;
-                case 7: b.setCenterX(ailen7.getLayoutX() + 22.0);
-                    b.setCenterY(ailen7.getLayoutY() + 40.0);
-                    break;
-                case 8: b.setCenterX(ailen8.getLayoutX() + 22.0);
-                    b.setCenterY(ailen8.getLayoutY() + 40.0);
-                    break;
-                case 9: b.setCenterX(ailen9.getLayoutX() + 22.0);
-                    b.setCenterY(ailen9.getLayoutY() + 40.0);
-                    break;
-                case 10: b.setCenterX(ailen10.getLayoutX() + 22.0);
-                    b.setCenterY(ailen10.getLayoutY() + 40.0);
-                    break;
-                case 11: b.setCenterX(ailen11.getLayoutX() + 22.0);
-                    b.setCenterY(ailen11.getLayoutY() + 40.0);
-                    break;
+            collisionDetected = false;
+            if (health > 0){
+                health--;
+                healthCount.setText(Integer.toString(health));
+            }
+            else{
+                gameOver.setVisible(true);
+                homeButton.setVisible(true);
             }
         }
-
-
     }
 
-     public void animateAilens() {
+    private void isLevelFinished(){
+        if (anchorOne.getChildren().contains(alien1) ||
+                anchorOne.getChildren().contains(alien2) ||
+                anchorOne.getChildren().contains(alien3) ||
+                anchorOne.getChildren().contains(alien4) ||
+                anchorOne.getChildren().contains(alien5) ||
+                anchorOne.getChildren().contains(alien6) ||
+                anchorOne.getChildren().contains(alien7) ||
+                anchorOne.getChildren().contains(alien8) ||
+                anchorOne.getChildren().contains(alien9) ||
+                anchorOne.getChildren().contains(alien10) ||
+                anchorOne.getChildren().contains(alien11)
+        ){ } else{
+                endLevel.setVisible(true);
+                isFinished = true;
+        }
+    }
+
+    private void alienRandomize(Circle b){
+        anchorOne.getChildren();
+        int n = (int)(Math.random() * 10 + 0);
+            switch (n){
+                case 1: if (anchorOne.getChildren().contains(alien1)){
+                            b.setCenterX(alien1.getLayoutX() + alienHalfWidth + alien3.getTranslateX());
+                            b.setCenterY(alien1.getLayoutY() + alienHeight + alien3.getTranslateY());
+                            anchorOne.getChildren().add(b);
+                        }
+                        break;
+                case 2: if (anchorOne.getChildren().contains(alien2)){
+                            b.setCenterX(alien2.getLayoutX() + alienHalfWidth + alien3.getTranslateX());
+                            b.setCenterY(alien2.getLayoutY() + alienHeight + alien3.getTranslateY());
+                            anchorOne.getChildren().add(b);
+                        }
+                        break;
+                case 3: if (anchorOne.getChildren().contains(alien3)){
+                            b.setCenterX(alien3.getLayoutX() + alienHalfWidth + alien3.getTranslateX());
+                            b.setCenterY(alien3.getLayoutY() + alienHeight + alien3. getTranslateY());
+                            anchorOne.getChildren().add(b);
+                        }
+                        break;
+                case 4: if (anchorOne.getChildren().contains(alien4)){
+                            b.setCenterX(alien4.getLayoutX() + alienHalfWidth + alien4.getTranslateX());
+                            b.setCenterY(alien4.getLayoutY() + alienHeight + alien4.getTranslateY());
+                            anchorOne.getChildren().add(b);
+                        }
+                        break;
+                case 5: if (anchorOne.getChildren().contains(alien5)){
+                            b.setCenterX(alien5.getLayoutX() + alienHalfWidth + alien5.getTranslateX());
+                            b.setCenterY(alien5.getLayoutY() + alienHeight + alien5.getTranslateY());
+                            anchorOne.getChildren().add(b);
+                        }
+                        break;
+                case 6:if (anchorOne.getChildren().contains(alien6)){
+                            b.setCenterX(alien6.getLayoutX() + alienHalfWidth + alien6.getTranslateX());
+                            b.setCenterY(alien6.getLayoutY() + alienHeight + alien6.getTranslateY());
+                            anchorOne.getChildren().add(b);
+                        }
+                        break;
+                case 7: if (anchorOne.getChildren().contains(alien7)){
+                            b.setCenterX(alien7.getLayoutX() + alienHalfWidth + alien7.getTranslateX());
+                            b.setCenterY(alien7.getLayoutY() + alienHeight + alien7.getTranslateY());
+                            anchorOne.getChildren().add(b);
+                        }
+                            break;
+                case 8: if (anchorOne.getChildren().contains(alien8)){
+                            b.setCenterX(alien8.getLayoutX() + alienHalfWidth + alien8.getTranslateX());
+                            b.setCenterY(alien8.getLayoutY() + alienHeight + alien8.getTranslateY());
+                            anchorOne.getChildren().add(b);
+                         }
+                            break;
+                case 9:if (anchorOne.getChildren().contains(alien9)){
+                            b.setCenterX(alien9.getLayoutX() + alienHalfWidth + alien9.getTranslateX());
+                            b.setCenterY(alien9.getLayoutY() + alienHeight + alien9.getTranslateY());
+                            anchorOne.getChildren().add(b);
+                            }
+                            break;
+
+                case 10: if (anchorOne.getChildren().contains(alien10)){
+                            b.setCenterX(alien10.getLayoutX() + alienHalfWidth + alien10.getTranslateX());
+                            b.setCenterY(alien10.getLayoutY() + alienHeight + alien10.getTranslateY());
+                            anchorOne.getChildren().add(b);
+                        }
+                            break;
+                case 11: if (anchorOne.getChildren().contains(alien11)){
+                             b.setCenterX(alien11.getLayoutX() + alienHalfWidth + alien11.getTranslateX());
+                             b.setCenterY(alien11.getLayoutY() + alienHeight + alien11.getTranslateY());
+                            anchorOne.getChildren().add(b);
+                            }
+                            break;
+            }
+    }
+
+     private void animatealiens() {
          PathTransition tt1 =
-                 new PathTransition(Duration.seconds(5), new Line(),ailen1);
+                 new PathTransition(Duration.seconds(5), new Line(),alien1);
          PathTransition tt2 =
-                new PathTransition(Duration.seconds(5), new Line(),ailen2);
+                new PathTransition(Duration.seconds(5), new Line(),alien2);
          PathTransition tt3 =
-                 new PathTransition(Duration.seconds(5), new Line(),ailen3);
+                 new PathTransition(Duration.seconds(5), new Line(),alien3);
          PathTransition tt4 =
-                 new PathTransition(Duration.seconds(5), new Line(),ailen4);
+                 new PathTransition(Duration.seconds(5), new Line(),alien4);
          PathTransition tt5 =
-                 new PathTransition(Duration.seconds(5), new Line(),ailen5);
+                 new PathTransition(Duration.seconds(5), new Line(),alien5);
          PathTransition tt6 =
-                 new PathTransition(Duration.seconds(5), new Line(),ailen6);
+                 new PathTransition(Duration.seconds(5), new Line(),alien6);
          PathTransition tt7 =
-                 new PathTransition(Duration.seconds(5), new Line(),ailen7);
+                 new PathTransition(Duration.seconds(5), new Line(),alien7);
          PathTransition tt8 =
-                 new PathTransition(Duration.seconds(5), new Line(),ailen8);
+                 new PathTransition(Duration.seconds(5), new Line(),alien8);
          PathTransition tt9 =
-                 new PathTransition(Duration.seconds(5), new Line(),ailen9);
+                 new PathTransition(Duration.seconds(5), new Line(),alien9);
          PathTransition tt10 =
-                 new PathTransition(Duration.seconds(5), new Line(),ailen10);
+                 new PathTransition(Duration.seconds(5), new Line(),alien10);
          PathTransition tt11 =
-                 new PathTransition(Duration.seconds(5), new Line(),ailen11);
+                 new PathTransition(Duration.seconds(5), new Line(),alien11);
 
          tt2.setPath(new Rectangle(20,15));
          tt1.setPath(new Rectangle(20,15));
@@ -317,7 +357,15 @@ public class LevelOneController extends Controller{
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
         window.setScene(scenetwo);
         window.show();
+    }
 
+    public void homeButtonPushed(ActionEvent event) throws IOException{
+        Parent home = FXMLLoader.load(getClass().getResource("./home.fxml"));
+        Scene sceneHome = new Scene(home);
+        sceneHome.getRoot().requestFocus();
+        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
+        window.setScene(sceneHome);
+        window.show();
 
 
     }
