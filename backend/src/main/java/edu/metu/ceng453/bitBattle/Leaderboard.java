@@ -6,7 +6,7 @@ import java.util.Date;
 @Entity
 public class Leaderboard {
     @Id
-    // @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -22,8 +22,7 @@ public class Leaderboard {
     Leaderboard() {
     }
 
-    Leaderboard(Integer gameID, Integer playerid, Integer score, Date gameTime) {
-        this.id = gameID;
+    Leaderboard(Integer playerid, Integer score, Date gameTime) {
         this.playerId = playerid;
         this.score = score;
         this.gameTime = gameTime;

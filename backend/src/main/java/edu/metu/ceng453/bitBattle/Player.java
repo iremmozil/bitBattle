@@ -9,7 +9,7 @@ public class Player {
     }
 
     @Id
-    // @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -22,8 +22,7 @@ public class Player {
     @Column(name = "highscore")
     private Integer highScore;
 
-    Player(String playerName, Integer playerId, String playerPassword, Integer highScore) {
-        this.id = playerId;
+    Player(String playerName, String playerPassword, Integer highScore) {
         this.playername = playerName;
         this.password = playerPassword;
         this.highScore = highScore;
