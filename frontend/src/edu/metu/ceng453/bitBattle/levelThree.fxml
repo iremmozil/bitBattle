@@ -81,16 +81,7 @@
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="greencircle" fx:id="circle5" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="406.0" layoutY="338.0" pickOnBounds="true">
-          <image>
-            <Image url="@greencircle.png" preserveRatio="true" smooth="true" />
-          </image>
-        </ImageView>
-        <ImageView id="greencircle" fx:id="circle6" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="53.0" layoutY="338.0" pickOnBounds="true">
-          <image>
-            <Image url="@greencircle.png" preserveRatio="true" smooth="true" />
-          </image>
-        </ImageView>
+        
         <ImageView fx:id="spaceship" fitHeight="34.0" fitWidth="70.0" layoutX="215.0" layoutY="592.0" pickOnBounds="true">
           <image>
             <Image url="@spaceship.png" preserveRatio="true" smooth="true" />
