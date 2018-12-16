@@ -57,8 +57,6 @@ public class LevelOneController extends Controller{
     private int Counter = 0;
     private Boolean isFinished = false;
     private int health = 3;
-    private double alienHeight = 40.0;
-    private double alienHalfWidth = 22.0;
 
     public void initialize() {
         scoreLabel.setText(Integer.toString(score));
@@ -85,19 +83,7 @@ public class LevelOneController extends Controller{
                 spaceship.relocate(x,y);
             }
             else if (event.getCode() == KeyCode.SPACE){
-                Circle bullet = new Circle(5.05);
-                bullet.setStroke(Color.BLACK);
-                bullet.setStrokeWidth(0.0);
-                bullet.setFill(Color.valueOf("997aff"));
-                bullet.setCenterX(spaceship.getLayoutX() + 35.0);
-                bullet.setCenterY(spaceship.getLayoutY() - 7.0);
-                bullet.setId("bullet");
-                anchorOne.getChildren().add(bullet);
-                double x = bullet.getCenterX();
-                double y = bullet.getCenterY();
-                PathTransition tt =
-                        new PathTransition(Duration.seconds(3), new Line(x,y, x ,-10),bullet);
-                tt.play();
+                    fire(anchorOne, spaceship);
             }
             else if (event.getCode() == KeyCode.N){
                 try {
@@ -135,7 +121,21 @@ public class LevelOneController extends Controller{
             }
         }.start();
     }
-
+    public void fire(AnchorPane anchor, ImageView spaceship){
+        Circle bullet = new Circle(5.05);
+        bullet.setStroke(Color.BLACK);
+        bullet.setStrokeWidth(0.0);
+        bullet.setFill(Color.valueOf("997aff"));
+        bullet.setCenterX(spaceship.getLayoutX() + 35.0);
+        bullet.setCenterY(spaceship.getLayoutY() - 7.0);
+        bullet.setId("bullet");
+        anchor.getChildren().add(bullet);
+        double x = bullet.getCenterX();
+        double y = bullet.getCenterY();
+        PathTransition tt =
+                new PathTransition(Duration.seconds(3), new Line(x,y, x ,-10),bullet);
+        tt.play();
+    }
 
     public int getScore(){
         return score;
@@ -216,8 +216,10 @@ public class LevelOneController extends Controller{
 
     private void alienRandomize(Circle b){
         anchorOne.getChildren();
-        int n = (int)(Math.random() * 10 + 0);
-            switch (n){
+        int n = (int)(Math.random() * 11 + 1);
+        double alienHeight = 40.0;
+        double alienHalfWidth = 22.0;
+        switch (n){
                 case 1: if (anchorOne.getChildren().contains(alien1)){
                             b.setCenterX(alien1.getLayoutX() + alienHalfWidth + alien3.getTranslateX());
                             b.setCenterY(alien1.getLayoutY() + alienHeight + alien3.getTranslateY());
