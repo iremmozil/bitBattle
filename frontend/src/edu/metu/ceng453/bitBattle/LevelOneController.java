@@ -3,7 +3,6 @@ package edu.metu.ceng453.bitBattle;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,7 +23,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 
-public class LevelOneController extends Controller{
+public class LevelOneController extends SignInController {
 
     @FXML
     ImageView spaceship;
