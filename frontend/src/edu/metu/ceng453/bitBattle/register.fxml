@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="640.0" prefWidth="500.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.metu.ceng453.bitBattle.RegisterController">
+    <children>
+        <AnchorPane prefHeight="610.0" prefWidth="340.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <children>
+                <Label layoutX="125.0" layoutY="344.0" text="Player Name" textAlignment="LEFT" wrapText="true" />
+                <ImageView fitHeight="146.00000762939453" fitWidth="299.48720248891215" layoutX="97.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@photo_2018-11-06_22-35-21.jpg" />
+                    </image>
+                </ImageView>
+                <Label layoutX="148.0" layoutY="380.0" prefWidth="63.0" text="Password" />
+                <Label layoutX="148.0" layoutY="263.0" prefHeight="22.0" prefWidth="205.076904296875" text="Welcome to bitBattle!!" textAlignment="CENTER" underline="false">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Label>
+            <Label layoutX="90.0" layoutY="416.0" prefHeight="15.0" prefWidth="122.0" text="Confirm Password" />
+            <Label fx:id="errorMes" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="494.0" prefHeight="25.0" prefWidth="488.0" textAlignment="CENTER" textFill="RED" />
+                <Button fx:id="rbutton" layoutX="212.0" layoutY="448.0" mnemonicParsing="false" onAction="#rbuttonPushed" prefHeight="22.0" prefWidth="79.0" style="-fx-background-color: #d0dfd0;" text="Register" />
+                <TextField fx:id="pNameText" layoutX="220.0" layoutY="341.0" onAction="#rbuttonPushed" prefWidth="143.0" promptText="Enter name" />
+                <PasswordField fx:id="pPasswordText" layoutX="220.0" layoutY="375.0" onAction="#rbuttonPushed" prefWidth="143.0" promptText="Enter password">
+                    <contextMenu>
+                        <ContextMenu />
+                    </contextMenu>
+                </PasswordField>
+            <PasswordField fx:id="cPasswordText" layoutX="220.0" layoutY="411.0" onAction="#rbuttonPushed" prefWidth="143.0" promptText="Confirm password">
+               <contextMenu>
+                  <ContextMenu />
+               </contextMenu>
+            </PasswordField>
+            <Button fx:id="backSIbutton" layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#backSIbuttonPushed" text="Back" />
+            </children>
+        </AnchorPane>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+</GridPane>
