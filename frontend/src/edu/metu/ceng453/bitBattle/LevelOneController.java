@@ -2,15 +2,7 @@ package edu.metu.ceng453.bitBattle;
 
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
-import java.util.Random;
-import javafx.scene.control.Label;
-import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -21,16 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-import sun.awt.SunToolkit;
-
-import javax.management.timer.Timer;
-import java.io.IOException;
-import java.sql.Time;
 
 
-public class LevelOneController extends Controller{
+public class LevelOneController extends SignInController {
 
     @FXML
     ImageView spaceship;
