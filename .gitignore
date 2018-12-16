@@ -255,3 +255,6 @@ gradle/wrapper/gradle-wrapper.properties
 **/build/
 
 # End of https://www.gitignore.io/api/java,linux,eclipse,jetbrains
+
+!frontend/frontend.jar
+!backend/backend.jar
