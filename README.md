@@ -1,11 +1,31 @@
-# bitBattle
+## **WELCOME TO BITBATTLE!**
 
-bitBattle is a simple two-dimensional game. The game's aim is shooting the aliens in order to save the world. In order to achieve this, 
-a player has to pass all four levels. 
-In the first three levels, the player has to kill all aliens by him/herself,  with a spaceship shaped like a square! 
-At the fourth level, the player has an opponent. This time they have to kill aliens together. 
-The player who killed more alien than the other gets more points. 
-At the end of the game, the player enters the leaderboard through his/her high score.
+If you played bitBattle before, you can directly sign in and continue to have fun!
+
+If you are new to bitBattle, you should register by clicking to "Register Now!" button at the bottom of the page.
+
+You should enter a valid player name and password. Please use English characters in your player name and password, choose player names no longer than 100 characters and password no longer than 255 characters to be able to register. After filling in the fields, click to "Register". This will direct you to Sign in page.
+(If accidentally pushed to "Register Now!" button, you can go back  to Sign In page with the "Back" button.)
+
+Now, you are a member of bitBattle! Sign in and enjoy!
+
+
+You are in Home page. Click to "New Game" and play bitBattle, or see how you and your counterparts did in bitBattle from "Leaderboard" button.
+
+In leaderboard, you can see the players and their bitBattle scores. The table on left contains all games from the invention of computer, and right table contains games of last 7 days.
+
+## **HOW TO ROLL IN BITBATTLE:**
+
+bitBattle contains 4 levels. Level 4 is under construction, so let's look how to play bitBattle with 3 levels.
+
+After clicking to "New Game" button, you encounter with Level 1. Game directly starts. So get prepared!
+You are the coolest, colorful spaceship, at the bottom of the page. You can move with left and right arrow keys to avoid from the shots of aliens, and shoot to enemy aliens with space key. You have 3 health points for each level.
+
+There is 1 enemy alien type in Level 1, triangle alien. It moves in a circular path, and shoots randomly. You can kill the triangle alien with one shoot, and you will gain 5 points per 1 triangle alien. When you kill all the triangle aliens, you will pass to Level 2. Each shoot that reaches to you will decrease your health by 1 point.
+
+There are 2 enemy alien types in Level 2, triangle alien and circle alien. Triangle alien has the same effects on you. However, circle alien is a more advanced alien. It also moves in a circular path, and shoots randomly. You can kill the circle alien with one shoot, and you will gain 10 points per 1 circle alien. When you kill all aliens, you will pass to Level 3. Each shoot that reaches to you will decrease your health by 1 point.
+
+Your final score is the last score value when you finish the game, or you are killed and your game is over.
 
 
 ## Project Structure
@@ -49,4 +69,3 @@ Leaderboard includes:
     player_id
     
 *player_id is a foreign key referenced by Player table.
-
