@@ -16,57 +16,57 @@
   <children>
     <AnchorPane fx:id="anchorOne" prefHeight="474.0" prefWidth="400.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
-        <ImageView id="7" fx:id="ailen7" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="53.0" layoutY="259.0" pickOnBounds="true">
+        <ImageView id="7" fx:id="alien7" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="53.0" layoutY="259.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="11" fx:id="ailen11" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="343.0" layoutY="320.0" pickOnBounds="true">
+        <ImageView id="11" fx:id="alien11" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="343.0" layoutY="320.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="6" fx:id="ailen6" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="127.0" layoutY="319.0" pickOnBounds="true">
+        <ImageView id="6" fx:id="alien6" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="127.0" layoutY="319.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="3" fx:id="ailen3" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="292.0" layoutY="280.0" pickOnBounds="true">
+        <ImageView id="3" fx:id="alien3" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="292.0" layoutY="280.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="9" fx:id="ailen9" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="184.0" layoutY="279.0" pickOnBounds="true">
+        <ImageView id="9" fx:id="alien9" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="184.0" layoutY="279.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="4" fx:id="ailen4" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="118.0" layoutY="190.0" pickOnBounds="true">
+        <ImageView id="4" fx:id="alien4" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="118.0" layoutY="190.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="2" fx:id="ailen2" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="400.0" layoutY="259.0" pickOnBounds="true">
+        <ImageView id="2" fx:id="alien2" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="400.0" layoutY="259.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="10" fx:id="ailen10" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="353.0" layoutY="190.0" pickOnBounds="true">
+        <ImageView id="10" fx:id="alien10" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="353.0" layoutY="190.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="5" fx:id="ailen5" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="228.0" layoutY="170.0" pickOnBounds="true">
+        <ImageView id="5" fx:id="alien5" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="228.0" layoutY="170.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="8" fx:id="ailen8" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="378.0" layoutY="119.0" pickOnBounds="true">
+        <ImageView id="8" fx:id="alien8" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="378.0" layoutY="119.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <ImageView id="1" fx:id="ailen1" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.0" layoutX="64.0" layoutY="119.0" pickOnBounds="true">
+        <ImageView id="1" fx:id="alien1" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.0" layoutX="64.0" layoutY="119.0" pickOnBounds="true">
           <image>
             <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
@@ -82,9 +82,20 @@
             <Font name="System Bold" size="15.0" fx:id="x1" />
           </font>
         </Label>
-        <Label font="$x1" layoutX="435.0" layoutY="39.0" text="100" textFill="#660000" />
+        <Label fx:id="scoreLabel" font="$x1" layoutX="428.0" layoutY="39.0" text="100" textFill="#660000" />
         <Label font="$x1" layoutX="22.0" layoutY="39.0" text="Health" textFill="WHITE" />
-        <Label font="$x1" layoutX="97.0" layoutY="39.0" text="10" textFill="#990000" />
+        <Label fx:id="healthCount" font="$x1" layoutX="97.0" layoutY="39.0" text="3" textFill="#990000" />
+        <Label fx:id="endLevel" layoutX="45.0" layoutY="243.0" text="Level 1 is over!&#10; Please press &quot;n&quot; for next level!" textAlignment="CENTER" textFill="#992500">
+          <font>
+            <Font size="24.0" />
+          </font>
+        </Label>
+        <Label fx:id="gameOver" layoutX="169.0" layoutY="162.0" text="Game Over!" textFill="#cc0000">
+          <font>
+            <Font name="System Bold" size="24.0" fx:id="x2" />
+          </font>
+        </Label>
+        <Button fx:id="homeButton" defaultButton="false" font="$x2" layoutX="150.0" layoutY="340.0" mnemonicParsing="false" onAction="#homeButtonPushed" style="-fx-background-color:#990000;" text="Go to Home" textFill="WHITE" />
       </children>
     </AnchorPane>
   </children>
