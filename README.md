@@ -29,8 +29,9 @@ Your final score is the last score value when you finish the game, or you are ki
 
 
 ## Project Structure
-
-In the src/main/java/edu/metu/ceng453/bitBattle folder, there are 6 .java files. 
+In this project there is two main folders: frontend and backend.
+Backend includes the database operations. 
+In the src/main/java/edu/metu/ceng453/bitBattle/backend folder, there are 6 .java files. 
 
 * In the Player.java and Leaderboard.java files we simply implemented constructors and the getters and the setters and we bind the local variables to our database variables.
 * In PlayerRepository.java and LeaderboardRepository.java files, we implemented one method each in order to get **player** and **leaderboard** object with a given parameter.
