@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static org.hamcrest.Matchers.*;
@@ -29,6 +30,8 @@ public class LeaderboardControllerTest {
     @Autowired
     private WebApplicationContext wac;
 
+    private ArrayList<Leaderboard> games = new ArrayList<>();
+
     @Before  // Here, test variables are defined and context setup is done.
     public void setup() throws Exception {
         mvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
@@ -38,13 +41,17 @@ public class LeaderboardControllerTest {
         Date game2Date = sdf.parse("21/12/2012");
         Date game3Date = sdf.parse("10/12/2018");
 
-        Leaderboard game1 = new Leaderboard(1,1,10,game1Date);
-        Leaderboard game2 = new Leaderboard(2,2,20,game2Date);
-        Leaderboard game3 = new Leaderboard(3,3,30,game3Date);
+        Leaderboard game1 = new Leaderboard(1,10,game1Date);
+        Leaderboard game2 = new Leaderboard(2,20,game2Date);
+        Leaderboard game3 = new Leaderboard(3,30,game3Date);
 
         leaderboardRepository.save(game1);
         leaderboardRepository.save(game2);
         leaderboardRepository.save(game3);
+
+        games.add(game1);
+        games.add(game2);
+        games.add(game3);
     }
 
     private MockMvc mvc;
@@ -62,9 +69,9 @@ public class LeaderboardControllerTest {
         mvc.perform(get("/leaderboard")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id", is(3)))
-                .andExpect(jsonPath("$[1].id", is(2)))
-                .andExpect(jsonPath("$[2].id", is(1)));
+                .andExpect(jsonPath("$[0].id", is(games.get(2).getId())))
+                .andExpect(jsonPath("$[1].id", is(games.get(1).getId())))
+                .andExpect(jsonPath("$[2].id", is(games.get(0).getId())));
     }
 
     @Test
@@ -73,14 +80,14 @@ public class LeaderboardControllerTest {
         mvc.perform(get("/leaderboard/last_week")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id", is(3)))
-                .andExpect(jsonPath("$[1].id", is(1)));
+                .andExpect(jsonPath("$[0].id", is(games.get(2).getId())))
+                .andExpect(jsonPath("$[1].id", is(games.get(0).getId())));
     }
 
     @Test
     public void newLeaderboard() throws Exception {
-        Leaderboard game4 = new Leaderboard(4,4,40,new Date());
-
+        Leaderboard game4 = new Leaderboard(4,40,new Date());
+        games.add(game4);
         mvc.perform(post("/leaderboard")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(game4)))
@@ -89,7 +96,7 @@ public class LeaderboardControllerTest {
 
     @Test
     public void deleteGame() throws Exception {
-        mvc.perform(delete("/leaderboard/3")
+        mvc.perform(delete("/leaderboard/" + games.get(3).getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
