@@ -57,7 +57,7 @@ public class LevelTwoController{
 
     private int Counter = 0;
     private int health = 3;
-    private int score = 0;
+    private int score = Main.getCurrentPlayer().getHighScore();
     boolean isFinished;
     private int c1 = 2;
     private int c2 = 2;
@@ -350,6 +350,7 @@ public class LevelTwoController{
         ){ } else{
             levelend.setVisible(true);
             isFinished = true;
+            Main.getCurrentPlayer().setHighScore(score);
         }
     }
 

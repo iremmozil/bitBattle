@@ -1,6 +1,8 @@
 package edu.metu.ceng453.bitBattle;
 
 // Import necessary libraries
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -70,6 +72,10 @@ public class SignInController extends Main{
             JSONObject player = new JSONObject(responseString);
 
             if(player.getString("password").equals(enteredPassword)) {
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                Player currentPlayer = gson.fromJson(String.valueOf(player), Player.class);
+
+                Main.setCurrentPlayer(currentPlayer);
                 Parent home = FXMLLoader.load(getClass().getResource("./home.fxml"));
                 Scene sceneHome = new Scene(home);
                 sceneHome.getRoot().requestFocus();

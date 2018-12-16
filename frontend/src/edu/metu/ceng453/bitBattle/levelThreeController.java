@@ -60,7 +60,7 @@ public class levelThreeController {
     @FXML Label gameOver;
     @FXML Button homeButton;
 
-    private int score = 0;
+    private int score = Main.getCurrentPlayer().getHighScore();
     private int Counter = 0;
     private Boolean isFinished = false;
     private int health = 3;
@@ -371,6 +371,7 @@ public class levelThreeController {
             endLevel.setVisible(true);
             homeButton.setVisible(true);
             isFinished = true;
+            Main.getCurrentPlayer().setHighScore(score);
         }
     }
 

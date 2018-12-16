@@ -210,6 +210,7 @@ public class LevelOneController extends SignInController {
         ){ } else{
                 endLevel.setVisible(true);
                 isFinished = true;
+                Main.getCurrentPlayer().setHighScore(score);
         }
     }
 

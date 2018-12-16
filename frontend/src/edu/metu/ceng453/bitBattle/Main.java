@@ -69,6 +69,7 @@ public class Main extends Application {
         Main.player = newPlayer;
     }
 
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("./signin.fxml"));
