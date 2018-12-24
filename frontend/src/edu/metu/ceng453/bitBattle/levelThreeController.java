@@ -1,5 +1,7 @@
 package edu.metu.ceng453.bitBattle;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
@@ -19,6 +21,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -60,9 +68,10 @@ public class levelThreeController {
     @FXML Label gameOver;
     @FXML Button homeButton;
 
-    private int score = Main.getCurrentPlayer().getHighScore();
+    private int score = Main.getCurrentGame().getScore();
     private int Counter = 0;
     private Boolean isFinished = false;
+    private boolean dbUpdate = false;
     private int health = 3;
     private int c1 = 2;
     private int c2 = 2;
@@ -158,6 +167,46 @@ public class levelThreeController {
                 health--;
                 healthCount.setText(Integer.toString(health));
             }else {
+
+                CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+
+                try {
+                    if (!dbUpdate) {
+
+                        Main.getCurrentGame().setScore(score);
+                        if(Main.getCurrentPlayer().getHighScore()<score)
+                            Main.getCurrentPlayer().setHighScore(score);
+
+                        HttpPost gameRequest = new HttpPost("http://localhost:8080/leaderboard");
+
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                        String jsonInString = gson.toJson(Main.getCurrentGame());
+                        StringEntity params = new StringEntity(jsonInString);
+                        gameRequest.addHeader("content-type", "application/json");
+
+                        gameRequest.setEntity(params);
+                        httpClient.execute(gameRequest);
+                        System.out.println("POST Request Handling");
+
+                        HttpPut playerRequest = new HttpPut("http://localhost:8080/player/" + Main.getCurrentPlayer().getId());
+
+                        params = new StringEntity(Main.getCurrentPlayer().getHighScore().toString());
+                        playerRequest.addHeader("content-type", "application/json");
+                        playerRequest.setEntity(params);
+                        httpClient.execute(playerRequest);
+                        dbUpdate = true;
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                } finally {
+                    try {
+                        httpClient.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 gameOver.setVisible(true);
                 homeButton.setVisible(true);
             }
@@ -350,28 +399,65 @@ public class levelThreeController {
     }
 
     private void isLevelFinished(){
-        if (anchorThree.getChildren().contains(alien1) ||
-                anchorThree.getChildren().contains(alien2) ||
-                anchorThree.getChildren().contains(alien3) ||
-                anchorThree.getChildren().contains(alien4) ||
-                anchorThree.getChildren().contains(alien5) ||
-                anchorThree.getChildren().contains(alien6) ||
-                anchorThree.getChildren().contains(alien7) ||
-                anchorThree.getChildren().contains(alien8) ||
-                anchorThree.getChildren().contains(alien9) ||
-                anchorThree.getChildren().contains(alien10) ||
-                anchorThree.getChildren().contains(alien11) ||
-                anchorThree.getChildren().contains(circle1) ||
-                anchorThree.getChildren().contains(circle2) ||
-                anchorThree.getChildren().contains(circle3) ||
-                anchorThree.getChildren().contains(circle4) ||
-                anchorThree.getChildren().contains(parallelogram1) ||
-                anchorThree.getChildren().contains(parallelogram2)
-        ){ } else{
+        if (!anchorThree.getChildren().contains(alien1) &&
+                !anchorThree.getChildren().contains(alien2) &&
+                !anchorThree.getChildren().contains(alien3) &&
+                !anchorThree.getChildren().contains(alien4) &&
+                !anchorThree.getChildren().contains(alien5) &&
+                !anchorThree.getChildren().contains(alien6) &&
+                !anchorThree.getChildren().contains(alien7) &&
+                !anchorThree.getChildren().contains(alien8) &&
+                !anchorThree.getChildren().contains(alien9) &&
+                !anchorThree.getChildren().contains(alien10) &&
+                !anchorThree.getChildren().contains(alien11) &&
+                !anchorThree.getChildren().contains(circle1) &&
+                !anchorThree.getChildren().contains(circle2) &&
+                !anchorThree.getChildren().contains(circle3) &&
+                !anchorThree.getChildren().contains(circle4) &&
+                !anchorThree.getChildren().contains(parallelogram1) &&
+                !anchorThree.getChildren().contains(parallelogram2)
+        ) {
             endLevel.setVisible(true);
             homeButton.setVisible(true);
             isFinished = true;
-            Main.getCurrentPlayer().setHighScore(score);
+
+            CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+
+            try {
+                if (!dbUpdate) {
+                    Main.getCurrentGame().setScore(score);
+                    if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<score)
+                        Main.getCurrentPlayer().setHighScore(score);
+
+                    HttpPost gameRequest = new HttpPost("http://localhost:8080/leaderboard");
+
+                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                    String jsonInString = gson.toJson(Main.getCurrentGame());
+                    StringEntity params = new StringEntity(jsonInString);
+                    gameRequest.addHeader("content-type", "application/json");
+
+                    gameRequest.setEntity(params);
+                    httpClient.execute(gameRequest);
+                    System.out.println("POST Request Handling");
+
+                    HttpPut playerRequest = new HttpPut("http://localhost:8080/player/" + Main.getCurrentPlayer().getId());
+
+                    params = new StringEntity(Main.getCurrentPlayer().getHighScore().toString());
+                    playerRequest.addHeader("content-type", "application/json");
+                    playerRequest.setEntity(params);
+                    httpClient.execute(playerRequest);
+                    dbUpdate = true;
+                }
+
+            } catch (Exception ex) {
+                System.out.println(ex);
+            } finally {
+                try {
+                    httpClient.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

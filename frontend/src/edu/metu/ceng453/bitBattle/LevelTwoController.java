@@ -1,10 +1,13 @@
 package edu.metu.ceng453.bitBattle;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +23,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -57,8 +66,9 @@ public class LevelTwoController{
 
     private int Counter = 0;
     private int health = 3;
-    private int score = Main.getCurrentPlayer().getHighScore();
-    boolean isFinished;
+    private int score = Main.getCurrentGame().getScore();
+    private boolean dbUpdate = false;
+    private boolean isFinished;
     private int c1 = 2;
     private int c2 = 2;
     private int c3 = 2;
@@ -161,6 +171,43 @@ public class LevelTwoController{
                 health--;
                 healthCount.setText(Integer.toString(health));
             }else {
+
+                CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+
+                try {
+                    if (!dbUpdate) {
+                        Main.getCurrentGame().setScore(score);
+                        if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<score)
+                            Main.getCurrentPlayer().setHighScore(score);
+                        HttpPost gameRequest = new HttpPost("http://localhost:8080/leaderboard");
+
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                        String jsonInString = gson.toJson(Main.getCurrentGame());
+                        StringEntity params = new StringEntity(jsonInString);
+                        gameRequest.addHeader("content-type", "application/json");
+
+                        gameRequest.setEntity(params);
+                        httpClient.execute(gameRequest);
+                        System.out.println("POST Request Handling");
+
+                        HttpPut playerRequest = new HttpPut("http://localhost:8080/player/" + Main.getCurrentPlayer().getId());
+
+                        params = new StringEntity(Main.getCurrentPlayer().getHighScore().toString());
+                        playerRequest.addHeader("content-type", "application/json");
+                        playerRequest.setEntity(params);
+                        httpClient.execute(playerRequest);
+                        dbUpdate = true;
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                } finally {
+                    try {
+                        httpClient.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 gameOver.setVisible(true);
                 homeButton.setVisible(true);
             }
@@ -169,17 +216,18 @@ public class LevelTwoController{
 
     private void alienShot(){
         for(Node o: anchorTwo.getChildren()){
-            if (o.getId() == "bullet"){
-                if (isAlienShot(o, alien1)) break;
-                if (isAlienShot(o, alien2)) break;
-                if (isAlienShot(o, alien3)) break;
-                if (isAlienShot(o, alien4)) break;
-                if (isAlienShot(o, alien5)) break;
-                if (isAlienShot(o, alien6)) break;
-                if (isAlienShot(o, alien7)) break;
-                if (isAlienShot(o, alien8)) break;
-                if (isAlienShot(o, alien9)) break;
-                if (isAlienShot(o, alien10)) break;
+            if (o.getId().equals("bullet")){
+                if (isAlienShot(o, alien1) ||
+                        isAlienShot(o, alien2) ||
+                        isAlienShot(o, alien3) ||
+                        isAlienShot(o, alien4) ||
+                        isAlienShot(o, alien5) ||
+                        isAlienShot(o, alien6) ||
+                        isAlienShot(o, alien7) ||
+                        isAlienShot(o, alien8) ||
+                        isAlienShot(o, alien9) ||
+                        isAlienShot(o, alien10))
+                    break;
                 if (anchorTwo.getChildren().contains(circleAlien1)){
                     if(o.getBoundsInParent().intersects(circleAlien1.getBoundsInParent())){
                         c1--;
@@ -333,24 +381,25 @@ public class LevelTwoController{
     }
 
     private void isLevelFinished(){
-        if (anchorTwo.getChildren().contains(alien1) ||
-                anchorTwo.getChildren().contains(alien2) ||
-                anchorTwo.getChildren().contains(alien3) ||
-                anchorTwo.getChildren().contains(alien4) ||
-                anchorTwo.getChildren().contains(alien5) ||
-                anchorTwo.getChildren().contains(alien6) ||
-                anchorTwo.getChildren().contains(alien7) ||
-                anchorTwo.getChildren().contains(alien8) ||
-                anchorTwo.getChildren().contains(alien9) ||
-                anchorTwo.getChildren().contains(alien10) ||
-                anchorTwo.getChildren().contains(circleAlien1) ||
-                anchorTwo.getChildren().contains(circleAlien2) ||
-                anchorTwo.getChildren().contains(circleAlien3) ||
-                anchorTwo.getChildren().contains(circleAlien4)
-        ){ } else{
+        ObservableList<Node> children = anchorTwo.getChildren();
+        if (!children.contains(alien1) &&
+                !children.contains(alien2) &&
+                !children.contains(alien3) &&
+                !children.contains(alien4) &&
+                !children.contains(alien5) &&
+                !children.contains(alien6) &&
+                !children.contains(alien7) &&
+                !children.contains(alien8) &&
+                !children.contains(alien9) &&
+                !children.contains(alien10) &&
+                !children.contains(circleAlien1) &&
+                !children.contains(circleAlien2) &&
+                !children.contains(circleAlien3) &&
+                !children.contains(circleAlien4)
+        ) {
             levelend.setVisible(true);
             isFinished = true;
-            Main.getCurrentPlayer().setHighScore(score);
+            Main.getCurrentGame().setScore(score);
         }
     }
 
