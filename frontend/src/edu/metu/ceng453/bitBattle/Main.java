@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Date;
+
 class Player {
     public Player() {
     }
@@ -28,25 +30,6 @@ class Player {
         return id;
     }
 
-    public void setId(Integer playerId) {
-        this.id = playerId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String playerPassword) {
-        this.password = playerPassword;
-    }
-
-    public String getPlayername() {
-        return playername;
-    }
-
-    public void setPlayername(String playername) {
-        this.playername = playername;
-    }
 
     public Integer getHighScore() {
         return highScore;
@@ -57,16 +40,60 @@ class Player {
     }
 }
 
+class Leaderboard {
+
+    private Integer id;
+
+    private Integer playerId;
+
+    private Integer score;
+
+    private Date gameTime;
+
+    Leaderboard() {
+    }
+
+    Leaderboard(Integer playerid, Integer score, Date gameTime) {
+        this.id = 0;
+        this.playerId = playerid;
+        this.score = score;
+        this.gameTime = gameTime;
+    }
+
+    public void setPlayerId(Integer playerid) {
+        this.playerId = playerid;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public void setGameTime(Date gameTime) {
+        this.gameTime = gameTime;
+    }
+}
 
 public class Main extends Application {
     private static Player player;
-
+    private static Leaderboard game;
     public static Player getCurrentPlayer() {
         return Main.player;
     }
 
     public static void setCurrentPlayer(Player newPlayer) {
         Main.player = newPlayer;
+    }
+
+    public static Leaderboard getCurrentGame() {
+        return Main.game;
+    }
+
+    public static void setCurrentGame(Leaderboard newGame) {
+        Main.game = newGame;
     }
 
 

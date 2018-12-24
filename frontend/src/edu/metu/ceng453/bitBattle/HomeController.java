@@ -1,6 +1,8 @@
 package edu.metu.ceng453.bitBattle;
 
 // Import necessary libraries
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,9 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.io.IOException;
+import java.util.Date;
 
 public class HomeController {
 
@@ -21,6 +25,9 @@ public class HomeController {
 
     // "New Game" button push handler
     public void newButtonPushed(ActionEvent event) throws IOException {
+        Leaderboard currentGame = new Leaderboard(Main.getCurrentPlayer().getId(),0,new Date());
+
+        Main.setCurrentGame(currentGame);
         Parent levelOne = FXMLLoader.load(getClass().getResource("./levelOne.fxml"));
         Scene sceneOne = new Scene(levelOne);
         sceneOne.getRoot().requestFocus();
