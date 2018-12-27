@@ -62,22 +62,27 @@ public class LevelTwoController extends LevelController{
     @FXML Label gameOver;
     @FXML Button homeButton;
 
+    Node aliens[] = new Node[14];
+    //{alien1, alien2, alien3, alien4, alien5, alien6, alien7, alien8, alien9, alien10, circleAlien1, circleAlien2, circleAlien3, circleAlien4};
 
     private int Counter = 0;
     //private int score = Main.getCurrentGame().getScore();
     private boolean dbUpdate = false;
     private boolean isFinished;
+
     private int c1 = 2;
     private int c2 = 2;
     private int c3 = 2;
     private int c4 = 2;
+    int length;
 
 
     public void initialize() {
+        levelThreeController.aliensToArray(aliens, alien1, alien2, alien3, alien4, alien5, alien6, alien7, alien8, alien9, alien10, circleAlien1, circleAlien2, circleAlien3, circleAlien4);
+        length = aliens.length;
         levelend.setVisible(false);
         gameOver.setVisible(false);
         homeButton.setVisible(false);
-
         isFinished = false;
 
         animatealiens2();
@@ -190,71 +195,7 @@ public class LevelTwoController extends LevelController{
     private void alienShot(){
         for(Node o: anchorTwo.getChildren()){
             if (o.getId() == "bullet"){
-                if (isAlienShot(o, alien1, anchorTwo) ||
-                        isAlienShot(o, alien2, anchorTwo) ||
-                        isAlienShot(o, alien3, anchorTwo) ||
-                        isAlienShot(o, alien4, anchorTwo) ||
-                        isAlienShot(o, alien5, anchorTwo) ||
-                        isAlienShot(o, alien6, anchorTwo) ||
-                        isAlienShot(o, alien7, anchorTwo) ||
-                        isAlienShot(o, alien8, anchorTwo) ||
-                        isAlienShot(o, alien9, anchorTwo) ||
-                        isAlienShot(o, alien10, anchorTwo))
-                    break;
-                if (anchorTwo.getChildren().contains(circleAlien1)){
-                    if(o.getBoundsInParent().intersects(circleAlien1.getBoundsInParent())){
-                        c1--;
-                        anchorTwo.getChildren().remove(o);
-                        if (c1 == 0){
-
-                            anchorTwo.getChildren().remove(circleAlien1);
-                            setScore(getScore()  + 10);
-
-                        }
-                        break;
-                    }
-                }
-                if (anchorTwo.getChildren().contains(circleAlien2)){
-                    if(o.getBoundsInParent().intersects(circleAlien2.getBoundsInParent())){
-                        c2--;
-                        anchorTwo.getChildren().remove(o);
-                        if (c2 == 0){
-
-                            anchorTwo.getChildren().remove(circleAlien2);
-                            setScore(getScore() + 10);
-
-                        }
-                        break;
-                    }
-                }
-                if (anchorTwo.getChildren().contains(circleAlien3)){
-                    if(o.getBoundsInParent().intersects(circleAlien3.getBoundsInParent())){
-                        c3--;
-                        anchorTwo.getChildren().remove(o);
-                        if (c3 == 0){
-
-                            anchorTwo.getChildren().remove(circleAlien3);
-                            setScore(getScore()  + 10);
-
-                        }
-                        break;
-                    }
-
-
-                }
-                if (anchorTwo.getChildren().contains(circleAlien4)){
-                    if(o.getBoundsInParent().intersects(circleAlien4.getBoundsInParent())){
-                        c4--;
-                        anchorTwo.getChildren().remove(o);
-                        if (c4 == 0){
-
-                            anchorTwo.getChildren().remove(circleAlien4);
-                            setScore(getScore()  + 10);
-
-                        }
-                        break;
-                    }
-                }
+                if (isAlienShot(o, aliens, anchorTwo)) break;
             }
         }
     }

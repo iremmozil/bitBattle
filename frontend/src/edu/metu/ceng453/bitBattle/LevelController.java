@@ -16,32 +16,71 @@ public class LevelController extends Main {
     private Boolean isFinished = false;
     private int score = Main.fromMaingetScore();
     private int health = 3;
+    private Boolean isShot = false;
+    int circle1Health = 2;
+    int circle2Health = 2;
+    int circle3Health = 2;
+    int circle4Health = 2;
+
+    public boolean circle1HitOnce = false;
+    public boolean circle2HitOnce = false;
+    public boolean circle3HitOnce = false;
+    public boolean circle4HitOnce = false;
 
     //Getters and setters
     public int getScore() {
         return score;
     }
+
     public void setScore(int score) {
         this.score = score;
     }
 
-    public int getHealth(){
+    public int getHealth() {
         return health;
     }
-    public void setHealth(int health){
+
+    public void setHealth(int health) {
         this.health = health;
     }
 
-    public boolean isAlienShot(Node o, ImageView alien, AnchorPane anchor) {
-        if (anchor.getChildren().contains(alien)) {
-            if(o.getBoundsInParent().intersects(alien.getBoundsInParent())){
-                anchor.getChildren().remove(o);
-                anchor.getChildren().remove(alien);
-                score += 5;
-                return true;
+    public boolean isAlienShot(Node o, Node aliens[], AnchorPane anchor) {
+        isShot =  false;
+        for (int i = 0; i < aliens.length; i++) {
+            if (anchor.getChildren().contains(aliens[i])) {
+                if (o.getBoundsInParent().intersects(aliens[i].getBoundsInParent())) {
+                    if (aliens[i].getId().equals("triangle") ){
+                        removeAlien(anchor, o, aliens[i]);
+                        removeAlienFromArray(aliens, i);
+                        setScore(getScore() + 5);
+                    }
+                    else if (aliens[i].getId().equals("circle")){
+                        if (circle1HitOnce){
+                            System.out.println("e vuruyo");
+                            removeAlien(anchor, o, aliens[i]);
+                            removeAlienFromArray(aliens, i);
+                            setScore(getScore() + 10);
+                        }
+                        else {
+                            circle1HitOnce = true;
+                        }
+                    }
+                    isShot = true;
+                }
             }
         }
-        return false;
+        return isShot;
+    }
+
+    private void removeAlien(AnchorPane anchor, Node o, Node alien){
+        anchor.getChildren().remove(o);
+        anchor.getChildren().remove(alien);
+    }
+    private void removeAlienFromArray(Node aliens[], int i ){
+        for (int j = i; j< aliens.length -2; j ++){
+            aliens[j] = aliens[j+1];
+        }
+        aliens[aliens.length-1] = null;
     }
 
     public void fire(AnchorPane anchor, ImageView spaceship){

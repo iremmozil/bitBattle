@@ -67,6 +67,9 @@ public class levelThreeController extends LevelController {
     @FXML Label gameOver;
     @FXML Button homeButton;
 
+    Node aliens[] = new Node[17];
+    //{alien1, alien2, alien3, alien4, alien5, alien6, alien7, alien8, alien9, alien10, alien11, circle1, circle2, circle3, circle4, parallelogram1, parallelogram2 };
+
     //private int score = Main.getCurrentGame().getScore();
     private int Counter = 0;
     private Boolean isFinished = false;
@@ -75,9 +78,15 @@ public class levelThreeController extends LevelController {
     private int c2 = 2;
     private int c3 = 2;
     private int c4 = 2;
+    int length = 0;
 
 
     public void initialize() {
+        aliensToArray(aliens, alien1, alien2, alien3, alien4, alien5, alien6, alien7, alien8, alien9, alien10, alien11, circle1, circle2, circle3);
+        aliens[14] = circle4;
+        aliens[15] = parallelogram1;
+        aliens[16] = parallelogram2;
+        length = aliens.length;
         endLevel.setVisible(false);
         gameOver.setVisible(false);
         homeButton.setVisible(false);
@@ -120,6 +129,14 @@ public class levelThreeController extends LevelController {
             }
         }.start();
     }
+
+    static void aliensToArray(Node[] aliens, ImageView alien1, ImageView alien2, ImageView alien3, ImageView alien4, ImageView alien5, ImageView alien6, ImageView alien7, ImageView alien8, ImageView alien9, ImageView alien10, ImageView alien11, ImageView circle1, ImageView circle2, ImageView circle3) {
+        LevelOneController.aliensToArray(aliens, alien1, alien2, alien3, alien4, alien5, alien6, alien7, alien8, alien9, alien10, alien11);
+        aliens[11] = circle1;
+        aliens[12] = circle2;
+        aliens[13] = circle3;
+    }
+
     private void isSpaceshipDown() {
         boolean collisionDetected = false;
         for (Node bullet : anchorThree.getChildren()) {
@@ -187,17 +204,8 @@ public class levelThreeController extends LevelController {
     private void alienShot(){
         for(Node o: anchorThree.getChildren()){
             if (o.getId() == "bullet"){
-                if (isAlienShot(o, alien1, anchorThree)) break;
-                if (isAlienShot(o, alien2, anchorThree)) break;
-                if (isAlienShot(o, alien3, anchorThree)) break;
-                if (isAlienShot(o, alien4, anchorThree)) break;
-                if (isAlienShot(o, alien5, anchorThree)) break;
-                if (isAlienShot(o, alien6, anchorThree)) break;
-                if (isAlienShot(o, alien7, anchorThree)) break;
-                if (isAlienShot(o, alien8, anchorThree)) break;
-                if (isAlienShot(o, alien9, anchorThree)) break;
-                if (isAlienShot(o, alien10, anchorThree)) break;
-                if (isAlienShot(o, alien11, anchorThree)) break;
+                if (isAlienShot(o, aliens, anchorThree)) {length--; break;}
+
                 if (anchorThree.getChildren().contains(circle1)){
                     if(o.getBoundsInParent().intersects(circle1.getBoundsInParent())){
                         c1--;
@@ -252,8 +260,8 @@ public class levelThreeController extends LevelController {
                         break;
                     }
                 }
-                if (isAlienShot(o, parallelogram1, anchorThree)) break;
-                if (isAlienShot(o, parallelogram2, anchorThree)) break;
+                if (isAlienShot(o, aliens, anchorThree)) break;
+                if (isAlienShot(o, aliens, anchorThree)) break;
             }
         }
     }
