@@ -100,16 +100,7 @@ public class LevelOneController extends LevelController {
             public void handle(long now) {
                 Counter++;
                 if (Counter % 1000 == 0){
-                    Circle b = new Circle(5.05);
-                    b.setStroke(Color.BLACK);
-                    b.setStrokeWidth(0.0);
-                    b.setFill(Color.valueOf("99daff"));
-                    alienRandomize(b);
-                    double x = b.getCenterX();
-                    double y = b.getCenterY();
-                    PathTransition tt =
-                            new PathTransition(Duration.seconds(3), new Line(x,y, x ,650),b);
-                    tt.play();
+                    fire(anchorOne, spaceship);
                 }
                 isSpaceshipDown();
                 alienShot();
@@ -120,20 +111,6 @@ public class LevelOneController extends LevelController {
     }
 
 
-    private double goDirection( double x, String direction ){
-        if( direction.equals("RIGHT")){
-            if (x < 480){
-                x = x + 6;
-            }
-        }
-        else if(direction.equals("LEFT")){
-            if( x > -20){
-                x = x - 6;
-            }
-        }
-
-        return x;
-    }
 
     private void alienShot(){
         for(Node o: anchorOne.getChildren()){

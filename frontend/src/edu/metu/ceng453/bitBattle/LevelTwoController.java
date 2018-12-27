@@ -83,34 +83,13 @@ public class LevelTwoController extends LevelController{
 
         animatealiens2();
         gridTwo.setOnKeyPressed((KeyEvent event)-> {
+            double y = spaceship.getLayoutY();
             if (event.getCode() == KeyCode.RIGHT) {
-                double x = spaceship.getLayoutX();
-                double y = spaceship.getLayoutY();
-                if (x < 480) {
-                    x = x + 6;
-                }
-                spaceship.relocate(x, y);
+                spaceship.relocate(goDirection(spaceship.getLayoutX(), "RIGHT"),y);
             } else if (event.getCode() == KeyCode.LEFT) {
-                double x = spaceship.getLayoutX();
-                double y = spaceship.getLayoutY();
-                if (x > -20) {
-                    x = x - 6;
-                }
-                spaceship.relocate(x, y);
+                spaceship.relocate(goDirection(spaceship.getLayoutX(), "LEFT"),y);
             } else if (event.getCode() == KeyCode.SPACE) {
-                Circle bullet = new Circle(5.05);
-                bullet.setStroke(Color.BLACK);
-                bullet.setStrokeWidth(0.0);
-                bullet.setFill(Color.valueOf("997aff"));
-                bullet.setCenterX(spaceship.getLayoutX() + 35.0);
-                bullet.setCenterY(spaceship.getLayoutY() - 7.0);
-                bullet.setId("bullet");
-                anchorTwo.getChildren().add(bullet);
-                double x = bullet.getCenterX();
-                double y = bullet.getCenterY();
-                PathTransition tt =
-                        new PathTransition(Duration.seconds(3), new Line(x, y, x, -10), bullet);
-                tt.play();
+                fire(anchorTwo, spaceship);
             }
             else if (event.getCode() == KeyCode.N){
                 try {

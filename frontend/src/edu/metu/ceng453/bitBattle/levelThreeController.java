@@ -32,7 +32,7 @@ import java.io.IOException;
 
 
 
-public class levelThreeController {
+public class levelThreeController extends LevelController {
 
     @FXML
     ImageView spaceship;
@@ -87,36 +87,14 @@ public class levelThreeController {
 
         animatealiens3();
         gridThree.setOnKeyPressed((KeyEvent event)-> {
+            double y = spaceship.getLayoutY();
             if (event.getCode() == KeyCode.RIGHT) {
-                double x = spaceship.getLayoutX();
-                double y = spaceship.getLayoutY();
-                if (x < 480) {
-                    x = x + 6;
-                }
-                spaceship.relocate(x, y);
+                spaceship.relocate(goDirection(spaceship.getLayoutX(), "RIGHT"),y);
             } else if (event.getCode() == KeyCode.LEFT) {
-                double x = spaceship.getLayoutX();
-                double y = spaceship.getLayoutY();
-                if (x > -20) {
-                    x = x - 6;
-                }
-                spaceship.relocate(x, y);
+                spaceship.relocate(goDirection(spaceship.getLayoutX(), "LEFT"),y);
             } else if (event.getCode() == KeyCode.SPACE) {
-                Circle bullet = new Circle(5.05);
-                bullet.setStroke(Color.BLACK);
-                bullet.setStrokeWidth(0.0);
-                bullet.setFill(Color.valueOf("997aff"));
-                bullet.setCenterX(spaceship.getLayoutX() + 35.0);
-                bullet.setCenterY(spaceship.getLayoutY() - 7.0);
-                bullet.setId("bullet");
-                anchorThree.getChildren().add(bullet);
-                double x = bullet.getCenterX();
-                double y = bullet.getCenterY();
-                PathTransition tt =
-                        new PathTransition(Duration.seconds(3), new Line(x, y, x, -10), bullet);
-                tt.play();
+                fire(anchorThree,spaceship);
             }
-
             event.consume();
         });
 
@@ -215,17 +193,17 @@ public class levelThreeController {
     private void alienShot(){
         for(Node o: anchorThree.getChildren()){
             if (o.getId() == "bullet"){
-                if (isAlienShot(o, alien1)) break;
-                if (isAlienShot(o, alien2)) break;
-                if (isAlienShot(o, alien3)) break;
-                if (isAlienShot(o, alien4)) break;
-                if (isAlienShot(o, alien5)) break;
-                if (isAlienShot(o, alien6)) break;
-                if (isAlienShot(o, alien7)) break;
-                if (isAlienShot(o, alien8)) break;
-                if (isAlienShot(o, alien9)) break;
-                if (isAlienShot(o, alien10)) break;
-                if (isAlienShot(o, alien11)) break;
+                if (isAlienShot(o, alien1, anchorThree)) break;
+                if (isAlienShot(o, alien2, anchorThree)) break;
+                if (isAlienShot(o, alien3, anchorThree)) break;
+                if (isAlienShot(o, alien4, anchorThree)) break;
+                if (isAlienShot(o, alien5, anchorThree)) break;
+                if (isAlienShot(o, alien6, anchorThree)) break;
+                if (isAlienShot(o, alien7, anchorThree)) break;
+                if (isAlienShot(o, alien8, anchorThree)) break;
+                if (isAlienShot(o, alien9, anchorThree)) break;
+                if (isAlienShot(o, alien10, anchorThree)) break;
+                if (isAlienShot(o, alien11, anchorThree)) break;
                 if (anchorThree.getChildren().contains(circle1)){
                     if(o.getBoundsInParent().intersects(circle1.getBoundsInParent())){
                         c1--;
@@ -280,22 +258,10 @@ public class levelThreeController {
                         break;
                     }
                 }
-                if (isAlienShot(o, parallelogram1)) break;
-                if (isAlienShot(o, parallelogram2)) break;
+                if (isAlienShot(o, parallelogram1, anchorThree)) break;
+                if (isAlienShot(o, parallelogram2, anchorThree)) break;
             }
         }
-    }
-
-    private boolean isAlienShot(Node o, ImageView alien) {
-        if (anchorThree.getChildren().contains(alien)) {
-            if(o.getBoundsInParent().intersects(alien.getBoundsInParent())){
-                anchorThree.getChildren().remove(o);
-                anchorThree.getChildren().remove(alien);
-                score += 5;
-                return true;
-            }
-        }
-        return false;
     }
 
 

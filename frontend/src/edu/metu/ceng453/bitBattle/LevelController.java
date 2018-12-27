@@ -49,5 +49,22 @@ public class LevelController extends Main {
         tt.play();
     }
 
+    public double goDirection( double x, String direction ){
+        if( direction.equals("RIGHT")){
+            if (x < 480){
+                x = x + 6;
+            }
+        }
+        else if(direction.equals("LEFT")){
+            if( x > -20){
+                x = x - 6;
+            }
+        }
+
+        return x;
+    }
+
+
+
 
 }
