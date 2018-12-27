@@ -31,7 +31,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
 
-public class LevelTwoController{
+public class LevelTwoController extends LevelController{
     @FXML
     ImageView spaceship;
 
@@ -65,7 +65,7 @@ public class LevelTwoController{
 
     private int Counter = 0;
     private int health = 3;
-    private int score = Main.getCurrentGame().getScore();
+    //private int score = Main.getCurrentGame().getScore();
     private boolean dbUpdate = false;
     private boolean isFinished;
     private int c1 = 2;
@@ -148,10 +148,6 @@ public class LevelTwoController{
         }.start();
     }
 
-    public int getScore(){
-        return score;
-    }
-
     private void isSpaceshipDown() {
         boolean collisionDetected = false;
         for (Node bullet : anchorTwo.getChildren()) {
@@ -175,9 +171,9 @@ public class LevelTwoController{
 
                 try {
                     if (!dbUpdate) {
-                        Main.getCurrentGame().setScore(score);
-                        if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<score)
-                            Main.getCurrentPlayer().setHighScore(score);
+                        Main.getCurrentGame().setScore(getScore());
+                        if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<getScore())
+                            Main.getCurrentPlayer().setHighScore(getScore());
                         HttpPost gameRequest = new HttpPost("http://localhost:8080/leaderboard");
 
                         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
@@ -216,16 +212,16 @@ public class LevelTwoController{
     private void alienShot(){
         for(Node o: anchorTwo.getChildren()){
             if (o.getId() == "bullet"){
-                if (isAlienShot(o, alien1) ||
-                        isAlienShot(o, alien2) ||
-                        isAlienShot(o, alien3) ||
-                        isAlienShot(o, alien4) ||
-                        isAlienShot(o, alien5) ||
-                        isAlienShot(o, alien6) ||
-                        isAlienShot(o, alien7) ||
-                        isAlienShot(o, alien8) ||
-                        isAlienShot(o, alien9) ||
-                        isAlienShot(o, alien10))
+                if (isAlienShot(o, alien1, anchorTwo) ||
+                        isAlienShot(o, alien2, anchorTwo) ||
+                        isAlienShot(o, alien3, anchorTwo) ||
+                        isAlienShot(o, alien4, anchorTwo) ||
+                        isAlienShot(o, alien5, anchorTwo) ||
+                        isAlienShot(o, alien6, anchorTwo) ||
+                        isAlienShot(o, alien7, anchorTwo) ||
+                        isAlienShot(o, alien8, anchorTwo) ||
+                        isAlienShot(o, alien9, anchorTwo) ||
+                        isAlienShot(o, alien10, anchorTwo))
                     break;
                 if (anchorTwo.getChildren().contains(circleAlien1)){
                     if(o.getBoundsInParent().intersects(circleAlien1.getBoundsInParent())){
@@ -234,7 +230,7 @@ public class LevelTwoController{
                         if (c1 == 0){
 
                             anchorTwo.getChildren().remove(circleAlien1);
-                            score += 10;
+                            setScore(getScore()  + 10);
 
                         }
                         break;
@@ -247,7 +243,7 @@ public class LevelTwoController{
                         if (c2 == 0){
 
                             anchorTwo.getChildren().remove(circleAlien2);
-                            score += 10;
+                            setScore(getScore() + 10);
 
                         }
                         break;
@@ -260,7 +256,7 @@ public class LevelTwoController{
                         if (c3 == 0){
 
                             anchorTwo.getChildren().remove(circleAlien3);
-                            score += 10;
+                            setScore(getScore()  + 10);
 
                         }
                         break;
@@ -275,7 +271,7 @@ public class LevelTwoController{
                         if (c4 == 0){
 
                             anchorTwo.getChildren().remove(circleAlien4);
-                            score += 10;
+                            setScore(getScore()  + 10);
 
                         }
                         break;
@@ -283,18 +279,6 @@ public class LevelTwoController{
                 }
             }
         }
-    }
-
-    private boolean isAlienShot(Node o, ImageView alien) {
-        if (anchorTwo.getChildren().contains(alien)) {
-            if(o.getBoundsInParent().intersects(alien.getBoundsInParent())){
-                anchorTwo.getChildren().remove(o);
-                anchorTwo.getChildren().remove(alien);
-                score += 5;
-                return true;
-            }
-        }
-        return false;
     }
 
 
@@ -398,7 +382,7 @@ public class LevelTwoController{
         ) {
             levelend.setVisible(true);
             isFinished = true;
-            Main.getCurrentGame().setScore(score);
+            Main.getCurrentGame().setScore(getScore());
         }
     }
 

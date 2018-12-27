@@ -31,7 +31,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import java.io.IOException;
 
 
-public class LevelOneController extends SignInController {
+public class LevelOneController extends LevelController {
 
     @FXML
     ImageView spaceship;
@@ -60,35 +60,25 @@ public class LevelOneController extends SignInController {
     @FXML
     Button homeButton;
 
-    private int score = 0;
     private int Counter = 0;
     private Boolean isFinished = false;
     private int health = 3;
     private boolean dbUpdate = false;
 
     public void initialize() {
-        scoreLabel.setText(Integer.toString(score));
+        scoreLabel.setText(Integer.toString(getScore()));
         endLevel.setVisible(false);
         homeButton.setVisible(false);
         gameOver.setVisible(false);
 
         animatealiens();
         gridOne.setOnKeyPressed((KeyEvent event)->{
+            double y = spaceship.getLayoutY();
             if (event.getCode() == KeyCode.RIGHT){
-                double x = spaceship.getLayoutX();
-                double y = spaceship.getLayoutY();
-                if (x < 480){
-                    x = x + 6;
-                }
-                spaceship.relocate(x,y);
+                spaceship.relocate(goDirection(spaceship.getLayoutX(), "RIGHT"),y);
             }
             else if (event.getCode() == KeyCode.LEFT){
-                double x = spaceship.getLayoutX();
-                double y = spaceship.getLayoutY();
-                if( x > -20){
-                    x = x - 6;
-                }
-                spaceship.relocate(x,y);
+                spaceship.relocate(goDirection(spaceship.getLayoutX(), "LEFT"),y);
             }
             else if (event.getCode() == KeyCode.SPACE){
                     fire(anchorOne, spaceship);
@@ -104,7 +94,6 @@ public class LevelOneController extends SignInController {
             }
             event.consume();
         });
-
 
         new AnimationTimer() {
             @Override
@@ -129,55 +118,41 @@ public class LevelOneController extends SignInController {
             }
         }.start();
     }
-    public void fire(AnchorPane anchor, ImageView spaceship){
-        Circle bullet = new Circle(5.05);
-        bullet.setStroke(Color.BLACK);
-        bullet.setStrokeWidth(0.0);
-        bullet.setFill(Color.valueOf("997aff"));
-        bullet.setCenterX(spaceship.getLayoutX() + 35.0);
-        bullet.setCenterY(spaceship.getLayoutY() - 7.0);
-        bullet.setId("bullet");
-        anchor.getChildren().add(bullet);
-        double x = bullet.getCenterX();
-        double y = bullet.getCenterY();
-        PathTransition tt =
-                new PathTransition(Duration.seconds(3), new Line(x,y, x ,-10),bullet);
-        tt.play();
-    }
 
-    private int getScore(){
-        return score;
+
+    private double goDirection( double x, String direction ){
+        if( direction.equals("RIGHT")){
+            if (x < 480){
+                x = x + 6;
+            }
+        }
+        else if(direction.equals("LEFT")){
+            if( x > -20){
+                x = x - 6;
+            }
+        }
+
+        return x;
     }
 
     private void alienShot(){
         for(Node o: anchorOne.getChildren()){
             if (o.getId() == "bullet"){
-                if (isAlienShot(o, alien1)) break;
-                if (isAlienShot(o, alien2)) break;
-                if (isAlienShot(o, alien3)) break;
-                if (isAlienShot(o, alien4)) break;
-                if (isAlienShot(o, alien5)) break;
-                if (isAlienShot(o, alien6)) break;
-                if (isAlienShot(o, alien7)) break;
-                if (isAlienShot(o, alien8)) break;
-                if (isAlienShot(o, alien9)) break;
-                if (isAlienShot(o, alien10)) break;
-                if (isAlienShot(o, alien11)) break;
+                if (isAlienShot(o, alien1, anchorOne)) break;
+                if (isAlienShot(o, alien2, anchorOne)) break;
+                if (isAlienShot(o, alien3, anchorOne)) break;
+                if (isAlienShot(o, alien4, anchorOne)) break;
+                if (isAlienShot(o, alien5, anchorOne)) break;
+                if (isAlienShot(o, alien6, anchorOne)) break;
+                if (isAlienShot(o, alien7, anchorOne)) break;
+                if (isAlienShot(o, alien8, anchorOne)) break;
+                if (isAlienShot(o, alien9, anchorOne)) break;
+                if (isAlienShot(o, alien10, anchorOne)) break;
+                if (isAlienShot(o, alien11, anchorOne)) break;
             }
         }
     }
 
-    private boolean isAlienShot(Node o, ImageView alien) {
-        if (anchorOne.getChildren().contains(alien)) {
-            if(o.getBoundsInParent().intersects(alien.getBoundsInParent())){
-                anchorOne.getChildren().remove(o);
-                anchorOne.getChildren().remove(alien);
-                score += 5;
-                return true;
-            }
-        }
-        return false;
-    }
 
     private void isSpaceshipDown() {
         boolean collisionDetected = false;
@@ -204,9 +179,9 @@ public class LevelOneController extends SignInController {
                 CloseableHttpClient httpClient = HttpClientBuilder.create().build();
                 try {
                     if (!dbUpdate) {
-                        Main.getCurrentGame().setScore(score);
-                        if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<score)
-                            Main.getCurrentPlayer().setHighScore(score);
+                        Main.getCurrentGame().setScore(getScore());
+                        if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<getScore())
+                            Main.getCurrentPlayer().setHighScore(getScore());
                         HttpPost gameRequest = new HttpPost("http://localhost:8080/leaderboard");
 
                         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
@@ -258,7 +233,7 @@ public class LevelOneController extends SignInController {
         ) {
                 endLevel.setVisible(true);
                 isFinished = true;
-                Main.getCurrentGame().setScore(score);
+                Main.getCurrentGame().setScore(getScore());
         }
     }
 
