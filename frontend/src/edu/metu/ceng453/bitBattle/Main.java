@@ -80,6 +80,8 @@ class Leaderboard {
 public class Main extends Application {
     private static Player player;
     private static Leaderboard game;
+    private static int score = 0;
+    public static int fromMaingetScore(){return score;};
     public static Player getCurrentPlayer() {
         return Main.player;
     }
