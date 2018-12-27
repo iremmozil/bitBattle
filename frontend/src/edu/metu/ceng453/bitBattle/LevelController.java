@@ -11,14 +11,25 @@ import javafx.util.Duration;
 
 public class LevelController extends Main {
 
-    public Boolean isFinished = false;
-    private int score = 0;
+    //Variables
 
+    private Boolean isFinished = false;
+    private int score = Main.fromMaingetScore();
+    private int health = 3;
+
+    //Getters and setters
     public int getScore() {
         return score;
     }
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public int getHealth(){
+        return health;
+    }
+    public void setHealth(int health){
+        this.health = health;
     }
 
     public boolean isAlienShot(Node o, ImageView alien, AnchorPane anchor) {

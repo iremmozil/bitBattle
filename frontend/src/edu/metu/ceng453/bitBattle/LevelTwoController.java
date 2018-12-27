@@ -64,7 +64,6 @@ public class LevelTwoController extends LevelController{
 
 
     private int Counter = 0;
-    private int health = 3;
     //private int score = Main.getCurrentGame().getScore();
     private boolean dbUpdate = false;
     private boolean isFinished;
@@ -141,9 +140,9 @@ public class LevelTwoController extends LevelController{
 
         if (collisionDetected){
             collisionDetected = false;
-            if (health > 0){
-                health--;
-                healthCount.setText(Integer.toString(health));
+            if (getHealth() > 0){
+                setHealth(getHealth() -1);
+                healthCount.setText(Integer.toString(getHealth()));
             }else {
 
                 CloseableHttpClient httpClient = HttpClientBuilder.create().build();

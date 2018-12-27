@@ -62,7 +62,6 @@ public class LevelOneController extends LevelController {
 
     private int Counter = 0;
     private Boolean isFinished = false;
-    private int health = 3;
     private boolean dbUpdate = false;
 
     public void initialize() {
@@ -145,9 +144,9 @@ public class LevelOneController extends LevelController {
 
         if (collisionDetected){
             collisionDetected = false;
-            if (health > 0){
-                health--;
-                healthCount.setText(Integer.toString(health));
+            if (getHealth() > 0){
+                setHealth(getHealth() -1);
+                healthCount.setText(Integer.toString(getHealth()));
             }
             else{
                 gameOver.setVisible(true);
@@ -210,7 +209,7 @@ public class LevelOneController extends LevelController {
         ) {
                 endLevel.setVisible(true);
                 isFinished = true;
-                Main.getCurrentGame().setScore(getScore());
+                setScore(getScore());
         }
     }
 

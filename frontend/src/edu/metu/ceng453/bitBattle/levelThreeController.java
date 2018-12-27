@@ -67,11 +67,10 @@ public class levelThreeController extends LevelController {
     @FXML Label gameOver;
     @FXML Button homeButton;
 
-    private int score = Main.getCurrentGame().getScore();
+    //private int score = Main.getCurrentGame().getScore();
     private int Counter = 0;
     private Boolean isFinished = false;
     private boolean dbUpdate = false;
-    private int health = 3;
     private int c1 = 2;
     private int c2 = 2;
     private int c3 = 2;
@@ -121,11 +120,6 @@ public class levelThreeController extends LevelController {
             }
         }.start();
     }
-
-    public int getScore(){
-        return score;
-    }
-
     private void isSpaceshipDown() {
         boolean collisionDetected = false;
         for (Node bullet : anchorThree.getChildren()) {
@@ -140,9 +134,9 @@ public class levelThreeController extends LevelController {
 
         if (collisionDetected){
             collisionDetected = false;
-            if (health > 0){
-                health--;
-                healthCount.setText(Integer.toString(health));
+            if (getHealth() > 0){
+                setHealth(getHealth()-1);
+                healthCount.setText(Integer.toString(getHealth()));
             }else {
 
                 CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -150,9 +144,9 @@ public class levelThreeController extends LevelController {
                 try {
                     if (!dbUpdate) {
 
-                        Main.getCurrentGame().setScore(score);
-                        if(Main.getCurrentPlayer().getHighScore()<score)
-                            Main.getCurrentPlayer().setHighScore(score);
+                        Main.getCurrentGame().setScore(getScore());
+                        if(Main.getCurrentPlayer().getHighScore()<getScore())
+                            Main.getCurrentPlayer().setHighScore(getScore());
 
                         HttpPost gameRequest = new HttpPost("http://localhost:8080/leaderboard");
 
@@ -211,7 +205,7 @@ public class levelThreeController extends LevelController {
                         if (c1 == 0){
 
                             anchorThree.getChildren().remove(circle1);
-                            score += 10;
+                            setScore(getScore() + 10);
 
                         }
                         break;
@@ -224,7 +218,7 @@ public class levelThreeController extends LevelController {
                         if (c2 == 0){
 
                             anchorThree.getChildren().remove(circle2);
-                            score += 10;
+                            setScore(getScore() + 10);
 
                         }
                         break;
@@ -237,7 +231,7 @@ public class levelThreeController extends LevelController {
                         if (c3 == 0){
 
                             anchorThree.getChildren().remove(circle3);
-                            score += 10;
+                            setScore(getScore() + 10);
 
                         }
                         break;
@@ -252,7 +246,7 @@ public class levelThreeController extends LevelController {
                         if (c4 == 0){
 
                             anchorThree.getChildren().remove(circle4);
-                            score += 10;
+                            setScore(getScore() + 10);
 
                         }
                         break;
@@ -390,9 +384,9 @@ public class levelThreeController extends LevelController {
 
             try {
                 if (!dbUpdate) {
-                    Main.getCurrentGame().setScore(score);
-                    if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<score)
-                        Main.getCurrentPlayer().setHighScore(score);
+                    Main.getCurrentGame().setScore(getScore());
+                    if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<getScore())
+                        Main.getCurrentPlayer().setHighScore(getScore());
 
                     HttpPost gameRequest = new HttpPost("http://localhost:8080/leaderboard");
 
