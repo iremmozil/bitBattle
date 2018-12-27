@@ -99,7 +99,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("./signin.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("design/signin.fxml"));
 
         primaryStage.setTitle("BitBattle");
         primaryStage.setScene(new Scene(root));

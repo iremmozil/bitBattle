@@ -89,7 +89,7 @@ public class SignInController extends Main{
     // "Register Now!" button push handler
     public void rNowbuttonPushed(ActionEvent event) throws IOException{
 
-        Parent register = FXMLLoader.load(getClass().getResource("./register.fxml"));
+        Parent register = FXMLLoader.load(getClass().getResource("design/register.fxml"));
         Scene sceneRegister = new Scene(register);
         sceneRegister.getRoot().requestFocus();
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());

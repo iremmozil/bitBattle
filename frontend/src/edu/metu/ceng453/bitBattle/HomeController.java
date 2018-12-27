@@ -24,7 +24,7 @@ public class HomeController {
         Leaderboard currentGame = new Leaderboard(Main.getCurrentPlayer().getId(),0,new Date());
 
         Main.setCurrentGame(currentGame);
-        Parent levelOne = FXMLLoader.load(getClass().getResource("design/levelOne.fxml"));
+        Parent levelOne = FXMLLoader.load(getClass().getResource("./design/levelOne.fxml"));
         Scene sceneOne = new Scene(levelOne);
         sceneOne.getRoot().requestFocus();
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
@@ -44,7 +44,7 @@ public class HomeController {
 
     // "Log Out" button push handler
     public void logoutbuttonPushed(ActionEvent event) throws IOException {
-        Parent signIn = FXMLLoader.load(getClass().getResource("./signin.fxml"));
+        Parent signIn = FXMLLoader.load(getClass().getResource("design/signin.fxml"));
         Scene sceneSignIn = new Scene(signIn);
         sceneSignIn.getRoot().requestFocus();
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
