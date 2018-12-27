@@ -151,20 +151,18 @@ public class LevelOneController extends SignInController {
 
     private void alienShot(){
         for(Node o: anchorOne.getChildren()){
-            if (o.getId().equals("bullet")){
-                if (isAlienShot(o, alien1) ||
-                        isAlienShot(o, alien2) ||
-                        isAlienShot(o, alien3) ||
-                        isAlienShot(o, alien4) ||
-                        isAlienShot(o, alien5) ||
-                        isAlienShot(o, alien6) ||
-                        isAlienShot(o, alien7) ||
-                        isAlienShot(o, alien8) ||
-                        isAlienShot(o, alien9) ||
-                        isAlienShot(o, alien10) ||
-                        isAlienShot(o, alien11)) {
-                    break;
-                }
+            if (o.getId() == "bullet"){
+                if (isAlienShot(o, alien1)) break;
+                if (isAlienShot(o, alien2)) break;
+                if (isAlienShot(o, alien3)) break;
+                if (isAlienShot(o, alien4)) break;
+                if (isAlienShot(o, alien5)) break;
+                if (isAlienShot(o, alien6)) break;
+                if (isAlienShot(o, alien7)) break;
+                if (isAlienShot(o, alien8)) break;
+                if (isAlienShot(o, alien9)) break;
+                if (isAlienShot(o, alien10)) break;
+                if (isAlienShot(o, alien11)) break;
             }
         }
     }

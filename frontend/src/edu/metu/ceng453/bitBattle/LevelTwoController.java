@@ -215,7 +215,7 @@ public class LevelTwoController{
 
     private void alienShot(){
         for(Node o: anchorTwo.getChildren()){
-            if (o.getId().equals("bullet")){
+            if (o.getId() == "bullet"){
                 if (isAlienShot(o, alien1) ||
                         isAlienShot(o, alien2) ||
                         isAlienShot(o, alien3) ||
