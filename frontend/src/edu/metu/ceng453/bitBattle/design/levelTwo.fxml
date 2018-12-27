@@ -18,27 +18,27 @@
       <children>
         <ImageView fx:id="spaceship" fitHeight="34.0" fitWidth="70.0" layoutX="215.0" layoutY="592.0" pickOnBounds="true">
           <image>
-            <Image url="@spaceship.png" preserveRatio="true" smooth="true" />
+            <Image url="@../spaceship.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="alienTriangle" fx:id="alien1" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.0001220703125" layoutX="228.0" layoutY="319.0" pickOnBounds="true">
           <image>
-            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="alienTriangle" fx:id="alien2" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="424.0" layoutY="350.0" pickOnBounds="true">
           <image>
-            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="greencircle" fx:id="circleAlien1" cache="true" cacheHint="SPEED" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="55.0" layoutY="152.0" pickOnBounds="true">
           <image>
-            <Image url="@greencircle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../greencircle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="alienTriangle" fx:id="alien3" cache="true" cacheHint="SPEED" fitHeight="39.99988555908203" fitWidth="43.99999918213143" layoutX="14.0" layoutY="350.0" pickOnBounds="true">
           <image>
-            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <Label fx:id="gameOver" layoutX="170.0" layoutY="113.0" text="Game Over!">
@@ -51,53 +51,53 @@
         </Label>
         <ImageView id="alienTriangle" fx:id="alien4" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="418.0" layoutY="203.0" pickOnBounds="true">
           <image>
-            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="greencircle" fx:id="circleAlien2" cache="true" cacheHint="SPEED" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="102.0" layoutY="262.0" pickOnBounds="true">
           <image>
-            <Image url="@greencircle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../greencircle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="alienTriangle" fx:id="alien5" cache="true" cacheHint="SPEED" fitHeight="39.99988555908203" fitWidth="43.99999918213143" layoutX="29.0" layoutY="203.0" pickOnBounds="true">
           <image>
-            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="greencircle" fx:id="circleAlien3" cache="true" cacheHint="SPEED" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="313.0" layoutY="262.0" pickOnBounds="true">
           <image>
-            <Image url="@greencircle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../greencircle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="greencircle" fx:id="circleAlien4" cache="true" cacheHint="SPEED" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="384.0" layoutY="141.0" pickOnBounds="true">
           <image>
-            <Image url="@greencircle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../greencircle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <Label fx:id="levelend" font="$x4" layoutX="46.0" layoutY="215.0" text="Level 2 is over!&#10;Please press &quot;n&quot; for next level!" textAlignment="CENTER" textFill="$x3" />
         <ImageView id="alienTriangle" fx:id="alien6" fitHeight="39.99988555908203" fitWidth="44.0001220703125" layoutX="291.0" layoutY="141.0" pickOnBounds="true">
           <image>
-            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="alienTriangle" fx:id="alien7" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.0001220703125" layoutX="164.0" layoutY="141.0" pickOnBounds="true">
           <image>
-            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="alienTriangle" fx:id="alien10" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.0001220703125" layoutX="228.0" layoutY="215.0" pickOnBounds="true">
           <image>
-            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="alienTriangle" fx:id="alien8" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="313.0" layoutY="340.0" pickOnBounds="true">
           <image>
-            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <ImageView id="alienTriangle" fx:id="alien9" cache="true" cacheHint="SPEED" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="120.0" layoutY="339.0" pickOnBounds="true">
           <image>
-            <Image url="@alienTriangle.png" preserveRatio="true" smooth="true" />
+            <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
         <Rectangle arcHeight="5.0" arcWidth="5.0" height="27.0" layoutX="33.0" layoutY="46.0" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="CENTERED" strokeWidth="0.0" width="70.0">

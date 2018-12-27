@@ -65,7 +65,7 @@ public class SignInController extends Main{
                 Player currentPlayer = gson.fromJson(String.valueOf(player), Player.class);
 
                 Main.setCurrentPlayer(currentPlayer);
-                Parent home = FXMLLoader.load(getClass().getResource("./home.fxml"));
+                Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
                 Scene sceneHome = new Scene(home);
                 sceneHome.getRoot().requestFocus();
                 Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());

@@ -28,7 +28,6 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -500,7 +499,7 @@ public class LevelTwoController{
         }
 
         public void thirdLevel(KeyEvent event) throws IOException {
-            Parent levelTwo = FXMLLoader.load(getClass().getResource("./levelThree.fxml"));
+            Parent levelTwo = FXMLLoader.load(getClass().getResource("design/levelThree.fxml"));
             Scene scenetwo = new Scene(levelTwo);
             scenetwo.getRoot().requestFocus();
             Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
@@ -509,7 +508,7 @@ public class LevelTwoController{
         }
 
     public void homeButtonPushed(ActionEvent event) throws IOException{
-        Parent home = FXMLLoader.load(getClass().getResource("./home.fxml"));
+        Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
         Scene sceneHome = new Scene(home);
         sceneHome.getRoot().requestFocus();
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());

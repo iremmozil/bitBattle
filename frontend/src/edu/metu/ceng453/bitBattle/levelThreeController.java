@@ -26,7 +26,6 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -578,7 +577,7 @@ public class levelThreeController {
 
 
     public void homeButtonPushed(ActionEvent event) throws IOException{
-        Parent home = FXMLLoader.load(getClass().getResource("./home.fxml"));
+        Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
         Scene sceneHome = new Scene(home);
         sceneHome.getRoot().requestFocus();
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());

@@ -118,7 +118,7 @@ public class LeaderboardController {
 
     // "Back" button push handler
     public void backHbuttonPushed(ActionEvent event) throws IOException {
-        Parent home = FXMLLoader.load(getClass().getResource("./home.fxml"));
+        Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
         Scene sceneHome = new Scene(home);
         sceneHome.getRoot().requestFocus();
         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());

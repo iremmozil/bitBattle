@@ -403,7 +403,7 @@ public class LevelOneController extends SignInController {
     }
 
     public void secondLevel(KeyEvent event) throws IOException {
-        Parent levelTwo = FXMLLoader.load(getClass().getResource("./levelTwo.fxml"));
+        Parent levelTwo = FXMLLoader.load(getClass().getResource("design/levelTwo.fxml"));
         Scene scenetwo = new Scene(levelTwo);
         scenetwo.getRoot().requestFocus();
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
@@ -412,7 +412,7 @@ public class LevelOneController extends SignInController {
     }
 
     public void homeButtonPushed(ActionEvent event) throws IOException{
-        Parent home = FXMLLoader.load(getClass().getResource("./home.fxml"));
+        Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
         Scene sceneHome = new Scene(home);
         sceneHome.getRoot().requestFocus();
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());

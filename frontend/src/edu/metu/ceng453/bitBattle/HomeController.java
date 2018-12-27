@@ -1,8 +1,6 @@
 package edu.metu.ceng453.bitBattle;
 
 // Import necessary libraries
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,9 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import org.json.JSONObject;
 
-import javax.swing.plaf.basic.BasicButtonUI;
 import java.io.IOException;
 import java.util.Date;
 
@@ -28,7 +24,7 @@ public class HomeController {
         Leaderboard currentGame = new Leaderboard(Main.getCurrentPlayer().getId(),0,new Date());
 
         Main.setCurrentGame(currentGame);
-        Parent levelOne = FXMLLoader.load(getClass().getResource("./levelOne.fxml"));
+        Parent levelOne = FXMLLoader.load(getClass().getResource("design/levelOne.fxml"));
         Scene sceneOne = new Scene(levelOne);
         sceneOne.getRoot().requestFocus();
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
@@ -38,7 +34,7 @@ public class HomeController {
 
     // "Leaderboard" button push handler
     public void lbuttonPushed(ActionEvent event) throws IOException {
-        Parent lBoard = FXMLLoader.load(getClass().getResource("./leaderboard.fxml"));
+        Parent lBoard = FXMLLoader.load(getClass().getResource("design/leaderboard.fxml"));
         Scene sceneLBoard = new Scene(lBoard);
         sceneLBoard.getRoot().requestFocus();
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
