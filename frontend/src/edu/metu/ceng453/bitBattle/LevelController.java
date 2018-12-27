@@ -17,52 +17,79 @@ public class LevelController extends Main {
     private int score = Main.fromMaingetScore();
     private int health = 3;
     private Boolean isShot = false;
-    int circle1Health = 2;
-    int circle2Health = 2;
-    int circle3Health = 2;
-    int circle4Health = 2;
+    private Integer circles[] = new Integer[4];
 
-    public boolean circle1HitOnce = false;
-    public boolean circle2HitOnce = false;
-    public boolean circle3HitOnce = false;
-    public boolean circle4HitOnce = false;
+    private boolean circle1HitOnce = false;
+    private boolean circle2HitOnce = false;
+    private boolean circle3HitOnce = false;
+    private boolean circle4HitOnce = false;
 
     //Getters and setters
-    public int getScore() {
+    int getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    void setScore(int score) {
         this.score = score;
     }
 
-    public int getHealth() {
+    int getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    void setHealth(int health) {
         this.health = health;
     }
 
-    public boolean isAlienShot(Node o, Node aliens[], AnchorPane anchor) {
+    void initializeCircles(int i, int j, int k, int l){
+        circles[0] = i;
+        circles[1] = j;
+        circles[2] = k;
+        circles[3] = l;
+    }
+
+    boolean isAlienShot(Node o, Node aliens[], AnchorPane anchor) {
         isShot =  false;
         for (int i = 0; i < aliens.length; i++) {
             if (anchor.getChildren().contains(aliens[i])) {
                 if (o.getBoundsInParent().intersects(aliens[i].getBoundsInParent())) {
                     if (aliens[i].getId().equals("triangle") ){
                         removeAlien(anchor, o, aliens[i]);
-                        removeAlienFromArray(aliens, i);
+                        //removeAlienFromArray(aliens, i);
                         setScore(getScore() + 5);
                     }
                     else if (aliens[i].getId().equals("circle")){
-                        if (circle1HitOnce){
-                            System.out.println("e vuruyo");
-                            removeAlien(anchor, o, aliens[i]);
-                            removeAlienFromArray(aliens, i);
-                            setScore(getScore() + 10);
+                        if (circles[0] == i){
+                            if (circle1HitOnce){
+                                removeAlien(anchor, o, aliens[i]);
+                                setScore(getScore() + 10);
+                            } else {
+                                circle1HitOnce = true;
+                            }
                         }
-                        else {
-                            circle1HitOnce = true;
+                        else if (circles[1] == i){
+                            if (circle2HitOnce){
+                                removeAlien(anchor, o, aliens[i]);
+                                setScore(getScore() + 10);
+                            } else {
+                                circle2HitOnce = true;
+                            }
+                        }
+                        else if (circles[2] == i){
+                            if (circle3HitOnce){
+                                removeAlien(anchor, o, aliens[i]);
+                                setScore(getScore() + 10);
+                            } else {
+                                circle3HitOnce = true;
+                            }
+                        }
+                        else if (circles[3] == i){
+                            if (circle4HitOnce){
+                                removeAlien(anchor, o, aliens[i]);
+                                setScore(getScore() + 10);
+                            } else {
+                                circle4HitOnce = true;
+                            }
                         }
                     }
                     isShot = true;
@@ -83,7 +110,7 @@ public class LevelController extends Main {
         aliens[aliens.length-1] = null;
     }
 
-    public void fire(AnchorPane anchor, ImageView spaceship){
+    void fire(AnchorPane anchor, ImageView spaceship){
         Circle bullet = new Circle(5.05);
         bullet.setStroke(Color.BLACK);
         bullet.setStrokeWidth(0.0);
@@ -99,7 +126,7 @@ public class LevelController extends Main {
         tt.play();
     }
 
-    public double goDirection( double x, String direction ){
+    double goDirection(double x, String direction){
         if( direction.equals("RIGHT")){
             if (x < 480){
                 x = x + 6;
