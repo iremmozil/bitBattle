@@ -62,7 +62,7 @@ public class LevelTwoController extends LevelController{
     @FXML Label levelend;
     @FXML Label gameOver;
     @FXML Button homeButton;
-    
+
     private boolean isFinished = false;
 
 
@@ -100,7 +100,7 @@ public class LevelTwoController extends LevelController{
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                game(anchorTwo, spaceship, healthCount, gameOver, homeButton, scoreLabel, levelend);
+                isFinished = game(anchorTwo, spaceship, healthCount, gameOver, homeButton, scoreLabel, levelend);
             }
         }.start();
     }
