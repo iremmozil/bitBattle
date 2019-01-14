@@ -1,13 +1,24 @@
 package edu.metu.ceng453.bitBattle;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.animation.PathTransition;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+
+import java.io.IOException;
+import java.util.Random;
 
 import java.util.ArrayList;
 
@@ -23,7 +34,9 @@ public class LevelController extends Main {
     private int spaceShipMoveSize = 6;
     private double bulletRadious = 5.05;
 
-    private Boolean isShot = false;
+    private boolean isShot = false;
+    private boolean dbUpdate = false;
+    private boolean isSpaceshipDown = false;
 
     ArrayList<Alien> aliens = new ArrayList<Alien>();
     ArrayList<Node> nodeAliens = new ArrayList<Node>();
@@ -83,10 +96,25 @@ public class LevelController extends Main {
         for (Alien alien: aliens){
             if (anchor.getChildren().contains(alien)){
                 isShot = alien.isShotDown(anchor,o);
+                if (isShot){
+                    aliens.remove(alien);
+                    break;
+                }
             }
         }
         return isShot;
     }
+
+    public boolean isLevelFinished(AnchorPane anchor){
+        isFinished = true;
+        for (Alien alien: aliens){
+            if (anchor.getChildren().contains(alien)){
+                isFinished = false;
+            }
+        }
+        return isFinished;
+    }
+
 
     //remove alien from anchorPane
     private void removeAlien(AnchorPane anchor, Node o, Node alien){
@@ -126,7 +154,75 @@ public class LevelController extends Main {
         return x;
     }
 
+    void alienRandomize(AnchorPane anchor){
+        Random rand = new Random();
+        int n = rand.nextInt(aliens.size()) + 0;
+        aliens.get(n).fire(anchor);
+    }
 
 
+    boolean isSpaceshipDown(AnchorPane anchorOne, ImageView spaceship, Label healthCount) {
+        isSpaceshipDown =false;
+        boolean collisionDetected = false;
+
+        for (Node bullet : anchorOne.getChildren()) {
+            if(bullet != spaceship) {
+                if (spaceship.getBoundsInParent().intersects(bullet.getBoundsInParent())) {
+                    collisionDetected = true;
+                    anchorOne.getChildren().remove(bullet);
+                    break;
+                }
+            }
+        }
+
+        if (collisionDetected){
+            collisionDetected = false;
+            if (getHealth() > 0){
+                setHealth(getHealth() -1);
+                healthCount.setText(Integer.toString(getHealth()));
+            }
+            else{
+                isSpaceshipDown = true;
+                CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+                try {
+                    if (!dbUpdate) {
+                        Main.getCurrentGame().setScore(getScore());
+                        if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<getScore())
+                            Main.getCurrentPlayer().setHighScore(getScore());
+                        HttpPost gameRequest = new HttpPost("http://localhost:8080/leaderboard");
+
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                        String jsonInString = gson.toJson(Main.getCurrentGame());
+                        StringEntity params = new StringEntity(jsonInString);
+                        gameRequest.addHeader("content-type", "application/json");
+                        System.out.println(params);
+
+
+                        gameRequest.setEntity(params);
+                        httpClient.execute(gameRequest);
+                        System.out.println("POST Request Handling");
+
+                        HttpPut playerRequest = new HttpPut("http://localhost:8080/player/" + Main.getCurrentPlayer().getId());
+
+                        params = new StringEntity(Main.getCurrentPlayer().getHighScore().toString());
+                        playerRequest.addHeader("content-type", "application/json");
+                        playerRequest.setEntity(params);
+                        httpClient.execute(playerRequest);
+                        dbUpdate = true;
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                } finally {
+                    try {
+                        httpClient.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return isSpaceshipDown;
+    }
 
 }
