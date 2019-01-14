@@ -15,6 +15,7 @@ public abstract class Alien {
     protected double alienBulletRadious = 5.05;
     protected double alienHalfWidth = 22.0;
     protected double alienHeight = 40.0;
+    boolean isShot = false;
 
     public void fire(AnchorPane anchor){
         Circle b = new Circle(alienBulletRadious);
@@ -30,13 +31,16 @@ public abstract class Alien {
         tt.play();
     }
 
-    public void alienShotDown(AnchorPane anchor, Node bullet) {
+    boolean isShotDown(AnchorPane anchor, Node bullet) {
+        isShot = false;
         if (bullet.getBoundsInParent().intersects(this.node.getBoundsInParent())) {
             this.setHealth(this.getHealth()-1);
+            isShot = true;
         }
         if (this.getHealth() == 0){
-            anchor.getChildren().removeAll(this.node);
+            anchor.getChildren().remove(this.node);
         }
+        return isShot;
     }
 
     public int getHealth() {

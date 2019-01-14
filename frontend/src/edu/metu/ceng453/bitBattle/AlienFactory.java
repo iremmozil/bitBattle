@@ -4,7 +4,7 @@ import javafx.scene.Node;
 
 public class AlienFactory {
 
-    public Alien getAlien(String type, Node n){
+    public Alien createAlien(String type, Node n){
         if(type == null){
             return null;
         }
