@@ -1,17 +1,52 @@
 package edu.metu.ceng453.bitBattle;
 
+import javafx.animation.PathTransition;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.util.Duration;
 
-public interface Alien {
+public abstract class Alien {
 
-    int health = 0;
-    public double alienBulletRadious = 5.05;
+    protected int health = 0;
+    protected Node node;
+    protected double alienBulletRadious = 5.05;
+    protected double alienHalfWidth = 22.0;
+    protected double alienHeight = 40.0;
 
-    public void fire();
-    public void move();
-    public void alienShotDown(AnchorPane anchor, Node bullet);
+    public void fire(AnchorPane anchor){
+        Circle b = new Circle(alienBulletRadious);
+        b.setStroke(Color.BLACK);
+        b.setStrokeWidth(0.0);
+        b.setFill(Color.valueOf("99daff"));
+        b.setCenterX(this.node.getLayoutX() + alienHalfWidth + this.node.getTranslateX());
+        b.setCenterY(this.node.getLayoutY() + alienHeight + this.node.getTranslateY());
+        anchor.getChildren().add(b);
+        double x = b.getCenterX();
+        double y = b.getCenterY();
+        PathTransition tt = new PathTransition(Duration.seconds(3), new Line(x,y, x ,650),b);
+        tt.play();
+    }
+
+    public void alienShotDown(AnchorPane anchor, Node bullet) {
+        if (bullet.getBoundsInParent().intersects(this.node.getBoundsInParent())) {
+            this.setHealth(this.getHealth()-1);
+        }
+        if (this.getHealth() == 0){
+            anchor.getChildren().removeAll(this.node);
+        }
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    abstract void move();
 }
 
