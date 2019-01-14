@@ -97,6 +97,9 @@ public class levelThreeController extends LevelController {
             @Override
             public void handle(long now) {
                 isFinished = game(anchorThree, spaceship, healthCount, gameOver, homeButton, scoreLabel, endLevel);
+                if(isFinished){
+                    homeButton.setVisible(true);
+                }
             }
         }.start();
     }
