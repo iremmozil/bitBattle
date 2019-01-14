@@ -68,7 +68,6 @@ public class LevelController extends Main {
         for (Node node: anchor.getChildren()){
             String tag = node.getId();
             if (tag.equals("triangle") || tag.equals("circle") || tag.equals("parallelogram")){
-                nodeAliens.add(node);
                 aliens.add(alienFactory.createAlien(tag,node));
             }
         }
@@ -94,24 +93,18 @@ public class LevelController extends Main {
     boolean isAlienShot(Node o, ArrayList<Alien> aliens, AnchorPane anchor) {
         isShot =  false;
         for (Alien alien: aliens){
-            if (anchor.getChildren().contains(alien)){
-                isShot = alien.isShotDown(anchor,o);
-                if (isShot){
-                    aliens.remove(alien);
-                    break;
-                }
+            isShot = alien.isShotDown(anchor,o);
+            if (isShot){
+                aliens.remove(alien);
+                break;
             }
         }
         return isShot;
     }
 
-    public boolean isLevelFinished(AnchorPane anchor){
-        isFinished = true;
-        for (Alien alien: aliens){
-            if (anchor.getChildren().contains(alien)){
-                isFinished = false;
-            }
-        }
+    boolean isLevelFinished(AnchorPane anchor){
+        isFinished = false;
+        isFinished = aliens.size() <= 0;
         return isFinished;
     }
 
@@ -177,7 +170,7 @@ public class LevelController extends Main {
 
         if (collisionDetected){
             collisionDetected = false;
-            if (getHealth() > 0){
+            if (getHealth() > 1){
                 setHealth(getHealth() -1);
                 healthCount.setText(Integer.toString(getHealth()));
             }
@@ -195,12 +188,12 @@ public class LevelController extends Main {
                         String jsonInString = gson.toJson(Main.getCurrentGame());
                         StringEntity params = new StringEntity(jsonInString);
                         gameRequest.addHeader("content-type", "application/json");
-                        System.out.println(params);
+                        //System.out.println(params);
 
 
                         gameRequest.setEntity(params);
                         httpClient.execute(gameRequest);
-                        System.out.println("POST Request Handling");
+                        //System.out.println("POST Request Handling");
 
                         HttpPut playerRequest = new HttpPut("http://localhost:8080/player/" + Main.getCurrentPlayer().getId());
 
