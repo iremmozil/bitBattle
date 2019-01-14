@@ -10,38 +10,12 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class TriangleAlien implements Alien {
-    //variables
-    private int health = 1;//TRIANGLE_ALIEN_HEALTH;
-    private Node node;
-
-    //getters and setters
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
+public class TriangleAlien extends Alien {
 
     //constructor
     public TriangleAlien(Node n) {
         this.node = n;
-    }
-
-    @Override
-    public void fire() {
-        Circle b = new Circle(alienBulletRadious);
-        b.setStroke(Color.BLACK);
-        b.setStrokeWidth(0.0);
-        b.setFill(Color.valueOf("99daff"));
-
-        double x = b.getCenterX();
-        double y = b.getCenterY();
-        PathTransition tt = new PathTransition(Duration.seconds(3), new Line(x,y, x ,650),b);
-        tt.play();
-
+        this.health = 1;
     }
 
     @Override
@@ -53,14 +27,4 @@ public class TriangleAlien implements Alien {
 
     }
 
-    @Override
-    public void alienShotDown(AnchorPane anchor, Node bullet) {
-        if (bullet.getBoundsInParent().intersects(this.node.getBoundsInParent())) {
-            this.setHealth(getHealth()-1);
-        }
-
-        if (getHealth() == 0){
-            anchor.getChildren().removeAll(this.node);
-        }
-    }
 }
