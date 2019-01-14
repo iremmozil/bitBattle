@@ -62,9 +62,7 @@ public class LevelTwoController extends LevelController{
     @FXML Label levelend;
     @FXML Label gameOver;
     @FXML Button homeButton;
-
-    private int Counter = 0;
-
+    
     private boolean isFinished = false;
 
 

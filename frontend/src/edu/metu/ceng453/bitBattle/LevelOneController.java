@@ -60,7 +60,6 @@ public class LevelOneController extends LevelController {
     @FXML
     Button homeButton;
 
-    private int Counter = 0;
     private Boolean isFinished = false;
 
     public void initialize() {

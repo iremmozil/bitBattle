@@ -68,7 +68,6 @@ public class levelThreeController extends LevelController {
     @FXML Button homeButton;
 
     //private int score = Main.getCurrentGame().getScore();
-    private int Counter = 0;
     private boolean isFinished = false;
 
 
