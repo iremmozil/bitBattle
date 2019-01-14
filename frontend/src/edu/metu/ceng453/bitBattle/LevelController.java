@@ -3,13 +3,20 @@ package edu.metu.ceng453.bitBattle;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.animation.PathTransition;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -29,6 +36,8 @@ public class LevelController extends Main {
     private Boolean isFinished = false;
     private int score = Main.fromMaingetScore();
     private int health = 3;
+    private int Counter = 0;
+
     private int windowLeftEdge = -20;
     private int windowRightEdge = 480;
     private int spaceShipMoveSize = 6;
@@ -37,6 +46,7 @@ public class LevelController extends Main {
     private boolean isShot = false;
     private boolean dbUpdate = false;
     private boolean isSpaceshipDown = false;
+    private boolean finished = false;
 
     ArrayList<Alien> aliens = new ArrayList<Alien>();
     ArrayList<Node> nodeAliens = new ArrayList<Node>();
@@ -110,6 +120,27 @@ public class LevelController extends Main {
         isFinished = false;
         isFinished = aliens.size() <= 0;
         return isFinished;
+    }
+
+    boolean game(AnchorPane anchor, ImageView spaceship, Label healthCount, Label gameOver, Button homeButton, Label scoreLabel, Label endLevel){
+        Counter++;
+        if (Counter % 1000 == 0){
+            alienRandomize(anchor);
+        }
+        if (isSpaceshipDown(anchor, spaceship, healthCount)){
+            gameOver.setVisible(true);
+            homeButton.setVisible(true);
+        }
+
+        alienShot(anchor);
+
+        scoreLabel.setText(Integer.toString(getScore()));
+        if (isLevelFinished(anchor)){
+            finished = true;
+            endLevel.setVisible(true);
+            setScore(getScore());
+        }
+        return finished;
     }
 
 
@@ -225,4 +256,20 @@ public class LevelController extends Main {
         return isSpaceshipDown;
     }
 
+    void goNextLevel(KeyEvent event, Parent next) throws IOException{
+        Scene sceneNext = new Scene(next);
+        sceneNext.getRoot().requestFocus();
+        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
+        window.setScene(sceneNext);
+        window.show();
+    }
+
+    void goHomePage(ActionEvent event) throws IOException {
+        Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
+        Scene sceneHome = new Scene(home);
+        sceneHome.getRoot().requestFocus();
+        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
+        window.setScene(sceneHome);
+        window.show();
+    }
 }
