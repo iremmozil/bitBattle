@@ -112,12 +112,12 @@
             <Color blue="0.051" green="0.380" red="1.000" fx:id="x2" />
           </fill>
         </Rectangle>
-        <Label layoutX="35.0" layoutY="50.0" text="Health" textFill="WHITE">
+        <Label id="health" layoutX="35.0" layoutY="50.0" text="Health" textFill="WHITE">
           <font>
             <Font name="System Bold" size="15.0" fx:id="x1" />
           </font>
         </Label>
-        <Label font="$x1" layoutX="376.0" layoutY="50.0" text="Score" textFill="$x2" />
+        <Label id="score" font="$x1" layoutX="376.0" layoutY="50.0" text="Score" textFill="$x2" />
         <Label fx:id="scoreLabel" font="$x1" layoutX="447.0" layoutY="50.0" text="0">
           <textFill>
             <Color blue="0.000" green="0.000" red="0.600" fx:id="x3" />

@@ -105,13 +105,13 @@
             <Color blue="0.050" green="0.380" red="1.000" fx:id="x2" />
           </fill>
         </Rectangle>
-        <Label layoutX="40.0" layoutY="51.0" text="Health" textFill="WHITE">
+        <Label id="health" layoutX="40.0" layoutY="51.0" text="Health" textFill="WHITE">
           <font>
             <Font name="System Bold" size="15.0" fx:id="x1" />
           </font>
         </Label>
         <Label id="" fx:id="healthCount" font="$x1" layoutX="109.0" layoutY="51.0" text="3" textFill="$x3" />
-        <Label font="$x1" layoutX="376.0" layoutY="55.0" text="Score" textFill="$x2" />
+        <Label id="score" font="$x1" layoutX="376.0" layoutY="55.0" text="Score" textFill="$x2" />
         <Label fx:id="scoreLabel" font="$x1" layoutX="434.0" layoutY="55.0" text="0" textFill="$x3" />
         <Button fx:id="homeButton" font="$x4" layoutX="142.0" layoutY="364.0" mnemonicParsing="false" onAction="#homeButtonPushed" style="-fx-background-color:#990000;" text="Go to Home" textFill="WHITE" />
       </children>

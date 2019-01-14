@@ -77,13 +77,13 @@
           </image>
         </ImageView>
         <Rectangle id= "rectangle" arcHeight="5.0" arcWidth="5.0" fill="#ff620d" height="29.0" layoutX="15.0" layoutY="33.0" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="69.9996337890625" />
-        <Label layoutX="375.0" layoutY="39.0" prefWidth="49.9998779296875" text="Score" textAlignment="RIGHT" textFill="#ff6101">
+        <Label id="score" layoutX="375.0" layoutY="39.0" prefWidth="49.9998779296875" text="Score" textAlignment="RIGHT" textFill="#ff6101">
           <font>
             <Font name="System Bold" size="15.0" fx:id="x1" />
           </font>
         </Label>
         <Label fx:id="scoreLabel" font="$x1" layoutX="428.0" layoutY="39.0" text="100" textFill="#660000" />
-        <Label font="$x1" layoutX="22.0" layoutY="39.0" text="Health" textFill="WHITE" />
+        <Label id="health" font="$x1" layoutX="22.0" layoutY="39.0" text="Health" textFill="WHITE" />
         <Label fx:id="healthCount" font="$x1" layoutX="97.0" layoutY="39.0" text="3" textFill="#990000" />
         <Label fx:id="endLevel" layoutX="45.0" layoutY="243.0" text="Level 1 is over!&#10; Please press &quot;n&quot; for next level!" textAlignment="CENTER" textFill="#992500">
           <font>
