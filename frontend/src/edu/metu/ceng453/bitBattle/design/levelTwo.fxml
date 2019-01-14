@@ -75,7 +75,7 @@
           </image>
         </ImageView>
         <Label fx:id="levelend" font="$x4" layoutX="46.0" layoutY="215.0" text="Level 2 is over!&#10;Please press &quot;n&quot; for next level!" textAlignment="CENTER" textFill="$x3" />
-        <ImageView id="alienTriangle" fx:id="alien6" fitHeight="39.99988555908203" fitWidth="44.0001220703125" layoutX="291.0" layoutY="141.0" pickOnBounds="true">
+        <ImageView id="triangle" fx:id="alien6" fitHeight="39.99988555908203" fitWidth="44.0001220703125" layoutX="291.0" layoutY="141.0" pickOnBounds="true">
           <image>
             <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
