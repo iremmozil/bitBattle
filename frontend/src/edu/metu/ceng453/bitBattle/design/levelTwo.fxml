@@ -100,7 +100,7 @@
             <Image url="@../alienTriangle.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" height="27.0" layoutX="33.0" layoutY="46.0" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="CENTERED" strokeWidth="0.0" width="70.0">
+        <Rectangle id="ractangle"  arcHeight="5.0" arcWidth="5.0" height="27.0" layoutX="33.0" layoutY="46.0" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="CENTERED" strokeWidth="0.0" width="70.0">
           <fill>
             <Color blue="0.050" green="0.380" red="1.000" fx:id="x2" />
           </fill>
