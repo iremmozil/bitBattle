@@ -78,12 +78,13 @@ public class LevelTwoController extends LevelController{
 
 
     public void initialize() {
-        levelThreeController.aliensToArray(aliens, alien1, alien2, alien3, alien4, alien5, alien6, alien7, alien8, alien9, alien10, circleAlien1, circleAlien2, circleAlien3, circleAlien4);
+        levelThreeController.aliensToArray(aliens, alien1, alien2, alien3, alien4, alien5, alien6, alien7, alien8, alien9, alien10, circleAlien4, circleAlien1, circleAlien2, circleAlien3);
         length = aliens.length;
         levelend.setVisible(false);
         gameOver.setVisible(false);
         homeButton.setVisible(false);
         isFinished = false;
+        initializeCircles(11, 12, 13, 14);
 
         animatealiens2();
         gridTwo.setOnKeyPressed((KeyEvent event)-> {
