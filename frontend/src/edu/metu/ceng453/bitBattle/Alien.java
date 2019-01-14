@@ -19,7 +19,6 @@ public abstract class Alien {
 
     public void fire(AnchorPane anchor){
         Circle b = new Circle(alienBulletRadious);
-        b.setStroke(Color.BLACK);
         b.setStrokeWidth(0.0);
         b.setFill(Color.valueOf("99daff"));
         b.setCenterX(this.node.getLayoutX() + alienHalfWidth + this.node.getTranslateX());
