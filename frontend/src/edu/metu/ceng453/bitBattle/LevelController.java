@@ -53,7 +53,7 @@ public class LevelController extends Main {
         for (int i = 0; i < aliens.length; i++) {
             if (anchor.getChildren().contains(aliens[i])) {
                 if (o.getBoundsInParent().intersects(aliens[i].getBoundsInParent())) {
-                    if (aliens[i].getId().equals("triangle") ){
+                    if (aliens[i].getId().equals("edu.metu.ceng453.bitBattle.triangle") ){
                         removeAlien(anchor, o, aliens[i]);
                         //removeAlienFromArray(aliens, i);
                         setScore(getScore() + 5);
