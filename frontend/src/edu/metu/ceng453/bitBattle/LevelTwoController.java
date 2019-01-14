@@ -65,19 +65,17 @@ public class LevelTwoController extends LevelController{
 
     private int Counter = 0;
 
-    private boolean isFinished;
-
-    int length;
+    private boolean isFinished = false;
 
 
     public void initialize() {
+
         aliensToArray(anchorTwo);
 
         levelend.setVisible(false);
         gameOver.setVisible(false);
         homeButton.setVisible(false);
         isFinished = false;
-
 
         animateAliens();
         gridTwo.setOnKeyPressed((KeyEvent event)-> {
@@ -116,6 +114,7 @@ public class LevelTwoController extends LevelController{
 
                 scoreLabel.setText(Integer.toString(getScore()));
                 if (isLevelFinished(anchorTwo)){
+                    isFinished = true;
                     levelend.setVisible(true);
                     setScore(getScore());
                 }
