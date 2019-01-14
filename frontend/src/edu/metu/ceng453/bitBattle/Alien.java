@@ -34,6 +34,7 @@ public abstract class Alien {
         isShot = false;
         if (bullet.getBoundsInParent().intersects(this.node.getBoundsInParent())) {
             this.setHealth(this.getHealth()-1);
+            anchor.getChildren().remove(bullet);
             isShot = true;
         }
         if (this.getHealth() == 0){
