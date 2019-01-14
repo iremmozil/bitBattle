@@ -44,10 +44,10 @@ public abstract class Alien {
     }
 
     public int getHealth() {
-        return health;
+        return this.health;
     }
 
-    public void setHealth(int health) {
+    private void setHealth(int health) {
         this.health = health;
     }
 
