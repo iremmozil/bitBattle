@@ -13,7 +13,7 @@ public interface AlienInterface {
 
     public void fire(AnchorPane anchor);
 
-    public void alienShotDown(AnchorPane anchor, Node bullet);
+    public void isShotDown(AnchorPane anchor, Node bullet);
 
     public int getHealth();
 
