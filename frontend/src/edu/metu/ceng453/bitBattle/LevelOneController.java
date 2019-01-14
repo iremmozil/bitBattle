@@ -63,9 +63,6 @@ public class LevelOneController extends LevelController {
     private int Counter = 0;
     private Boolean isFinished = false;
 
-    private boolean isAlienDown = false;
-
-
     public void initialize() {
 
         aliensToArray(anchorOne);
@@ -116,6 +113,7 @@ public class LevelOneController extends LevelController {
 
                 scoreLabel.setText(Integer.toString(getScore()));
                 if (isLevelFinished(anchorOne)){
+                    isFinished = true;
                     endLevel.setVisible(true);
                     setScore(getScore());
                 }
