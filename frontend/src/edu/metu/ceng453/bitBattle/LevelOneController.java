@@ -99,48 +99,18 @@ public class LevelOneController extends LevelController {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-
-                Counter++;
-                if (Counter % 1000 == 0){
-                    alienRandomize(anchorOne);
-                }
-                if (isSpaceshipDown(anchorOne, spaceship, healthCount)){
-                    gameOver.setVisible(true);
-                    homeButton.setVisible(true);
-                }
-
-                alienShot(anchorOne);
-
-                scoreLabel.setText(Integer.toString(getScore()));
-                if (isLevelFinished(anchorOne)){
-                    isFinished = true;
-                    endLevel.setVisible(true);
-                    setScore(getScore());
-                }
+                isFinished = game(anchorOne, spaceship, healthCount, gameOver, homeButton, scoreLabel, endLevel);
             }
         }.start();
     }
 
-
-
     public void secondLevel(KeyEvent event) throws IOException {
         Parent levelTwo = FXMLLoader.load(getClass().getResource("design/levelTwo.fxml"));
-        Scene scenetwo = new Scene(levelTwo);
-        scenetwo.getRoot().requestFocus();
-        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
-        window.setScene(scenetwo);
-        window.show();
+        goNextLevel(event, levelTwo);
     }
 
     public void homeButtonPushed(ActionEvent event) throws IOException{
-        Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
-        Scene sceneHome = new Scene(home);
-        sceneHome.getRoot().requestFocus();
-        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
-        window.setScene(sceneHome);
-        window.show();
-
-
+        goHomePage(event);
     }
 
 }

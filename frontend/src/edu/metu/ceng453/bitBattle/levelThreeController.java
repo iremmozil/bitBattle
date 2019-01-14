@@ -69,6 +69,7 @@ public class levelThreeController extends LevelController {
 
     //private int score = Main.getCurrentGame().getScore();
     private int Counter = 0;
+    private boolean isFinished = false;
 
 
 
@@ -96,35 +97,13 @@ public class levelThreeController extends LevelController {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                Counter++;
-                if (Counter % 1000 == 0){
-                    alienRandomize(anchorThree);
-                }
-                if (isSpaceshipDown(anchorThree, spaceship, healthCount)){
-                    gameOver.setVisible(true);
-                    homeButton.setVisible(true);
-                }
-
-                alienShot(anchorThree);
-
-                scoreLabel.setText(Integer.toString(getScore()));
-                if (isLevelFinished(anchorThree)){
-                    endLevel.setVisible(true);
-                    setScore(getScore());
-                }
+                isFinished = game(anchorThree, spaceship, healthCount, gameOver, homeButton, scoreLabel, endLevel);
             }
         }.start();
     }
 
-
     public void homeButtonPushed(ActionEvent event) throws IOException{
-        Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
-        Scene sceneHome = new Scene(home);
-        sceneHome.getRoot().requestFocus();
-        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
-        window.setScene(sceneHome);
-        window.show();
-
+        goHomePage(event);
 
     }
 
