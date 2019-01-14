@@ -1,10 +1,6 @@
 package edu.metu.ceng453.bitBattle;
 
-public class ParallelogramAlien implements Alien {
-    @Override
-    public void alienShooting() {
-
-    }
+public class ParallelogramAlien extends Alien {
 
     @Override
     public void move() {
