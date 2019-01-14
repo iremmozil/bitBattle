@@ -71,6 +71,7 @@ public class LevelController extends Main {
                 aliens.add(alienFactory.createAlien(tag,node));
             }
         }
+        System.out.println(aliens.size());
     }
 
     void animateAliens(){
@@ -93,11 +94,14 @@ public class LevelController extends Main {
     boolean isAlienShot(Node o, ArrayList<Alien> aliens, AnchorPane anchor) {
         isShot =  false;
         for (Alien alien: aliens){
-            isShot = alien.isShotDown(anchor,o);
-            if (isShot){
-                aliens.remove(alien);
+            if (alien.isShotDown(anchor,o)){
+                isShot = true;
+                if (alien.getHealth() == 0){
+                    aliens.remove(alien);
+                }
                 break;
             }
+
         }
         return isShot;
     }
@@ -149,8 +153,11 @@ public class LevelController extends Main {
 
     void alienRandomize(AnchorPane anchor){
         Random rand = new Random();
-        int n = rand.nextInt(aliens.size()) + 0;
-        aliens.get(n).fire(anchor);
+        if (aliens.size() > 0){
+            int n = rand.nextInt(aliens.size()) + 0;
+            aliens.get(n).fire(anchor);
+        }
+
     }
 
 
@@ -170,7 +177,7 @@ public class LevelController extends Main {
 
         if (collisionDetected){
             collisionDetected = false;
-            if (getHealth() > 1){
+            if (getHealth() > 0){
                 setHealth(getHealth() -1);
                 healthCount.setText(Integer.toString(getHealth()));
             }
