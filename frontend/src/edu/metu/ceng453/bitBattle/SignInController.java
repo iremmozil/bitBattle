@@ -42,13 +42,11 @@ public class SignInController extends Main{
         String playername = pNameSignInText.getText();
         String enteredPassword = pPasswordSignInText.getText();
 
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-
-        try {
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
 
             System.out.println("GET Request Handling");
 
-            HttpGet request = new HttpGet("http://localhost:8080/player/" + playername);
+            HttpGet request = new HttpGet(protocol + host + port + playerPath + playername);
             request.addHeader("content-type", "application/json");
             HttpResponse response = httpClient.execute(request);
 
@@ -57,7 +55,7 @@ public class SignInController extends Main{
 
             JSONObject player = new JSONObject(responseString);
 
-            if(player.getString("password").equals(enteredPassword)) {
+            if (player.getString("password").equals(enteredPassword)) {
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
                 Player currentPlayer = gson.fromJson(String.valueOf(player), Player.class);
 
@@ -65,8 +63,7 @@ public class SignInController extends Main{
                 Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
                 setScene(event, home);
 
-            }
-            else {
+            } else {
                 errorMesSignIn.setText("Invalid password!");
             }
 
@@ -74,8 +71,6 @@ public class SignInController extends Main{
             errorMesSignIn.setText("Invalid player name or password!");
             System.out.println(ex);
 
-        } finally {
-            httpClient.close();
         }
     }
 

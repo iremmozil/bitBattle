@@ -19,18 +19,26 @@ public abstract class Alien {
     private double alienHalfWidth = 22.0;
     private double alienHeight = 40.0;
     private boolean isShot = false;
+    private int rectangleWidth = 20;
+    private int rectangleHeight = 15;
+    private String blue = "99daff";
+    private int belowOfwindow = 650;
 
     // this alien shoots
     public void fire(AnchorPane anchor){
         Circle b = new Circle(alienBulletRadious);
         b.setStrokeWidth(0.0);
-        b.setFill(Color.valueOf("99daff"));         //color blue
+        b.setFill(Color.valueOf(blue));
         b.setCenterX(this.node.getLayoutX() + alienHalfWidth + this.node.getTranslateX());
         b.setCenterY(this.node.getLayoutY() + alienHeight + this.node.getTranslateY());
+        sendBullet(anchor, b, belowOfwindow);
+    }
+
+    public static void sendBullet(AnchorPane anchor, Circle b, int belowOfwindow) {
         anchor.getChildren().add(b);
         double x = b.getCenterX();
         double y = b.getCenterY();
-        PathTransition tt = new PathTransition(Duration.seconds(3), new Line(x,y, x ,650),b);
+        PathTransition tt = new PathTransition(Duration.seconds(3), new Line(x,y, x , belowOfwindow),b);
         tt.play();
     }
 
@@ -70,7 +78,7 @@ public abstract class Alien {
     //Aliens animate function
     public void move() {
         PathTransition tt = new PathTransition(Duration.seconds(5), new Line(),this.node);
-        tt.setPath(new Rectangle(20,15));
+        tt.setPath(new Rectangle(rectangleWidth,rectangleHeight));
         tt.setCycleCount( Timeline.INDEFINITE );
         tt.play();
 

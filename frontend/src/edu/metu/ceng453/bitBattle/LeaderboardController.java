@@ -24,44 +24,37 @@ public class LeaderboardController extends Main{
 
     // Bind variables to related FXML entities
     @FXML
-    private ListView allTimeList;
+    private ListView<String> allTimeList;
 
     @FXML
-    private ListView Last7DaysList;
+    private ListView<String> Last7DaysList;
 
     // Leaderboard initializer for allTimeList and LAst7DaysList
+    private CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+    private ObservableList<String> obsListAllTime = FXCollections.observableArrayList();
+    private ObservableList<String> obsListSevenDays = FXCollections.observableArrayList();
+
     public void initialize() throws IOException {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
         try {
-
             System.out.println("GET Request Handling");
+            HttpGet request = new HttpGet(protocol + host + port + leaderboardPath);
+            String allTimeListItem = "allTimeListItem";
+            addToTable(request,allTimeListItem);
+            allTimeList.setItems(obsListAllTime);
 
-            HttpGet request = new HttpGet("http://localhost:8080/leaderboard");
-            request.addHeader("content-type", "application/json");
-            HttpResponse response = httpClient.execute(request);
-            String responseString = EntityUtils.toString(response.getEntity(), "UTF-8");
-
-            JSONArray jsonGames = new JSONArray(responseString);
-
-            ObservableList<String> obsList = FXCollections.observableArrayList();
-            String allTimeListItem;
-            for (int i=0; i<jsonGames.length(); i++) {
-                JSONObject game = jsonGames.getJSONObject(i);
-
-                HttpGet playerReq = new HttpGet("http://localhost:8080/player/id/" + game.getInt("playerId"));
-                request.addHeader("content-type", "application/json");
-                HttpResponse playerResponse = httpClient.execute(playerReq);
-
-                HttpEntity entity = playerResponse.getEntity();
-                responseString = EntityUtils.toString(entity, "UTF-8");
-
-                allTimeListItem = String.format("%d      %s      %s      %s", i+1, responseString, game.get("score"), String.valueOf(game.get("gameTime")).substring(0,10));
-                System.out.println(allTimeListItem);
-                obsList.add(allTimeListItem);
-
-            }
-            allTimeList.setItems(obsList);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } finally {
+            httpClient.close();
+        }
+        httpClient = HttpClientBuilder.create().build();
+        try {
+            System.out.println("GET Request Handling");
+            HttpGet request = new HttpGet(protocol + host + port + leaderboardPath+ "last_week");
+            String Last7DaysListItem = "Last7DaysListItem";
+            addToTable(request, Last7DaysListItem);
+            Last7DaysList.setItems(obsListSevenDays);
 
         } catch (Exception ex) {
 
@@ -70,45 +63,32 @@ public class LeaderboardController extends Main{
         } finally {
             httpClient.close();
         }
+    }
 
-        httpClient = HttpClientBuilder.create().build();
 
-        try {
+    private void addToTable(HttpGet request, String ListItem) throws IOException{
+        request.addHeader("content-type", "application/json");
+        HttpResponse response = httpClient.execute(request);
+        String responseString = EntityUtils.toString(response.getEntity(), "UTF-8");
+        JSONArray jsonGames = new JSONArray(responseString);
+        for (int i=0; i<jsonGames.length(); i++) {
+            JSONObject game = jsonGames.getJSONObject(i);
 
-            System.out.println("GET Request Handling");
-
-            HttpGet request = new HttpGet("http://localhost:8080/leaderboard/last_week");
+            HttpGet playerReq = new HttpGet(protocol + host + port + playerPath+ "id/" + game.getInt("playerId"));
             request.addHeader("content-type", "application/json");
-            HttpResponse response = httpClient.execute(request);
-            String responseString = EntityUtils.toString(response.getEntity(), "UTF-8");
+            HttpResponse playerResponse = httpClient.execute(playerReq);
 
-            JSONArray jsonGames = new JSONArray(responseString);
-
-            ObservableList<String> obsList = FXCollections.observableArrayList();
-            String Last7DaysListItem;
-            for (int i=0; i<jsonGames.length(); i++) {
-                JSONObject game = jsonGames.getJSONObject(i);
-
-                HttpGet playerReq = new HttpGet("http://localhost:8080/player/id/" + game.getInt("playerId"));
-                request.addHeader("content-type", "application/json");
-                HttpResponse playerResponse = httpClient.execute(playerReq);
-
-                HttpEntity entity = playerResponse.getEntity();
-                responseString = EntityUtils.toString(entity, "UTF-8");
-
-                Last7DaysListItem = String.format("%d      %s      %s      %s", i+1, responseString, game.get("score"), String.valueOf(game.get("gameTime")).substring(0,10));
-                System.out.println(Last7DaysListItem);
-                obsList.add(Last7DaysListItem);
-
+            HttpEntity entity = playerResponse.getEntity();
+            responseString = EntityUtils.toString(entity, "UTF-8");
+            String item;
+            item = String.format("%2d %12s %5s %12s", i+1, responseString, game.get("score"), String.valueOf(game.get("gameTime")).substring(0,10));
+            System.out.println(item);
+            if (ListItem.equals("allTimeListItem")){
+                obsListAllTime.add(item);
             }
-            Last7DaysList.setItems(obsList);
-
-        } catch (Exception ex) {
-
-            System.out.println(ex);
-
-        } finally {
-            httpClient.close();
+            else if (ListItem.equals("Last7DaysListItem")){
+                obsListSevenDays.add(item);
+            }
         }
     }
 

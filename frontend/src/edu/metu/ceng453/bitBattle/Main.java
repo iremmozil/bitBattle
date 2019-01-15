@@ -33,11 +33,11 @@ class Player {
     }
 
 
-    public Integer getHighScore() {
+    Integer getHighScore() {
         return highScore;
     }
 
-    public void setHighScore(Integer highScore) {
+    void setHighScore(Integer highScore) {
         this.highScore = highScore;
     }
 }
@@ -83,20 +83,27 @@ public class Main extends Application {
     private static Player player;
     private static Leaderboard game;
     private static int score = 0;
+    String protocol = "http://";
+    String host = "localhost:";
+    String  port = "8080/";
+    String playerPath = "player/";    // "http://localhost:8080/player/"
+    String leaderboardPath = "leaderboard/";
+
+
     public static int fromMaingetScore(){return score;};
-    public static Player getCurrentPlayer() {
+    static Player getCurrentPlayer() {
         return Main.player;
     }
 
-    public static void setCurrentPlayer(Player newPlayer) {
+    static void setCurrentPlayer(Player newPlayer) {
         Main.player = newPlayer;
     }
 
-    public static Leaderboard getCurrentGame() {
+    static Leaderboard getCurrentGame() {
         return Main.game;
     }
 
-    public static void setCurrentGame(Leaderboard newGame) {
+    static void setCurrentGame(Leaderboard newGame) {
         Main.game = newGame;
     }
 
@@ -111,7 +118,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void setScene(ActionEvent event, Parent next){
+    void setScene(ActionEvent event, Parent next){
         Scene scene = new Scene(next);
         scene.getRoot().requestFocus();
         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());

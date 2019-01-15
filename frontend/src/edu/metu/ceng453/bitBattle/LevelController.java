@@ -43,11 +43,16 @@ public class LevelController extends Main {
     private int windowRightEdge = 480;
     private int spaceShipMoveSize = 6;
     private double bulletRadious = 5.05;
+    private double bulletX = 35.0;
+    private double  bulletY= 7.0;
+    private String blue = "997aff";
+    private int aboveOfWindow = -10;
 
     private boolean isShot = false;
     private boolean dbUpdate = false;
     private boolean isSpaceshipDown = false;
     private boolean finished = false;
+
 
     ArrayList<Alien> aliens = new ArrayList<Alien>();
 
@@ -157,16 +162,11 @@ public class LevelController extends Main {
         Circle bullet = new Circle(bulletRadious);
         bullet.setStroke(Color.BLACK);
         bullet.setStrokeWidth(0.0);
-        bullet.setFill(Color.valueOf("997aff"));
-        bullet.setCenterX(spaceship.getLayoutX() + 35.0);
-        bullet.setCenterY(spaceship.getLayoutY() - 7.0);
+        bullet.setFill(Color.valueOf(blue));
+        bullet.setCenterX(spaceship.getLayoutX() + bulletX);
+        bullet.setCenterY(spaceship.getLayoutY() - bulletY);
         bullet.setId("bullet");
-        anchor.getChildren().add(bullet);
-        double x = bullet.getCenterX();
-        double y = bullet.getCenterY();
-        PathTransition tt =
-                new PathTransition(Duration.seconds(3), new Line(x,y, x ,-10),bullet);
-        tt.play();
+        Alien.sendBullet(anchor, bullet, aboveOfWindow);
     }
 
     //When user presses RIGHT or LEFT key calculate spaceship's new location
@@ -226,7 +226,7 @@ public class LevelController extends Main {
                         Main.getCurrentGame().setScore(this.getScore());
                         if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<this.getScore())
                             Main.getCurrentPlayer().setHighScore(this.getScore());
-                        HttpPost gameRequest = new HttpPost("http://localhost:8080/leaderboard");
+                        HttpPost gameRequest = new HttpPost(protocol + host + port + leaderboardPath);
 
                         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
                         String jsonInString = gson.toJson(Main.getCurrentGame());
@@ -239,7 +239,7 @@ public class LevelController extends Main {
                         httpClient.execute(gameRequest);
                         //System.out.println("POST Request Handling");
 
-                        HttpPut playerRequest = new HttpPut("http://localhost:8080/player/" + Main.getCurrentPlayer().getId());
+                        HttpPut playerRequest = new HttpPut(protocol + host + port + playerPath + Main.getCurrentPlayer().getId());
 
                         params = new StringEntity(Main.getCurrentPlayer().getHighScore().toString());
                         playerRequest.addHeader("content-type", "application/json");
