@@ -93,20 +93,23 @@ public class LevelController extends Main {
         }
     }
 
-    //When spaceship shoot find tha button from anchorPane's children and check if it intersect with any alien
+    //When spaceship shoot find that bullet from anchorPane's children and check if it intersect with any alien
     private void alienShot(AnchorPane anchor){
         for(Node o: anchor.getChildren()){
-            if (o.getId() == "bullet"){
+            if (o.getId() == "bullet"){                     // it works somehow this way not with ".equals"
                 if (isAlienShot(o, aliens, anchor)) break;
             }
         }
     }
 
 
-    // if spaceship could shoot one of the aliens if yes return true else return false
+    // if bullet intersects one of the aliens return true, add score 5 points and
+    // if the alien's health is zero remove alien from aliens arrayList, else return false
     private boolean isAlienShot(Node o, ArrayList<Alien> aliens, AnchorPane anchor) {
         isShot =  false;
         for (Alien alien: aliens){
+            // Check if this alien is shot down, if it is return true and remove bullet from anchorPane else return false
+            // Check aliens's health if it is zero remove the alien from anchorPane
             if (alien.isShotDown(anchor,o)){
                 this.setScore(this.getScore() + 5);
                 isShot = true;
@@ -137,7 +140,7 @@ public class LevelController extends Main {
             homeButton.setVisible(true);
         }
 
-        alienShot(anchor); //Make sure always check is any alien shot or not
+        alienShot(anchor); //Make sure always check is any alien been shot or not
 
         scoreLabel.setText(Integer.toString(getScore()));
         if (isLevelFinished()){
@@ -181,6 +184,7 @@ public class LevelController extends Main {
         return x;
     }
 
+    //Decide which alien shoot
     private void alienRandomize(AnchorPane anchor){
         Random rand = new Random();
         if (aliens.size() > 0){
@@ -190,7 +194,11 @@ public class LevelController extends Main {
 
     }
 
-
+    /*
+    this function checks if aliens could hit the spaceship or not, if there is hit,
+    then checks whether spaceship's health is zero or not. If zero, the game is over function returns true.
+    When the game is over database will be updated.
+    */
     private boolean isSpaceshipDown(AnchorPane anchorOne, ImageView spaceship, Label healthCount) {
         isSpaceshipDown =false;
         boolean collisionDetected = false;
@@ -255,6 +263,7 @@ public class LevelController extends Main {
         return isSpaceshipDown;
     }
 
+    //When user presses key N, the next level will be opened
     void goNextLevel(KeyEvent event, Parent next) throws IOException{
         Scene sceneNext = new Scene(next);
         sceneNext.getRoot().requestFocus();
@@ -263,6 +272,7 @@ public class LevelController extends Main {
         window.show();
     }
 
+    //When user presses Go to Home button go Home Page
     void goHomePage(ActionEvent event) throws IOException {
         Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
         setScene(event, home);

@@ -1,13 +1,6 @@
 package edu.metu.ceng453.bitBattle;
 
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import javafx.animation.AnimationTimer;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
-
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,30 +12,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
-import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
 
 public class LevelTwoController extends LevelController{
-    @FXML
-    ImageView spaceship;
+    @FXML ImageView spaceship;
 
-    @FXML
-    AnchorPane anchorTwo;
-    @FXML
-    GridPane gridTwo;
+    @FXML AnchorPane anchorTwo;
+    @FXML GridPane gridTwo;
 
-    @FXML
-    Label healthCount;
+    @FXML Label healthCount;
     @FXML Label scoreLabel;
     @FXML Label levelend;
     @FXML Label gameOver;
@@ -59,6 +38,7 @@ public class LevelTwoController extends LevelController{
         isFinished = false;
 
         animateAliens();
+        //Handle key events
         gridTwo.setOnKeyPressed((KeyEvent event)-> {
             double y = spaceship.getLayoutY();
             if (event.getCode() == KeyCode.RIGHT) {
@@ -88,12 +68,13 @@ public class LevelTwoController extends LevelController{
         }.start();
     }
 
-
-    public void thirdLevel(KeyEvent event) throws IOException {
+    //When user presses N third level will be opened
+    private void thirdLevel(KeyEvent event) throws IOException {
             Parent levelThree = FXMLLoader.load(getClass().getResource("design/levelThree.fxml"));
             goNextLevel(event, levelThree);
         }
 
+    //When user presses go to home button Home page will be opened.
     public void homeButtonPushed(ActionEvent event) throws IOException{
         goHomePage(event);
 

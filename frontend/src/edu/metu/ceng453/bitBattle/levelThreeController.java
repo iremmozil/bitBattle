@@ -1,15 +1,9 @@
 package edu.metu.ceng453.bitBattle;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import javafx.animation.AnimationTimer;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -17,15 +11,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
 
@@ -60,6 +45,7 @@ public class levelThreeController extends LevelController {
         homeButton.setVisible(false);
 
         animateAliens();
+        //Handle key events
         gridThree.setOnKeyPressed((KeyEvent event)-> {
             double y = spaceship.getLayoutY();
             if (event.getCode() == KeyCode.RIGHT) {
@@ -83,6 +69,7 @@ public class levelThreeController extends LevelController {
         }.start();
     }
 
+    //When user presses go to home button Home page will be opened.
     public void homeButtonPushed(ActionEvent event) throws IOException{
         goHomePage(event);
 

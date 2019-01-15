@@ -19,10 +19,11 @@ public abstract class Alien {
     private double alienHeight = 40.0;
     boolean isShot = false;
 
+    // this alien shoots
     void fire(AnchorPane anchor){
         Circle b = new Circle(alienBulletRadious);
         b.setStrokeWidth(0.0);
-        b.setFill(Color.valueOf("99daff"));
+        b.setFill(Color.valueOf("99daff"));         //color blue
         b.setCenterX(this.node.getLayoutX() + alienHalfWidth + this.node.getTranslateX());
         b.setCenterY(this.node.getLayoutY() + alienHeight + this.node.getTranslateY());
         anchor.getChildren().add(b);
@@ -32,6 +33,8 @@ public abstract class Alien {
         tt.play();
     }
 
+    // Check if this alien is shot down, if it is return true and remove bullet from anchorPane else return false
+    // Check aliens's health if it is zero remove the alien from anchorPane
     boolean isShotDown(AnchorPane anchor, Node bullet) {
         isShot = false;
         if (bullet.getBoundsInParent().intersects(this.node.getBoundsInParent())) {
@@ -45,15 +48,18 @@ public abstract class Alien {
         return isShot;
     }
 
+    //health's getter
     int getHealth() {
         return this.health;
     }
 
+    //health's setter
     private void setHealth(int health) {
         this.health = health;
     }
 
-    public void move() {
+    //Aliens animate function
+    void move() {
         PathTransition tt = new PathTransition(Duration.seconds(5), new Line(),this.node);
         tt.setPath(new Rectangle(20,15));
         tt.setCycleCount( Timeline.INDEFINITE );
