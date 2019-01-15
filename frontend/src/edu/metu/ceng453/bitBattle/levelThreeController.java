@@ -42,24 +42,6 @@ public class levelThreeController extends LevelController {
     @FXML
     GridPane gridThree;
 
-    @FXML ImageView alien1;
-    @FXML ImageView alien2;
-    @FXML ImageView alien3;
-    @FXML ImageView alien4;
-    @FXML ImageView alien5;
-    @FXML ImageView alien6;
-    @FXML ImageView alien7;
-    @FXML ImageView alien8;
-    @FXML ImageView alien9;
-    @FXML ImageView alien10;
-    @FXML ImageView alien11;
-    @FXML ImageView circle1;
-    @FXML ImageView circle2;
-    @FXML ImageView circle3;
-    @FXML ImageView circle4;
-    @FXML ImageView parallelogram1;
-    @FXML ImageView parallelogram2;
-
     @FXML
     Label healthCount;
     @FXML Label scoreLabel;
@@ -70,10 +52,7 @@ public class levelThreeController extends LevelController {
     //private int score = Main.getCurrentGame().getScore();
     private boolean isFinished = false;
 
-
-
     public void initialize() {
-
         aliensToArray(anchorThree);
 
         endLevel.setVisible(false);
@@ -108,6 +87,4 @@ public class levelThreeController extends LevelController {
         goHomePage(event);
 
     }
-
-
 }

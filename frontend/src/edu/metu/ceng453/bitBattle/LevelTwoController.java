@@ -41,21 +41,6 @@ public class LevelTwoController extends LevelController{
     @FXML
     GridPane gridTwo;
 
-    @FXML ImageView alien1;
-    @FXML ImageView alien2;
-    @FXML ImageView alien3;
-    @FXML ImageView alien4;
-    @FXML ImageView alien5;
-    @FXML ImageView alien6;
-    @FXML ImageView alien7;
-    @FXML ImageView alien8;
-    @FXML ImageView alien9;
-    @FXML ImageView alien10;
-    @FXML ImageView circleAlien1;
-    @FXML ImageView circleAlien2;
-    @FXML ImageView circleAlien3;
-    @FXML ImageView circleAlien4;
-
     @FXML
     Label healthCount;
     @FXML Label scoreLabel;
@@ -65,9 +50,7 @@ public class LevelTwoController extends LevelController{
 
     private boolean isFinished = false;
 
-
     public void initialize() {
-
         aliensToArray(anchorTwo);
 
         levelend.setVisible(false);

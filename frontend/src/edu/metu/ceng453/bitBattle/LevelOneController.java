@@ -33,37 +33,20 @@ import java.io.IOException;
 
 public class LevelOneController extends LevelController {
 
-    @FXML
-    ImageView spaceship;
+    @FXML ImageView spaceship;
 
-    @FXML
-    AnchorPane anchorOne;
-    @FXML
-    GridPane gridOne;
-
-    @FXML ImageView alien1;
-    @FXML ImageView alien2;
-    @FXML ImageView alien3;
-    @FXML ImageView alien4;
-    @FXML ImageView alien5;
-    @FXML ImageView alien6;
-    @FXML ImageView alien7;
-    @FXML ImageView alien8;
-    @FXML ImageView alien9;
-    @FXML ImageView alien10;
-    @FXML ImageView alien11;
+    @FXML AnchorPane anchorOne;
+    @FXML GridPane gridOne;
 
     @FXML Label scoreLabel;
     @FXML Label endLevel;
     @FXML Label healthCount;
     @FXML Label gameOver;
-    @FXML
-    Button homeButton;
+    @FXML Button homeButton;
 
     private Boolean isFinished = false;
 
     public void initialize() {
-
         aliensToArray(anchorOne);
 
         scoreLabel.setText(Integer.toString(getScore()));
