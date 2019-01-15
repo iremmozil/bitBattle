@@ -1,4 +1,4 @@
-package edu.metu.ceng453.bitBattle;
+package edu.metu.ceng453.bitBattle.alien;
 
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
@@ -20,7 +20,7 @@ public abstract class Alien {
     boolean isShot = false;
 
     // this alien shoots
-    void fire(AnchorPane anchor){
+    public void fire(AnchorPane anchor){
         Circle b = new Circle(alienBulletRadious);
         b.setStrokeWidth(0.0);
         b.setFill(Color.valueOf("99daff"));         //color blue
@@ -35,7 +35,7 @@ public abstract class Alien {
 
     // Check if this alien is shot down, if it is return true and remove bullet from anchorPane else return false
     // Check aliens's health if it is zero remove the alien from anchorPane
-    boolean isShotDown(AnchorPane anchor, Node bullet) {
+    public boolean isShotDown(AnchorPane anchor, Node bullet) {
         isShot = false;
         if (bullet.getBoundsInParent().intersects(this.node.getBoundsInParent())) {
             this.setHealth(this.getHealth()-1);
@@ -49,7 +49,7 @@ public abstract class Alien {
     }
 
     //health's getter
-    int getHealth() {
+    public int getHealth() {
         return this.health;
     }
 
@@ -59,7 +59,7 @@ public abstract class Alien {
     }
 
     //Aliens animate function
-    void move() {
+    public void move() {
         PathTransition tt = new PathTransition(Duration.seconds(5), new Line(),this.node);
         tt.setPath(new Rectangle(20,15));
         tt.setCycleCount( Timeline.INDEFINITE );

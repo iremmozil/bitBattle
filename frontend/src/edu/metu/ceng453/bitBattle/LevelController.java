@@ -2,6 +2,8 @@ package edu.metu.ceng453.bitBattle;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import edu.metu.ceng453.bitBattle.alien.Alien;
+import edu.metu.ceng453.bitBattle.alien.AlienFactory;
 import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -83,7 +85,6 @@ public class LevelController extends Main {
                 aliens.add(alienFactory.createAlien(tag,node));
             }
         }
-        System.out.println(aliens.size());
     }
 
     //Alien animations

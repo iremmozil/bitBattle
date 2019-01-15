@@ -1,4 +1,4 @@
-package edu.metu.ceng453.bitBattle;
+package edu.metu.ceng453.bitBattle.alien;
 
 import javafx.animation.PathTransition;
 import javafx.scene.Node;
