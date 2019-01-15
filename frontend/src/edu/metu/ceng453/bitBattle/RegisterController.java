@@ -67,11 +67,7 @@ public class RegisterController extends Main{
 
             Parent signIn;
             signIn = FXMLLoader.load(getClass().getResource("design/signin.fxml"));
-            Scene sceneSignIn = new Scene(signIn);
-            sceneSignIn.getRoot().requestFocus();
-            Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
-            window.setScene(sceneSignIn);
-            window.show();
+            setScene(event, signIn);
 
         }
 
@@ -84,10 +80,6 @@ public class RegisterController extends Main{
     // "Back" button push handler
     public void backSIbuttonPushed(ActionEvent event) throws IOException {
         Parent signIn = FXMLLoader.load(getClass().getResource("design/signin.fxml"));
-        Scene sceneSignIn = new Scene(signIn);
-        sceneSignIn.getRoot().requestFocus();
-        Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
-        window.setScene(sceneSignIn);
-        window.show();
+        setScene(event, signIn);
     }
 }

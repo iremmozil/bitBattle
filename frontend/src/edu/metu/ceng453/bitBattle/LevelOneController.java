@@ -49,7 +49,7 @@ public class LevelOneController extends LevelController {
     public void initialize() {
         aliensToArray(anchorOne);
 
-        scoreLabel.setText(Integer.toString(getScore()));
+        scoreLabel.setText(Integer.toString(this.getScore()));
         endLevel.setVisible(false);
         homeButton.setVisible(false);
         gameOver.setVisible(false);
@@ -63,7 +63,7 @@ public class LevelOneController extends LevelController {
             else if (event.getCode() == KeyCode.LEFT){
                 spaceship.relocate(goDirection(spaceship.getLayoutX(), "LEFT"),y);
             }
-            else if (event.getCode() == KeyCode.SPACE){
+            if (event.getCode() == KeyCode.SPACE){
                     fire(anchorOne, spaceship);
             }
             else if (event.getCode() == KeyCode.N){

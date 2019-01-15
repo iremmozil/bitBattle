@@ -9,11 +9,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.omg.CORBA.MARSHAL;
 
 import java.io.IOException;
 import java.util.Date;
 
-public class HomeController {
+public class HomeController extends Main {
 
     // Bind variables to related FXML entities
     @FXML
@@ -25,30 +26,18 @@ public class HomeController {
 
         Main.setCurrentGame(currentGame);
         Parent levelOne = FXMLLoader.load(getClass().getResource("./design/levelOne.fxml"));
-        Scene sceneOne = new Scene(levelOne);
-        sceneOne.getRoot().requestFocus();
-        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
-        window.setScene(sceneOne);
-        window.show();
+        setScene(event, levelOne);
     }
 
     // "Leaderboard" button push handler
     public void lbuttonPushed(ActionEvent event) throws IOException {
         Parent lBoard = FXMLLoader.load(getClass().getResource("design/leaderboard.fxml"));
-        Scene sceneLBoard = new Scene(lBoard);
-        sceneLBoard.getRoot().requestFocus();
-        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
-        window.setScene(sceneLBoard);
-        window.show();
+        setScene(event, lBoard);
     }
 
     // "Log Out" button push handler
     public void logoutbuttonPushed(ActionEvent event) throws IOException {
         Parent signIn = FXMLLoader.load(getClass().getResource("design/signin.fxml"));
-        Scene sceneSignIn = new Scene(signIn);
-        sceneSignIn.getRoot().requestFocus();
-        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
-        window.setScene(sceneSignIn);
-        window.show();
+        setScene(event, signIn);
     }
 }

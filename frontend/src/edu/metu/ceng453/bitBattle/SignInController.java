@@ -66,11 +66,7 @@ public class SignInController extends Main{
 
                 Main.setCurrentPlayer(currentPlayer);
                 Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
-                Scene sceneHome = new Scene(home);
-                sceneHome.getRoot().requestFocus();
-                Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
-                window.setScene(sceneHome);
-                window.show();
+                setScene(event, home);
 
             }
             else {
@@ -90,10 +86,6 @@ public class SignInController extends Main{
     public void rNowbuttonPushed(ActionEvent event) throws IOException{
 
         Parent register = FXMLLoader.load(getClass().getResource("design/register.fxml"));
-        Scene sceneRegister = new Scene(register);
-        sceneRegister.getRoot().requestFocus();
-        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
-        window.setScene(sceneRegister);
-        window.show();
+        setScene(event, register);
     }
 }

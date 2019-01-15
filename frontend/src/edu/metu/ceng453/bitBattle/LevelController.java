@@ -49,13 +49,10 @@ public class LevelController extends Main {
     private boolean finished = false;
 
     ArrayList<Alien> aliens = new ArrayList<Alien>();
-    ArrayList<Node> nodeAliens = new ArrayList<Node>();
-
-
 
     //Getters and setters
     int getScore() {
-        return score;
+        return this.score;
     }
 
     void setScore(int score) {
@@ -73,6 +70,11 @@ public class LevelController extends Main {
     //get aliens to an array and create aliens
     void aliensToArray(AnchorPane anchor){
         //when new level is started empty the array
+        if (aliens.size() > 0){
+            for (Alien alien: aliens){
+                aliens.remove(alien);
+            }
+        }
         AlienFactory alienFactory = new AlienFactory();
 
         for (Node node: anchor.getChildren()){
@@ -84,13 +86,14 @@ public class LevelController extends Main {
         System.out.println(aliens.size());
     }
 
+    //Alien animations
     void animateAliens(){
         for (Alien a: aliens){
             a.move();
         }
     }
 
-
+    //When spaceship shoot find tha button from anchorPane's children and check if it intersect with any alien
     void alienShot(AnchorPane anchor){
         for(Node o: anchor.getChildren()){
             if (o.getId() == "bullet"){
@@ -105,6 +108,7 @@ public class LevelController extends Main {
         isShot =  false;
         for (Alien alien: aliens){
             if (alien.isShotDown(anchor,o)){
+                this.setScore(this.getScore() + 5);
                 isShot = true;
                 if (alien.getHealth() == 0){
                     aliens.remove(alien);
@@ -116,7 +120,8 @@ public class LevelController extends Main {
         return isShot;
     }
 
-    boolean isLevelFinished(AnchorPane anchor){
+    //if there is no alien then the level is finished
+    boolean isLevelFinished(){
         isFinished = false;
         isFinished = aliens.size() <= 0;
         return isFinished;
@@ -124,21 +129,21 @@ public class LevelController extends Main {
 
     boolean game(AnchorPane anchor, ImageView spaceship, Label healthCount, Label gameOver, Button homeButton, Label scoreLabel, Label endLevel){
         Counter++;
-        if (Counter % 1000 == 0){
+        if (Counter % 1000 == 0){ //aliens shoot when the counter counter is 1000*n
             alienRandomize(anchor);
         }
-        if (isSpaceshipDown(anchor, spaceship, healthCount)){
+        if (isSpaceshipDown(anchor, spaceship, healthCount)){ //Check if the spaceship's health 0 or not
             gameOver.setVisible(true);
             homeButton.setVisible(true);
         }
 
-        alienShot(anchor);
+        alienShot(anchor); //Make sure always check is any alien shot or not
 
         scoreLabel.setText(Integer.toString(getScore()));
-        if (isLevelFinished(anchor)){
+        if (isLevelFinished()){
             finished = true;
             endLevel.setVisible(true);
-            setScore(getScore());
+            setScore(this.getScore());
         }
         return finished;
     }
@@ -217,9 +222,9 @@ public class LevelController extends Main {
                 CloseableHttpClient httpClient = HttpClientBuilder.create().build();
                 try {
                     if (!dbUpdate) {
-                        Main.getCurrentGame().setScore(getScore());
-                        if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<getScore())
-                            Main.getCurrentPlayer().setHighScore(getScore());
+                        Main.getCurrentGame().setScore(this.getScore());
+                        if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<this.getScore())
+                            Main.getCurrentPlayer().setHighScore(this.getScore());
                         HttpPost gameRequest = new HttpPost("http://localhost:8080/leaderboard");
 
                         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
@@ -266,10 +271,6 @@ public class LevelController extends Main {
 
     void goHomePage(ActionEvent event) throws IOException {
         Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
-        Scene sceneHome = new Scene(home);
-        sceneHome.getRoot().requestFocus();
-        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
-        window.setScene(sceneHome);
-        window.show();
+        setScene(event, home);
     }
 }
