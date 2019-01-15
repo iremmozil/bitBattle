@@ -34,7 +34,7 @@ public class LevelController extends Main {
     //Variables
 
     private Boolean isFinished = false;
-    private int score = Main.fromMaingetScore();
+    private int score = 0;
     private int health = 3;
     private int Counter = 0;
 
@@ -55,15 +55,15 @@ public class LevelController extends Main {
         return this.score;
     }
 
-    void setScore(int score) {
+    private void setScore(int score) {
         this.score = score;
     }
 
-    int getHealth() {
+    private int getHealth() {
         return health;
     }
 
-    void setHealth(int health) {
+    private void setHealth(int health) {
         this.health = health;
     }
 
@@ -94,7 +94,7 @@ public class LevelController extends Main {
     }
 
     //When spaceship shoot find tha button from anchorPane's children and check if it intersect with any alien
-    void alienShot(AnchorPane anchor){
+    private void alienShot(AnchorPane anchor){
         for(Node o: anchor.getChildren()){
             if (o.getId() == "bullet"){
                 if (isAlienShot(o, aliens, anchor)) break;
@@ -104,7 +104,7 @@ public class LevelController extends Main {
 
 
     // if spaceship could shoot one of the aliens if yes return true else return false
-    boolean isAlienShot(Node o, ArrayList<Alien> aliens, AnchorPane anchor) {
+    private boolean isAlienShot(Node o, ArrayList<Alien> aliens, AnchorPane anchor) {
         isShot =  false;
         for (Alien alien: aliens){
             if (alien.isShotDown(anchor,o)){
@@ -149,12 +149,6 @@ public class LevelController extends Main {
     }
 
 
-    //remove alien from anchorPane
-    private void removeAlien(AnchorPane anchor, Node o, Node alien){
-        anchor.getChildren().remove(o);
-        anchor.getChildren().remove(alien);
-    }
-
     //When user presses SPACE spaceship should fire!
     void fire(AnchorPane anchor, ImageView spaceship){
         Circle bullet = new Circle(bulletRadious);
@@ -187,7 +181,7 @@ public class LevelController extends Main {
         return x;
     }
 
-    void alienRandomize(AnchorPane anchor){
+    private void alienRandomize(AnchorPane anchor){
         Random rand = new Random();
         if (aliens.size() > 0){
             int n = rand.nextInt(aliens.size()) + 0;
@@ -197,7 +191,7 @@ public class LevelController extends Main {
     }
 
 
-    boolean isSpaceshipDown(AnchorPane anchorOne, ImageView spaceship, Label healthCount) {
+    private boolean isSpaceshipDown(AnchorPane anchorOne, ImageView spaceship, Label healthCount) {
         isSpaceshipDown =false;
         boolean collisionDetected = false;
 
