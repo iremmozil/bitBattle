@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Main {
+public class MultiplayerServer {
     private static int mpServerPort = 8000;
 
     private static int triangleAlienHealth = 1;
@@ -73,11 +73,6 @@ public class Main {
         private static AlienList circleAliens = new AlienList(noCircleAlien, circleAlienHealth);
         private static AlienList paralellogramAliens = new AlienList(noParalellogramAlien, paralellogramAlienHealth);
 
-        private DataInputStream fromPlayer1;
-        private DataOutputStream toPlayer1;
-        private DataInputStream fromPlayer2;
-        private DataOutputStream toPlayer2;
-
         playGameTask(Socket player1, Socket player2) {
             this.player1 = player1;
             this.player2 = player2;
@@ -85,11 +80,21 @@ public class Main {
         }
 
         public void run() {
-            // Receive client and his/her opponent
+            try {
+                // Create data input and output streams
+                DataInputStream fromPlayer1 = new DataInputStream(player1.getInputStream());
+                DataOutputStream toPlayer1 = new DataOutputStream(player1.getOutputStream());
+                DataInputStream fromPlayer2 = new DataInputStream(player2.getInputStream());
+                DataOutputStream toPlayer2 = new DataOutputStream(player2.getOutputStream());
 
-            // Listen the actions and events from client and send to opponent
-
-            // If the action is about alien shooting, call AlienList.update()
+                // Read the actions and events from client and send to opponent
+                while (true) {
+                    // If the action is about alien shooting, call AlienList.update()
+                }
+            }
+            catch(IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
