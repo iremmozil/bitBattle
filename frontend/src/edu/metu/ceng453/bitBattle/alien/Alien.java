@@ -13,11 +13,12 @@ import javafx.util.Duration;
 public abstract class Alien {
 
     int health = 0;
-    protected Node node;
+    int point = 0;
+    Node node;
     private double alienBulletRadious = 5.05;
     private double alienHalfWidth = 22.0;
     private double alienHeight = 40.0;
-    boolean isShot = false;
+    private boolean isShot = false;
 
     // this alien shoots
     public void fire(AnchorPane anchor){
@@ -56,6 +57,14 @@ public abstract class Alien {
     //health's setter
     private void setHealth(int health) {
         this.health = health;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 
     //Aliens animate function

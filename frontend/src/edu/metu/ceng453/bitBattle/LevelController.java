@@ -34,7 +34,6 @@ import java.util.ArrayList;
 public class LevelController extends Main {
 
     //Variables
-
     private Boolean isFinished = false;
     private int score = 0;
     private int health = 3;
@@ -112,10 +111,10 @@ public class LevelController extends Main {
             // Check if this alien is shot down, if it is return true and remove bullet from anchorPane else return false
             // Check aliens's health if it is zero remove the alien from anchorPane
             if (alien.isShotDown(anchor,o)){
-                this.setScore(this.getScore() + 5);
                 isShot = true;
                 if (alien.getHealth() == 0){
                     aliens.remove(alien);
+                    this.setScore(this.getScore() + alien.getPoint());
                 }
                 break;
             }
@@ -125,7 +124,7 @@ public class LevelController extends Main {
     }
 
     //if there is no alien then the level is finished
-    boolean isLevelFinished(){
+    private boolean isLevelFinished(){
         isFinished = false;
         isFinished = aliens.size() <= 0;
         return isFinished;
@@ -133,7 +132,7 @@ public class LevelController extends Main {
 
     boolean game(AnchorPane anchor, ImageView spaceship, Label healthCount, Label gameOver, Button homeButton, Label scoreLabel, Label endLevel){
         Counter++;
-        if (Counter % 1000 == 0){ //aliens shoot when the counter counter is 1000*n
+        if (Counter % 1100 == 0){ //aliens shoot when the counter counter is 1100*n
             alienRandomize(anchor);
         }
         if (isSpaceshipDown(anchor, spaceship, healthCount)){ //Check if the spaceship's health 0 or not
@@ -185,14 +184,13 @@ public class LevelController extends Main {
         return x;
     }
 
-    //Decide which alien shoot
+    //Decide which alien is gonna shoot
     private void alienRandomize(AnchorPane anchor){
         Random rand = new Random();
         if (aliens.size() > 0){
             int n = rand.nextInt(aliens.size()) + 0;
             aliens.get(n).fire(anchor);
         }
-
     }
 
     /*

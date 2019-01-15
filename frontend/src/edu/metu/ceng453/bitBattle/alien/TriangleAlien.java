@@ -8,6 +8,7 @@ class TriangleAlien extends Alien {
     TriangleAlien(Node n) {
         this.node = n;
         this.health = 1;
+        this.point = 5;
     }
 
 }

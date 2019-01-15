@@ -7,6 +7,7 @@ class CircleAlien extends Alien{
     CircleAlien(Node n) {
         this.node = n;
         this.health = 2;
+        this.point = 10;
     }
 
 }
