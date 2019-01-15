@@ -258,3 +258,4 @@ gradle/wrapper/gradle-wrapper.properties
 
 !frontend/frontend.jar
 !backend/backend.jar
+frontend/src/META-INF/
