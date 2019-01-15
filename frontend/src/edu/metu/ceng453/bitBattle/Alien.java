@@ -1,23 +1,25 @@
 package edu.metu.ceng453.bitBattle;
 
 import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public abstract class Alien {
 
-    protected int health = 0;
+    int health = 0;
     protected Node node;
-    protected double alienBulletRadious = 5.05;
-    protected double alienHalfWidth = 22.0;
-    protected double alienHeight = 40.0;
+    private double alienBulletRadious = 5.05;
+    private double alienHalfWidth = 22.0;
+    private double alienHeight = 40.0;
     boolean isShot = false;
 
-    public void fire(AnchorPane anchor){
+    void fire(AnchorPane anchor){
         Circle b = new Circle(alienBulletRadious);
         b.setStrokeWidth(0.0);
         b.setFill(Color.valueOf("99daff"));
@@ -43,7 +45,7 @@ public abstract class Alien {
         return isShot;
     }
 
-    public int getHealth() {
+    int getHealth() {
         return this.health;
     }
 
@@ -51,6 +53,13 @@ public abstract class Alien {
         this.health = health;
     }
 
-    abstract void move();
+    public void move() {
+        PathTransition tt = new PathTransition(Duration.seconds(5), new Line(),this.node);
+        tt.setPath(new Rectangle(20,15));
+        tt.setCycleCount( Timeline.INDEFINITE );
+        tt.play();
+
+    }
+
 }
 
