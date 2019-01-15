@@ -35,7 +35,7 @@ public class LevelController extends Main {
 
     //Variables
     private Boolean isFinished = false;
-    private int score = 0;
+    private static int gameScore = 0;
     private int health = 3;
     private int Counter = 0;
 
@@ -57,12 +57,12 @@ public class LevelController extends Main {
     ArrayList<Alien> aliens = new ArrayList<Alien>();
 
     //Getters and setters
-    int getScore() {
-        return this.score;
+    int getGameScore() {
+        return this.gameScore;
     }
 
-    private void setScore(int score) {
-        this.score = score;
+    void setGameScore(int score) {
+        this.gameScore = score;
     }
 
     private int getHealth() {
@@ -119,7 +119,7 @@ public class LevelController extends Main {
                 isShot = true;
                 if (alien.getHealth() == 0){
                     aliens.remove(alien);
-                    this.setScore(this.getScore() + alien.getPoint());
+                    this.setGameScore(this.getGameScore() + alien.getPoint());
                 }
                 break;
             }
@@ -143,15 +143,15 @@ public class LevelController extends Main {
         if (isSpaceshipDown(anchor, spaceship, healthCount)){ //Check if the spaceship's health 0 or not
             gameOver.setVisible(true);
             homeButton.setVisible(true);
+        } else {
+            scoreLabel.setText(Integer.toString(getGameScore()));
+            alienShot(anchor); //Make sure always check is any alien been shot or not
         }
 
-        alienShot(anchor); //Make sure always check is any alien been shot or not
-
-        scoreLabel.setText(Integer.toString(getScore()));
         if (isLevelFinished()){
             finished = true;
             endLevel.setVisible(true);
-            setScore(this.getScore());
+            setGameScore(this.getGameScore());
         }
         return finished;
     }
@@ -199,7 +199,6 @@ public class LevelController extends Main {
     When the game is over database will be updated.
     */
     private boolean isSpaceshipDown(AnchorPane anchorOne, ImageView spaceship, Label healthCount) {
-        isSpaceshipDown =false;
         boolean collisionDetected = false;
 
         for (Node bullet : anchorOne.getChildren()) {
@@ -212,54 +211,58 @@ public class LevelController extends Main {
             }
         }
 
-        if (collisionDetected){
-            collisionDetected = false;
+        if (collisionDetected && !isLevelFinished()){
             if (getHealth() > 0){
                 setHealth(getHealth() -1);
                 healthCount.setText(Integer.toString(getHealth()));
             }
             else{
                 isSpaceshipDown = true;
-                CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-                try {
-                    if (!dbUpdate) {
-                        Main.getCurrentGame().setScore(this.getScore());
-                        if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<this.getScore())
-                            Main.getCurrentPlayer().setHighScore(this.getScore());
-                        HttpPost gameRequest = new HttpPost(protocol + host + port + leaderboardPath);
+                updateDatabase();
 
-                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-                        String jsonInString = gson.toJson(Main.getCurrentGame());
-                        StringEntity params = new StringEntity(jsonInString);
-                        gameRequest.addHeader("content-type", "application/json");
-                        //System.out.println(params);
-
-
-                        gameRequest.setEntity(params);
-                        httpClient.execute(gameRequest);
-                        //System.out.println("POST Request Handling");
-
-                        HttpPut playerRequest = new HttpPut(protocol + host + port + playerPath + Main.getCurrentPlayer().getId());
-
-                        params = new StringEntity(Main.getCurrentPlayer().getHighScore().toString());
-                        playerRequest.addHeader("content-type", "application/json");
-                        playerRequest.setEntity(params);
-                        httpClient.execute(playerRequest);
-                        dbUpdate = true;
-                    }
-
-                } catch (Exception ex) {
-                    System.out.println(ex);
-                } finally {
-                    try {
-                        httpClient.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         }
         return isSpaceshipDown;
+    }
+
+    void updateDatabase(){
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            if (!dbUpdate) {
+                Main.getCurrentGame().setScore(this.getGameScore());
+                if(Main.getCurrentPlayer().getHighScore() == null || Main.getCurrentPlayer().getHighScore()<this.getGameScore())
+                    Main.getCurrentPlayer().setHighScore(this.getGameScore());
+                HttpPost gameRequest = new HttpPost(protocol + host + port + leaderboardPath);
+
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                String jsonInString = gson.toJson(Main.getCurrentGame());
+                StringEntity params = new StringEntity(jsonInString);
+                gameRequest.addHeader("content-type", "application/json");
+                //System.out.println(params);
+
+
+                gameRequest.setEntity(params);
+                httpClient.execute(gameRequest);
+                //System.out.println("POST Request Handling");
+
+                HttpPut playerRequest = new HttpPut(protocol + host + port + playerPath + Main.getCurrentPlayer().getId());
+
+                params = new StringEntity(Main.getCurrentPlayer().getHighScore().toString());
+                playerRequest.addHeader("content-type", "application/json");
+                playerRequest.setEntity(params);
+                httpClient.execute(playerRequest);
+                dbUpdate = true;
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } finally {
+            try {
+                httpClient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //When user presses key N, the next level will be opened

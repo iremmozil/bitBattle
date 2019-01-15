@@ -71,6 +71,7 @@ public class levelThreeController extends LevelController {
 
     //When user presses go to home button Home page will be opened.
     public void homeButtonPushed(ActionEvent event) throws IOException{
+        updateDatabase();
         goHomePage(event);
 
     }

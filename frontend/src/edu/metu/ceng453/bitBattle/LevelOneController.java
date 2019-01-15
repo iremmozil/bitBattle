@@ -35,10 +35,11 @@ public class LevelOneController extends LevelController {
     public void initialize() {
         aliensToArray(anchorOne);
 
-        scoreLabel.setText(Integer.toString(this.getScore()));
+        scoreLabel.setText(Integer.toString(this.getGameScore()));
         endLevel.setVisible(false);
         homeButton.setVisible(false);
         gameOver.setVisible(false);
+        setGameScore(0);
         animateAliens();
         //Handle key events
         gridOne.setOnKeyPressed((KeyEvent event)->{
