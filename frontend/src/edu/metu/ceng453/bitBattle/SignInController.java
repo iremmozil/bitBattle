@@ -5,12 +5,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.*;
-
-import javafx.stage.Stage;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -45,13 +42,11 @@ public class SignInController extends Main{
         String playername = pNameSignInText.getText();
         String enteredPassword = pPasswordSignInText.getText();
 
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-
-        try {
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
 
             System.out.println("GET Request Handling");
 
-            HttpGet request = new HttpGet("http://localhost:8080/player/" + playername);
+            HttpGet request = new HttpGet(protocol + host + port + playerPath + playername);
             request.addHeader("content-type", "application/json");
             HttpResponse response = httpClient.execute(request);
 
@@ -60,20 +55,15 @@ public class SignInController extends Main{
 
             JSONObject player = new JSONObject(responseString);
 
-            if(player.getString("password").equals(enteredPassword)) {
+            if (player.getString("password").equals(enteredPassword)) {
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
                 Player currentPlayer = gson.fromJson(String.valueOf(player), Player.class);
 
                 Main.setCurrentPlayer(currentPlayer);
                 Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
-                Scene sceneHome = new Scene(home);
-                sceneHome.getRoot().requestFocus();
-                Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
-                window.setScene(sceneHome);
-                window.show();
+                setScene(event, home);
 
-            }
-            else {
+            } else {
                 errorMesSignIn.setText("Invalid password!");
             }
 
@@ -81,8 +71,6 @@ public class SignInController extends Main{
             errorMesSignIn.setText("Invalid player name or password!");
             System.out.println(ex);
 
-        } finally {
-            httpClient.close();
         }
     }
 
@@ -90,10 +78,6 @@ public class SignInController extends Main{
     public void rNowbuttonPushed(ActionEvent event) throws IOException{
 
         Parent register = FXMLLoader.load(getClass().getResource("design/register.fxml"));
-        Scene sceneRegister = new Scene(register);
-        sceneRegister.getRoot().requestFocus();
-        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
-        window.setScene(sceneRegister);
-        window.show();
+        setScene(event, register);
     }
 }
