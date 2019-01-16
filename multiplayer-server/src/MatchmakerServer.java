@@ -2,6 +2,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -27,6 +28,10 @@ public class MatchmakerServer {
                 // TODO: Acquire lock here for playerList
                 //  lock.lock();
                 playerList.add(connection);
+                if (playerList.size()>0) {
+                    System.out.println("Player is put to playList!\n");
+                    System.out.println("PlayerList size: " + playerList.size() + "\n");
+                }
                 //  lock.unlock();
             }
 
@@ -53,8 +58,6 @@ public class MatchmakerServer {
                 }
             }
 
-
-
             public void disconnected (Connection conn) {
                 PlayerConnection connection = (PlayerConnection) conn;
                 // TODO: Acquire lock here for playerList
@@ -63,27 +66,43 @@ public class MatchmakerServer {
                 //  lock.unlock();
             }
         }));
+        try {
+            server.bind(Event.port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        server.start();
 
-        new Thread( () -> {
-            PlayerConnection player1 = new PlayerConnection();
-            PlayerConnection player2 = new PlayerConnection();
-
-            // When playList has 2 entities, pop them and start the threads with player sockets
-            // TODO: Acquire lock here for playerList
-            //  lock.lock();
+        System.out.println("Listener thread created\n");
+        while(true) {
+            System.out.println("Waiting for players...\n");
             if (playerList.size() > 1) {
-                player1 = playerList.remove(0);
-                player2 = playerList.remove(0);
+                System.out.println("Players came!\n");
+                new Thread( () -> {
+                    PlayerConnection player1 = new PlayerConnection();
+                    PlayerConnection player2 = new PlayerConnection();
+
+                    // When playList has 2 entities, pop them and start the threads with player sockets
+                    // TODO: Acquire lock here for playerList
+                    //  lock.lock();
+
+                    System.out.println("LET'S GET THIS STARTED E HA\n");
+                    player1 = playerList.remove(0);
+                    player2 = playerList.remove(0);
+
+                    player1.opponent = player2;
+                    player2.opponent = player1;
+
+                    server.sendToTCP(player1.getID(), new Event.StartandMoveAliens());
+                    server.sendToTCP(player2.getID(), new Event.StartandMoveAliens());
+
+                    new Thread(new syncAlienTask(player1, player2)).start();
+
+                    //  lock.unlock();
+
+                }).start();
             }
-            //  lock.unlock();
-
-            player1.opponent = player2;
-            player2.opponent = player1;
-            server.sendToTCP(player1.getID(), new Event.StartandMoveAliens());
-            server.sendToTCP(player2.getID(), new Event.StartandMoveAliens());
-
-            new Thread(new syncAlienTask(player1, player2)).start();
-        }).start();
+        }
 
     }
 
@@ -100,7 +119,7 @@ public class MatchmakerServer {
         syncAlienTask(PlayerConnection player1, PlayerConnection player2) {
             this.player1 = player1;
             this.player2 = player2;
-
+            System.out.println("syncAlienTask is created by the second thread\n");
         }
 
         public void run() {
