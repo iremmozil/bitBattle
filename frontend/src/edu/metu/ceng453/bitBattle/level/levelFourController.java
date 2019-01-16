@@ -44,6 +44,7 @@ public class levelFourController extends LevelController{
 
     private boolean opponentDead = false;
     private int noAlienShoot = -1;
+    private boolean isFinished = false;
 
     private boolean isShot = false;
     static Client player;
@@ -137,8 +138,12 @@ public class levelFourController extends LevelController{
             @Override
             public void handle(long now) {
                 makeAlienShoot(anchorFour);
-                checkisSpaceShipDead(anchorFour, healthCount, gameOver, homeButton, scoreLabel);
+                if (!isFinished){
+                    checkisSpaceShipDead(anchorFour, healthCount, gameOver, homeButton, scoreLabel);
+                }
+
                 if(isLevelFinished()){
+                    isFinished = true;
                     if(opponentHitCounter > spaceshipHitCounter){
                         setGameScore(loserScore);
                     }
@@ -146,6 +151,7 @@ public class levelFourController extends LevelController{
                     levelFinished(endLevel);
                 }
                 if (opponentDead){
+                    isFinished = true;
                     homeButton.setVisible(true);
                     levelFinished(endLevel);
                 }

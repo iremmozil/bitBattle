@@ -41,7 +41,7 @@ public abstract class LevelController extends Main {
     private int Counter = 0;
 
     private int windowLeftEdge = -20;
-    private int windowRightEdge = 480;
+    private int windowRightEdge = 455;
     private int spaceShipMoveSize = 6;
     private double bulletRadious = 5.05;
     private double spaceshipHalfWidth = 35.0;
@@ -191,7 +191,6 @@ public abstract class LevelController extends Main {
     //When user presses SPACE spaceship should fire!
     void fire(AnchorPane anchor, String type){
         Circle bullet = new Circle(bulletRadious);
-        bullet.setStroke(Color.BLACK);
         bullet.setStrokeWidth(0.0);
         bullet.setFill(Color.valueOf(purple));
         if (type.equals("bullet")){

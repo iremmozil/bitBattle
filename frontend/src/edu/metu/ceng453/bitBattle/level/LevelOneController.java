@@ -37,6 +37,7 @@ public class LevelOneController extends LevelController {
 
         scoreLabel.setText(Integer.toString(this.getGameScore()));
         setGameScore(0);
+        System.out.println("Aha bir daha geldiee");
         animateAliens();
         //Handle key events
         gridOne.setOnKeyPressed((KeyEvent event)->{
