@@ -1,7 +1,8 @@
-package edu.metu.ceng453.bitBattle;
+package edu.metu.ceng453.bitBattle.level;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import edu.metu.ceng453.bitBattle.Main;
 import edu.metu.ceng453.bitBattle.alien.Alien;
 import edu.metu.ceng453.bitBattle.alien.AlienFactory;
 import javafx.animation.PathTransition;
@@ -276,7 +277,7 @@ public class LevelController extends Main {
 
     //When user presses Go to Home button go Home Page
     void goHomePage(ActionEvent event) throws IOException {
-        Parent home = FXMLLoader.load(getClass().getResource("design/home.fxml"));
+        Parent home = FXMLLoader.load(getClass().getResource("../design/home.fxml"));
         setScene(event, home);
     }
 }

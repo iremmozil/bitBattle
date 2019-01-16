@@ -1,4 +1,4 @@
-package edu.metu.ceng453.bitBattle;
+package edu.metu.ceng453.bitBattle.level;
 
 import javafx.animation.AnimationTimer;
 
@@ -75,7 +75,7 @@ public class LevelOneController extends LevelController {
 
     //When user presses N second level will be opened
     private void secondLevel(KeyEvent event) throws IOException {
-        Parent levelTwo = FXMLLoader.load(getClass().getResource("design/levelTwo.fxml"));
+        Parent levelTwo = FXMLLoader.load(getClass().getResource("../design/levelTwo.fxml"));
         goNextLevel(event, levelTwo);
     }
 
