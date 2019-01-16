@@ -42,7 +42,7 @@ public class LevelTwoController extends LevelController{
             } else if (event.getCode() == KeyCode.LEFT) {
                 spaceship.relocate(goDirection(spaceship.getLayoutX(), "LEFT"),y);
             } else if (event.getCode() == KeyCode.SPACE) {
-                fire(anchorTwo, spaceship);
+                fire(anchorTwo, "bullet");
             }
             else if (event.getCode() == KeyCode.N){
                 try {

@@ -51,7 +51,7 @@ public class levelThreeController extends LevelController {
             } else if (event.getCode() == KeyCode.LEFT) {
                 spaceship.relocate(goDirection(spaceship.getLayoutX(), "LEFT"),y);
             } else if (event.getCode() == KeyCode.SPACE) {
-                fire(anchorThree,spaceship);
+                fire(anchorThree, "bullet");
             }
             else if (event.getCode() == KeyCode.N){
                 try {

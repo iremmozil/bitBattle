@@ -48,7 +48,7 @@ public class LevelOneController extends LevelController {
                 spaceship.relocate(goDirection(spaceship.getLayoutX(), "LEFT"),y);
             }
             if (event.getCode() == KeyCode.SPACE){
-                    fire(anchorOne, spaceship);
+                    fire(anchorOne, "bullet");
             }
             else if (event.getCode() == KeyCode.N){
                 try {

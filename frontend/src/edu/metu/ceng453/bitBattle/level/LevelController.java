@@ -150,7 +150,7 @@ public abstract class LevelController extends Main {
     }
 
     //if there is no alien then the level is finished
-    private boolean isLevelFinished(){
+     boolean isLevelFinished(){
         isFinished = false;
         isFinished = aliens.size() <= 0;
         return isFinished;
@@ -159,7 +159,11 @@ public abstract class LevelController extends Main {
     boolean game(AnchorPane anchor, Label healthCount, Label gameOver, Button homeButton, Label scoreLabel, Label endLevel){
         makeAlienShoot(anchor);
         checkisSpaceShipDead(anchor, healthCount, gameOver, homeButton, scoreLabel);
-        return checkLevelFinished(endLevel);
+        if (isLevelFinished()){
+            finished = true;
+            levelFinished(endLevel);
+        }
+        return finished;
     }
 
     void makeAlienShoot(AnchorPane anchor) {
@@ -178,25 +182,29 @@ public abstract class LevelController extends Main {
         }
     }
 
-    boolean checkLevelFinished(Label endLevel){
-        if (isLevelFinished()){
-            finished = true;
-            endLevel.setVisible(true);
-            setGameScore(this.getGameScore());
-        }
-        return finished;
+    void levelFinished(Label endLevel){
+        endLevel.setVisible(true);
+        setGameScore(this.getGameScore());
     }
 
 
     //When user presses SPACE spaceship should fire!
-    void fire(AnchorPane anchor, ImageView spaceship){
+    void fire(AnchorPane anchor, String type){
         Circle bullet = new Circle(bulletRadious);
         bullet.setStroke(Color.BLACK);
         bullet.setStrokeWidth(0.0);
         bullet.setFill(Color.valueOf(purple));
-        bullet.setCenterX(spaceship.getLayoutX() + spaceshipHalfWidth);
-        bullet.setCenterY(spaceship.getLayoutY() - spaceshipsNoseY);
-        bullet.setId("bullet");
+        if (type.equals("bullet")){
+            bullet.setCenterX(spaceships.get(0).getLayoutX() + spaceshipHalfWidth);
+            bullet.setCenterY(spaceships.get(0).getLayoutY() - spaceshipsNoseY);
+            bullet.setId("bullet");
+        }
+        else {
+            bullet.setCenterX(spaceships.get(1).getLayoutX() + spaceshipHalfWidth);
+            bullet.setCenterY(spaceships.get(1).getLayoutY() - spaceshipsNoseY);
+            bullet.setId("obullet");
+        }
+
         Alien.sendBullet(anchor, bullet, aboveOfWindow);
     }
 
