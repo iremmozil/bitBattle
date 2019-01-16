@@ -32,7 +32,7 @@ import java.util.Random;
 
 import java.util.ArrayList;
 
-public class LevelController extends Main {
+public abstract class LevelController extends Main {
 
     //Variables
     private Boolean isFinished = false;
@@ -121,9 +121,9 @@ public class LevelController extends Main {
     }
 
     //When spaceship shoot find that bullet from anchorPane's children and check if it intersect with any alien
-    private void alienShot(AnchorPane anchor){
+    void alienShot(AnchorPane anchor){
         for(Node o: anchor.getChildren()){
-            if (o.getId() == "bullet"){                     // it works somehow this way not with ".equals"
+            if (o.getId() == "bullet"){                     // it works somehow this way not with ".equals()"
                 if (isAlienShot(o, aliens, anchor)) break;
             }
         }
@@ -132,7 +132,7 @@ public class LevelController extends Main {
 
     // if bullet intersects one of the aliens return true, add score 5 points and
     // if the alien's health is zero remove alien from aliens arrayList, else return false
-    private boolean isAlienShot(Node o, ArrayList<Alien> aliens, AnchorPane anchor) {
+    boolean isAlienShot(Node o, ArrayList<Alien> aliens, AnchorPane anchor) {
         isShot =  false;
         for (Alien alien: aliens){
             // Check if this alien is shot down, if it is return true and remove bullet from anchorPane else return false
@@ -157,10 +157,18 @@ public class LevelController extends Main {
     }
 
     boolean game(AnchorPane anchor, Label healthCount, Label gameOver, Button homeButton, Label scoreLabel, Label endLevel){
+        makeAlienShoot(anchor);
+        checkisSpaceShipDead(anchor, healthCount, gameOver, homeButton, scoreLabel);
+        return checkLevelFinished(endLevel);
+    }
+
+    void makeAlienShoot(AnchorPane anchor) {
         Counter++;
-        if (Counter % alienShootTime == 0){ //aliens shoot when the counter counter is 1100*n
+        if (Counter % alienShootTime == 0) { //aliens shoot when the counter counter is 1100*n
             alienRandomize(anchor);
         }
+    }
+    void checkisSpaceShipDead(AnchorPane anchor, Label healthCount, Label gameOver, Button homeButton, Label scoreLabel){
         if (isSpaceshipDown(anchor, healthCount)){ //Check if the spaceship's health 0 or not
             gameOver.setVisible(true);
             homeButton.setVisible(true);
@@ -168,7 +176,9 @@ public class LevelController extends Main {
             scoreLabel.setText(Integer.toString(getGameScore()));
             alienShot(anchor); //Make sure always check is any alien been shot or not
         }
+    }
 
+    boolean checkLevelFinished(Label endLevel){
         if (isLevelFinished()){
             finished = true;
             endLevel.setVisible(true);
@@ -210,15 +220,15 @@ public class LevelController extends Main {
         Random rand = new Random();
         if (aliens.size() > 0){
             int n = rand.nextInt(aliens.size()) + 0;
-            thisAlienShoot(n, anchor);
+            alienShoot(n, anchor);
         }
     }
     //alien with the given index will be shoot
-    void thisAlienShoot(int n, AnchorPane anchor){
+    void alienShoot(int n, AnchorPane anchor){
         aliens.get(n).fire(anchor);
     }
 
-
+    //check if one of the spaceships is hit
     private boolean isSpaceshipHit(AnchorPane anchor){
         boolean spaceshipHit = false;
         for (Node node:anchor.getChildren()){
@@ -246,26 +256,23 @@ public class LevelController extends Main {
         }
         return spaceshipHit;
     }
+    //romeves bullet from anchorPane
     private void removeBullet (AnchorPane anchor, Node node){
         anchor.getChildren().remove(node);
     }
 
-    private boolean calculateHealthCount(Label healthCount){
-        boolean spaceshipDown = false;
-        if (getHealth() > 0){
-            setHealth(getHealth() -1);
-            healthCount.setText(Integer.toString(getHealth()));
-        }else{
-            spaceshipDown = true;
-            updateDatabase();
-        }
-        return spaceshipDown;
-    }
-
-    private boolean isSpaceshipDown(AnchorPane anchor, Label healthCount) {
+    // calculates the health point of spaceship and updates health Label
+    // if health point is zero notify that spaceship is down and update database
+     boolean isSpaceshipDown(AnchorPane anchor, Label healthCount) {
 
         if (isSpaceshipHit(anchor) && !isLevelFinished()){
-            isSpaceshipDown =calculateHealthCount(healthCount);
+            if (getHealth() > 0){
+                setHealth(getHealth() -1);
+                healthCount.setText(Integer.toString(getHealth()));
+            }else{
+                isSpaceshipDown = true;
+                updateDatabase();
+            }
         }
         return isSpaceshipDown;
     }
