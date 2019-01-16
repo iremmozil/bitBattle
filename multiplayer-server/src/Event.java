@@ -15,6 +15,7 @@ public class Event {
         kryo.register(AlienFired.class);
         kryo.register(AlienIsDead.class);
         kryo.register(OpponentDisconnected.class);
+        kryo.register(OpponentDead.class);
 
     }
 
@@ -39,6 +40,10 @@ public class Event {
     }
 
     static public class OpponentDisconnected {
+
+    }
+
+    static public class OpponentDead {
 
     }
 }
