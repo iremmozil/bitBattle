@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController    // This means that this class is a Controller
@@ -40,6 +43,7 @@ public class PlayerController {
 
     @PostMapping("/player")
     Player newPlayer(@RequestBody Player newPlayer) {
+        newPlayer.setPassword(myHash(newPlayer.getPassword()));
         return playerRepository.save(newPlayer);
     }
 
@@ -55,5 +59,23 @@ public class PlayerController {
     @DeleteMapping("/player/{id}")
     void deletePlayer(@PathVariable Integer id) {
         playerRepository.deleteById(id);
+    }
+
+    String myHash(String password){
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] encodedhash = digest.digest(
+                password.getBytes(StandardCharsets.UTF_8));
+        StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < encodedhash.length; i++) {
+            String hex = Integer.toHexString(0xff & encodedhash[i]);
+            if(hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 }

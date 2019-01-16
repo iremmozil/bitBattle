@@ -1,9 +1,11 @@
-package edu.metu.ceng453.bitBattle;
+package edu.metu.ceng453.bitBattle.level;
 
 import javafx.animation.AnimationTimer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -38,11 +40,7 @@ public class levelThreeController extends LevelController {
     private boolean isFinished = false;
 
     public void initialize() {
-        aliensToArray(anchorThree);
-
-        endLevel.setVisible(false);
-        gameOver.setVisible(false);
-        homeButton.setVisible(false);
+        initializeLevel(anchorThree, endLevel, gameOver, homeButton);
 
         animateAliens();
         //Handle key events
@@ -53,7 +51,16 @@ public class levelThreeController extends LevelController {
             } else if (event.getCode() == KeyCode.LEFT) {
                 spaceship.relocate(goDirection(spaceship.getLayoutX(), "LEFT"),y);
             } else if (event.getCode() == KeyCode.SPACE) {
-                fire(anchorThree,spaceship);
+                fire(anchorThree, "bullet");
+            }
+            else if (event.getCode() == KeyCode.N){
+                try {
+                    if (isFinished){
+                        fourthLevel(event);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             event.consume();
         });
@@ -61,18 +68,20 @@ public class levelThreeController extends LevelController {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                isFinished = game(anchorThree, spaceship, healthCount, gameOver, homeButton, scoreLabel, endLevel);
-                if(isFinished){
-                    homeButton.setVisible(true);
-                }
+                isFinished = game(anchorThree, healthCount, gameOver, homeButton, scoreLabel, endLevel);
             }
         }.start();
     }
+
 
     //When user presses go to home button Home page will be opened.
     public void homeButtonPushed(ActionEvent event) throws IOException{
         updateDatabase();
         goHomePage(event);
 
+    }
+    void fourthLevel(KeyEvent event) throws IOException{
+        Parent levelThree = FXMLLoader.load(getClass().getResource("../design/levelFour.fxml"));
+        goNextLevel(event, levelThree);
     }
 }

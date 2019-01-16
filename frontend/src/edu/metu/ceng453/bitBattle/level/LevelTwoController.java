@@ -1,7 +1,6 @@
-package edu.metu.ceng453.bitBattle;
+package edu.metu.ceng453.bitBattle.level;
 
 import javafx.animation.AnimationTimer;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,47 +15,39 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 
-
-public class LevelOneController extends LevelController {
-
+public class LevelTwoController extends LevelController{
     @FXML ImageView spaceship;
 
-    @FXML AnchorPane anchorOne;
-    @FXML GridPane gridOne;
+    @FXML AnchorPane anchorTwo;
+    @FXML GridPane gridTwo;
 
-    @FXML Label scoreLabel;
-    @FXML Label endLevel;
     @FXML Label healthCount;
+    @FXML Label scoreLabel;
+    @FXML Label levelend;
     @FXML Label gameOver;
     @FXML Button homeButton;
 
-    private Boolean isFinished = false;
+    private boolean isFinished = false;
 
     public void initialize() {
-        aliensToArray(anchorOne);
+        initializeLevel(anchorTwo, levelend, gameOver, homeButton);
+        isFinished = false;
 
-        scoreLabel.setText(Integer.toString(this.getGameScore()));
-        endLevel.setVisible(false);
-        homeButton.setVisible(false);
-        gameOver.setVisible(false);
-        setGameScore(0);
         animateAliens();
         //Handle key events
-        gridOne.setOnKeyPressed((KeyEvent event)->{
+        gridTwo.setOnKeyPressed((KeyEvent event)-> {
             double y = spaceship.getLayoutY();
-            if (event.getCode() == KeyCode.RIGHT){
+            if (event.getCode() == KeyCode.RIGHT) {
                 spaceship.relocate(goDirection(spaceship.getLayoutX(), "RIGHT"),y);
-            }
-            else if (event.getCode() == KeyCode.LEFT){
+            } else if (event.getCode() == KeyCode.LEFT) {
                 spaceship.relocate(goDirection(spaceship.getLayoutX(), "LEFT"),y);
-            }
-            if (event.getCode() == KeyCode.SPACE){
-                    fire(anchorOne, spaceship);
+            } else if (event.getCode() == KeyCode.SPACE) {
+                fire(anchorTwo, "bullet");
             }
             else if (event.getCode() == KeyCode.N){
                 try {
                     if (isFinished){
-                        secondLevel(event);
+                        thirdLevel(event);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -68,20 +59,20 @@ public class LevelOneController extends LevelController {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                isFinished = game(anchorOne, spaceship, healthCount, gameOver, homeButton, scoreLabel, endLevel);
+                isFinished = game(anchorTwo, healthCount, gameOver, homeButton, scoreLabel, levelend);
             }
         }.start();
     }
 
-    //When user presses N second level will be opened
-    private void secondLevel(KeyEvent event) throws IOException {
-        Parent levelTwo = FXMLLoader.load(getClass().getResource("design/levelTwo.fxml"));
-        goNextLevel(event, levelTwo);
-    }
+    //When user presses N third level will be opened
+    private void thirdLevel(KeyEvent event) throws IOException {
+            Parent levelThree = FXMLLoader.load(getClass().getResource("../design/levelThree.fxml"));
+            goNextLevel(event, levelThree);
+        }
 
     //When user presses go to home button Home page will be opened.
     public void homeButtonPushed(ActionEvent event) throws IOException{
         goHomePage(event);
-    }
 
+    }
 }

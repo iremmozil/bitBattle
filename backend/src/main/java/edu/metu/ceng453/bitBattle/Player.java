@@ -1,7 +1,6 @@
 package edu.metu.ceng453.bitBattle;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 
 @Entity
 public class Player {
@@ -59,4 +58,5 @@ public class Player {
     public void setHighScore(Integer highScore) {
         this.highScore = highScore;
     }
+
 }
