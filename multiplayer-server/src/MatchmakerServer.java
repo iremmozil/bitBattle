@@ -45,8 +45,15 @@ public class MatchmakerServer {
                 if (object instanceof Event.AlienIsDead) {
                     // TODO: Mark alien as dead
                     connection.aliens.set(((Event.AlienIsDead) object).alienIndex,0);
+                    return;
+                }
+
+                if (object instanceof Event.OpponentDead) {
+                    server.sendToTCP(connection.opponent.getID(), object);
                 }
             }
+
+
 
             public void disconnected (Connection conn) {
                 PlayerConnection connection = (PlayerConnection) conn;
@@ -108,7 +115,12 @@ public class MatchmakerServer {
                 alienFired.alienIndex = ind;
                 server.sendToTCP(player1.getID(),alienFired);
                 server.sendToTCP(player2.getID(),alienFired);
-                // sleep a little bit
+
+                try {
+                    Thread.sleep(700);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             if (player1.isConnected()) {
