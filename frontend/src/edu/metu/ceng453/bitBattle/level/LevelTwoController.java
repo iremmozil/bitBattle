@@ -30,11 +30,7 @@ public class LevelTwoController extends LevelController{
     private boolean isFinished = false;
 
     public void initialize() {
-        aliensToArray(anchorTwo);
-
-        levelend.setVisible(false);
-        gameOver.setVisible(false);
-        homeButton.setVisible(false);
+        initializeLevel(anchorTwo, levelend, gameOver, homeButton);
         isFinished = false;
 
         animateAliens();
@@ -63,7 +59,7 @@ public class LevelTwoController extends LevelController{
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                isFinished = game(anchorTwo, spaceship, healthCount, gameOver, homeButton, scoreLabel, levelend);
+                isFinished = game(anchorTwo, healthCount, gameOver, homeButton, scoreLabel, levelend);
             }
         }.start();
     }

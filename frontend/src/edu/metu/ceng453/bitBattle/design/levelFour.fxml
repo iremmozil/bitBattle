@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,132 +10,172 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorFour" onKeyPressed="#setOnKeyPressed" prefHeight="640.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.metu.ceng453.bitBattle.level.LevelFourController">
+<GridPane fx:id="gridFour" alignment="CENTER" hgap="10.0" prefHeight="640.0" prefWidth="500.0" style="" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.metu.ceng453.bitBattle.level.levelFourController">
    <children>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="14.0" layoutY="256.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="circle" fitHeight="40.0" fitWidth="44.0" layoutX="374.0" layoutY="103.0">
-         <image>
-            <Image url="@greencircle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="parallelogram" fitHeight="40.0" fitWidth="104.0" layoutX="374.0" layoutY="188.0">
-         <image>
-            <Image url="@parallelogram.png" />
-         </image>
-      </ImageView>
-      <ImageView id="parallelogram" fitHeight="40.0" fitWidth="104.0" layoutX="36.0" layoutY="188.0">
-         <image>
-            <Image url="@parallelogram.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="352.0" layoutY="248.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="434.0" layoutY="248.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="96.0" layoutY="256.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="circle" fitHeight="40.0" fitWidth="44.0" layoutX="96.0" layoutY="103.0">
-         <image>
-            <Image url="@greencircle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="circle" fitHeight="40.0" fitWidth="44.0" layoutX="234.0" layoutY="228.0">
-         <image>
-            <Image url="@greencircle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="circle" fitHeight="40.0" fitWidth="44.0" layoutX="330.0" layoutY="143.0">
-         <image>
-            <Image url="@greencircle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="circle" fitHeight="40.0" fitWidth="44.0" layoutX="286.0" layoutY="183.0">
-         <image>
-            <Image url="@greencircle.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="40.0" fitWidth="44.0" layoutX="184.0" layoutY="188.0">
-         <image>
-            <Image url="@greencircle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="circle" fitHeight="40.0" fitWidth="44.0" layoutX="140.0" layoutY="143.0">
-         <image>
-            <Image url="@greencircle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="spaceship" fx:id="spaceship" fitHeight="35.0" fitWidth="70.0" layoutX="105.0" layoutY="590.0">
-         <image>
-            <Image url="@spaceship.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="190.0" layoutY="103.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="278.0" layoutY="103.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="234.0" layoutY="148.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="36.0" layoutY="123.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="426.0" layoutY="123.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="74.0" layoutY="41.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="382.0" layoutY="41.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="278.0" layoutY="331.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="triangle" fitHeight="40.0" fitWidth="44.0" layoutX="204.0" layoutY="331.0">
-         <image>
-            <Image url="@alienTriangle.png" />
-         </image>
-      </ImageView>
-      <ImageView id="parallelogram" fitHeight="40.0" fitWidth="104.0" layoutX="204.0" layoutY="41.0">
-         <image>
-            <Image url="@parallelogram.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="opponent" fitHeight="35.0" fitWidth="70.0" layoutX="330.0" layoutY="590.0">
-         <image>
-            <Image url="@opponent.png" />
-         </image>
-      </ImageView>
+      <AnchorPane fx:id="anchorFour" prefHeight="474.0" prefWidth="508.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+         <children>
+            <ImageView id="triangle" fx:id="alien1" fitHeight="39.99988555908203" fitWidth="43.99999918213143" layoutX="136.0" layoutY="376.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien2" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="171.0" layoutY="197.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien3" fitHeight="40.00000762939453" fitWidth="44.0001220703125" layoutX="442.0" layoutY="286.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien4" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="378.0" layoutY="337.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien5" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="276.0" layoutY="197.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="circle" fx:id="circle1" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="370.0" layoutY="199.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@greencircle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="circle" fx:id="circle2" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="98.0" layoutY="198.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@greencircle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="circle" fx:id="circle3" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="140.0" layoutY="250.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@greencircle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="circle" fx:id="circle4" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="312.0" layoutY="248.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@greencircle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien6" fitHeight="39.99988555908203" fitWidth="44.0001220703125" layoutX="76.0" layoutY="338.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="parallelogram" fx:id="parallelogram1" fitHeight="35.0" fitWidth="77.0" layoutX="212.0" layoutY="340.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@parallelogram.png" />
+               </image>
+            </ImageView>
+            <ImageView id="parallelogram" fx:id="parallelogram2" fitHeight="35.0" fitWidth="77.0" layoutX="25.0" layoutY="237.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@parallelogram.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien7" fitHeight="39.99988555908203" fitWidth="43.99999918213143" layoutX="14.0" layoutY="298.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+
+            <ImageView id="spaceship" fx:id="spaceship" fitHeight="34.0" fitWidth="70.0" layoutX="105.0" layoutY="592.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@spaceship.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien8" fitHeight="39.99988555908203" fitWidth="44.0001220703125" layoutX="225.0" layoutY="248.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien9" fitHeight="39.99988555908203" fitWidth="44.0001220703125" layoutX="326.0" layoutY="137.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien10" fitHeight="39.99988555908203" fitWidth="44.0001220703125" layoutX="309.0" layoutY="376.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien11" fitHeight="40.00000762939453" fitWidth="44.000099182128906" layoutX="348.0" layoutY="300.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <Rectangle id="ractangle" arcHeight="5.0" arcWidth="5.0" height="27.0" layoutX="28.0" layoutY="45.0" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="CENTERED" strokeWidth="0.0" width="70.0">
+               <fill>
+                  <Color blue="0.051" green="0.380" red="1.000" fx:id="x2" />
+               </fill>
+            </Rectangle>
+            <Label id="health" layoutX="35.0" layoutY="50.0" text="Health" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" fx:id="x1" />
+               </font>
+            </Label>
+            <Label id="score" font="$x1" layoutX="376.0" layoutY="50.0" text="Score" textFill="$x2" />
+            <Label fx:id="scoreLabel" font="$x1" layoutX="447.0" layoutY="50.0" text="0">
+               <textFill>
+                  <Color blue="0.000" green="0.000" red="0.600" fx:id="x3" />
+               </textFill>
+            </Label>
+            <Label fx:id="gameOver" layoutX="170.0" layoutY="176.0" text="Game Over!" textFill="$x3">
+               <font>
+                  <Font name="System Bold" size="24.0" fx:id="x4" />
+               </font>
+            </Label>
+            <Label id="levelend" fx:id="endLevel" font="$x4" layoutX="35.0" layoutY="253.0" text="Game is finished!&#10;Go Home and Check your Rank &#10;at Leaderboard!" textAlignment="CENTER" textFill="$x3" />
+            <Button fx:id="homeButton" font="$x4" layoutX="148.0" layoutY="385.0" mnemonicParsing="false" onAction="#homeButtonPushed" style="-fx-background-color:#990000;" text="Go to Home" textFill="WHITE" />
+            <Label id="" fx:id="healthCount" font="$x1" layoutX="110.0" layoutY="50.0" text="3" textFill="$x3" />
+            <ImageView id="parallelogram" fx:id="parallelogram11" fitHeight="35.0" fitWidth="77.0" layoutX="400.0" layoutY="236.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@parallelogram.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien91" fitHeight="39.99988555908203" fitWidth="44.0001220703125" layoutX="118.0" layoutY="306.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="circle" fx:id="circle21" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="64.0" layoutY="138.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@greencircle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="circle" fx:id="circle11" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="404.0" layoutY="138.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@greencircle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="triangle" fx:id="alien92" fitHeight="39.99988555908203" fitWidth="44.0001220703125" layoutX="126.0" layoutY="137.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@alienTriangle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="circle" fx:id="circle111" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="207.0" layoutY="161.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@greencircle.png" />
+               </image>
+            </ImageView>
+            <ImageView id="circle" fx:id="circle112" fitHeight="37.999908447265625" fitWidth="35.999969482421875" layoutX="251.0" layoutY="161.0" pickOnBounds="true">
+               <image>
+                  <Image preserveRatio="true" smooth="true" url="@greencircle.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="opponent" id="opponent" fitHeight="34.0" fitWidth="70.0" layoutX="315.0" layoutY="592.0">
+               <image>
+                  <Image url="@opponent.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
    </children>
-</AnchorPane>
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+</GridPane>

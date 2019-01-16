@@ -33,12 +33,9 @@ public class LevelOneController extends LevelController {
     private Boolean isFinished = false;
 
     public void initialize() {
-        aliensToArray(anchorOne);
+        initializeLevel(anchorOne, endLevel, gameOver, homeButton);
 
         scoreLabel.setText(Integer.toString(this.getGameScore()));
-        endLevel.setVisible(false);
-        homeButton.setVisible(false);
-        gameOver.setVisible(false);
         setGameScore(0);
         animateAliens();
         //Handle key events
@@ -68,7 +65,7 @@ public class LevelOneController extends LevelController {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                isFinished = game(anchorOne, spaceship, healthCount, gameOver, homeButton, scoreLabel, endLevel);
+                isFinished = game(anchorOne, healthCount, gameOver, homeButton, scoreLabel, endLevel);
             }
         }.start();
     }

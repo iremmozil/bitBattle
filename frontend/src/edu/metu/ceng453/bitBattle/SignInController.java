@@ -17,6 +17,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class SignInController extends Main{
 
@@ -55,7 +58,7 @@ public class SignInController extends Main{
 
             JSONObject player = new JSONObject(responseString);
 
-            if (player.getString("password").equals(enteredPassword)) {
+            if (player.getString("password").equals(myHash(enteredPassword))) {
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
                 Player currentPlayer = gson.fromJson(String.valueOf(player), Player.class);
 
@@ -79,5 +82,23 @@ public class SignInController extends Main{
 
         Parent register = FXMLLoader.load(getClass().getResource("design/register.fxml"));
         setScene(event, register);
+    }
+
+    String myHash(String password){
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] encodedhash = digest.digest(
+                password.getBytes(StandardCharsets.UTF_8));
+        StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < encodedhash.length; i++) {
+            String hex = Integer.toHexString(0xff & encodedhash[i]);
+            if(hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 }

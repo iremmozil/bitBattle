@@ -44,10 +44,11 @@ public class LevelController extends Main {
     private int windowRightEdge = 480;
     private int spaceShipMoveSize = 6;
     private double bulletRadious = 5.05;
-    private double bulletX = 35.0;
-    private double  bulletY= 7.0;
-    private String blue = "997aff";
+    private double spaceshipHalfWidth = 35.0;
+    private double  spaceshipsNoseY = 7.0;
+    private String purple = "997aff";
     private int aboveOfWindow = -10;
+    private int alienShootTime = 1100;
 
     private boolean isShot = false;
     private boolean dbUpdate = false;
@@ -56,6 +57,7 @@ public class LevelController extends Main {
 
 
     ArrayList<Alien> aliens = new ArrayList<Alien>();
+    ArrayList<Node> spaceships = new ArrayList<>();
 
     //Getters and setters
     int getGameScore() {
@@ -74,20 +76,39 @@ public class LevelController extends Main {
         this.health = health;
     }
 
+
+    void initializeLevel(AnchorPane anchor, Label endLevel, Label gameOver, Button homeButton){
+        spaceshipsToArray(anchor);
+        aliensToArray(anchor);
+        endLevel.setVisible(false);
+        gameOver.setVisible(false);
+        homeButton.setVisible(false);
+    }
+
     //get aliens to an array and create aliens
-    void aliensToArray(AnchorPane anchor){
-        //when new level is started empty the array
+    private void aliensToArray(AnchorPane anchor){
+        /*when new level is started empty the array
         if (aliens.size() > 0){
             for (Alien alien: aliens){
                 aliens.remove(alien);
             }
-        }
+        }*/
         AlienFactory alienFactory = new AlienFactory();
 
         for (Node node: anchor.getChildren()){
             String tag = node.getId();
             if (tag.equals("triangle") || tag.equals("circle") || tag.equals("parallelogram")){
                 aliens.add(alienFactory.createAlien(tag,node));
+            }
+        }
+    }
+
+    //get spaceships to array
+    private void spaceshipsToArray(AnchorPane anchor){
+        for (Node node: anchor.getChildren()){
+            String tag = node.getId();
+            if (tag.equals("spaceship") || tag.equals("opponent")){
+                spaceships.add(node);
             }
         }
     }
@@ -124,7 +145,6 @@ public class LevelController extends Main {
                 }
                 break;
             }
-
         }
         return isShot;
     }
@@ -136,12 +156,12 @@ public class LevelController extends Main {
         return isFinished;
     }
 
-    boolean game(AnchorPane anchor, ImageView spaceship, Label healthCount, Label gameOver, Button homeButton, Label scoreLabel, Label endLevel){
+    boolean game(AnchorPane anchor, Label healthCount, Label gameOver, Button homeButton, Label scoreLabel, Label endLevel){
         Counter++;
-        if (Counter % 1100 == 0){ //aliens shoot when the counter counter is 1100*n
+        if (Counter % alienShootTime == 0){ //aliens shoot when the counter counter is 1100*n
             alienRandomize(anchor);
         }
-        if (isSpaceshipDown(anchor, spaceship, healthCount)){ //Check if the spaceship's health 0 or not
+        if (isSpaceshipDown(anchor, healthCount)){ //Check if the spaceship's health 0 or not
             gameOver.setVisible(true);
             homeButton.setVisible(true);
         } else {
@@ -163,9 +183,9 @@ public class LevelController extends Main {
         Circle bullet = new Circle(bulletRadious);
         bullet.setStroke(Color.BLACK);
         bullet.setStrokeWidth(0.0);
-        bullet.setFill(Color.valueOf(blue));
-        bullet.setCenterX(spaceship.getLayoutX() + bulletX);
-        bullet.setCenterY(spaceship.getLayoutY() - bulletY);
+        bullet.setFill(Color.valueOf(purple));
+        bullet.setCenterX(spaceship.getLayoutX() + spaceshipHalfWidth);
+        bullet.setCenterY(spaceship.getLayoutY() - spaceshipsNoseY);
         bullet.setId("bullet");
         Alien.sendBullet(anchor, bullet, aboveOfWindow);
     }
@@ -190,38 +210,62 @@ public class LevelController extends Main {
         Random rand = new Random();
         if (aliens.size() > 0){
             int n = rand.nextInt(aliens.size()) + 0;
-            aliens.get(n).fire(anchor);
+            thisAlienShoot(n, anchor);
         }
     }
+    //alien with the given index will be shoot
+    void thisAlienShoot(int n, AnchorPane anchor){
+        aliens.get(n).fire(anchor);
+    }
 
-    /*
-    this function checks if aliens could hit the spaceship or not, if there is hit,
-    then checks whether spaceship's health is zero or not. If zero, the game is over function returns true.
-    When the game is over database will be updated.
-    */
-    private boolean isSpaceshipDown(AnchorPane anchorOne, ImageView spaceship, Label healthCount) {
-        boolean collisionDetected = false;
 
-        for (Node bullet : anchorOne.getChildren()) {
-            if(bullet != spaceship) {
-                if (spaceship.getBoundsInParent().intersects(bullet.getBoundsInParent())) {
-                    collisionDetected = true;
-                    anchorOne.getChildren().remove(bullet);
-                    break;
+    private boolean isSpaceshipHit(AnchorPane anchor){
+        boolean spaceshipHit = false;
+        for (Node node:anchor.getChildren()){
+            if (spaceships.size() == 1){ //if there is no opponent
+                if (node != spaceships.get(0)){
+                    if(spaceships.get(0).getBoundsInParent().intersects(node.getBoundsInParent())) {
+                        removeBullet(anchor, node);
+                        spaceshipHit = true;
+                        break;
+                    }
+                }
+            }else{
+                if (node != spaceships.get(0) && node != spaceships.get(1)){
+                    if(spaceships.get(0).getBoundsInParent().intersects(node.getBoundsInParent())) {
+                        removeBullet(anchor, node);
+                        spaceshipHit = true;
+                        break;
+                    }
+                    if(spaceships.get(1).getBoundsInParent().intersects(node.getBoundsInParent())) {
+                        removeBullet(anchor, node);
+                        break;
+                    }
                 }
             }
         }
+        return spaceshipHit;
+    }
+    private void removeBullet (AnchorPane anchor, Node node){
+        anchor.getChildren().remove(node);
+    }
 
-        if (collisionDetected && !isLevelFinished()){
-            if (getHealth() > 0){
-                setHealth(getHealth() -1);
-                healthCount.setText(Integer.toString(getHealth()));
-            }
-            else{
-                isSpaceshipDown = true;
-                updateDatabase();
+    private boolean calculateHealthCount(Label healthCount){
+        boolean spaceshipDown = false;
+        if (getHealth() > 0){
+            setHealth(getHealth() -1);
+            healthCount.setText(Integer.toString(getHealth()));
+        }else{
+            spaceshipDown = true;
+            updateDatabase();
+        }
+        return spaceshipDown;
+    }
 
-            }
+    private boolean isSpaceshipDown(AnchorPane anchor, Label healthCount) {
+
+        if (isSpaceshipHit(anchor) && !isLevelFinished()){
+            isSpaceshipDown =calculateHealthCount(healthCount);
         }
         return isSpaceshipDown;
     }

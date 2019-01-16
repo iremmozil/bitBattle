@@ -82,7 +82,7 @@ public class LeaderboardController extends Main{
             responseString = EntityUtils.toString(entity, "UTF-8");
             String item;
             item = String.format("%2d %12s %5s %12s", i+1, responseString, game.get("score"), String.valueOf(game.get("gameTime")).substring(0,10));
-            System.out.println(item);
+
             if (ListItem.equals("allTimeListItem")){
                 obsListAllTime.add(item);
             }
