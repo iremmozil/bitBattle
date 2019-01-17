@@ -34,11 +34,11 @@ public abstract class Alien {
         sendBullet(anchor, b, belowOfwindow);
     }
 
-    public static void sendBullet(AnchorPane anchor, Circle b, int belowOfwindow) {
+    public static void sendBullet(AnchorPane anchor, Circle b, int aboveOfWindow) {
         anchor.getChildren().add(b);
         double x = b.getCenterX();
         double y = b.getCenterY();
-        PathTransition tt = new PathTransition(Duration.seconds(3), new Line(x,y, x , belowOfwindow),b);
+        PathTransition tt = new PathTransition(Duration.seconds(3), new Line(x,y, x , aboveOfWindow),b);
         tt.play();
     }
 
