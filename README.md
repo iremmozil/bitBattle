@@ -16,20 +16,24 @@ In leaderboard, you can see the players and their bitBattle scores. The table on
 
 ## **HOW TO ROLL IN BITBATTLE:**
 
-bitBattle contains 4 levels. Level 4 is under construction, so let's look how to play bitBattle with 3 levels.
+bitBattle contains 4 levels: the first, second and third levels are single player, fourth level is multiplayer. Let's look how to play bitBattle.
 
 After clicking to "New Game" button, you encounter with Level 1. Game directly starts. So get prepared!
-You are the coolest, colorful spaceship, at the bottom of the page. You can move with left and right arrow keys to avoid from the shots of aliens, and shoot to enemy aliens with space key. You have 4 health points for each level.
+You are the coolest, colorful spaceship, at the bottom of the page. You can move with left and right arrow keys to avoid from the shots of aliens, and shoot to enemy aliens with space key. You have 3 health points for each level.
 
-There is 1 enemy alien type in Level 1, triangle alien. It moves in a circular path, and shoots randomly. You can kill the triangle alien with one shoot, and you will gain 5 points per 1 triangle alien. When you kill all the triangle aliens, you will pass to Level 2. Each shoot that reaches to you will decrease your health by 1 point.
+There is 1 enemy alien type in Level 1, triangle alien. It moves in a rectangular path, and alien that shoots chosen randomly. You can kill the triangle alien with one shot, and you will gain 5 points per 1 triangle alien. When you kill all the triangle aliens, you will pass to Level 2. In order to pass to level 2, you should press "N".  The reason that player should press "N" to pass level 2 is being intuitive. Each alien shot that reaches to you will decrease your health by 1 point.
 
-There are 2 enemy alien types in Level 2, triangle alien and circle alien. Triangle alien has the same effects on you. However, circle alien is a more advanced alien. It also moves in a circular path, and shoots randomly. You can kill the circle alien with one shoot, and you will gain 10 points per 1 circle alien. When you kill all aliens, you will pass to Level 3. Each shoot that reaches to you will decrease your health by 1 point.
+There are 2 enemy alien types in Level 2, triangle alien and circle alien. Triangle alien has the same effects on you. However, circle alien is a more advanced alien. It also moves in a rectangular path, and each circle alien shoots randomly. You can kill the circle alien with two shot, and you will gain 10 points per 1 circle alien. When you kill all aliens, you will pass to Level 3. In order to pass to level 3, you should press "N". Each alien shot that reaches to you will decrease your health by 1 point.
 
-Your final score is the last score value when you finish the game, or you are killed and your game is over.
+There are 3 enemy alien types in level 3, triangle alien, circle alien and parallelogram alien. Triangle alien and circle alien has the same effects on you. However, parallelogram alien is more advanced alien than the others. It also moves in a rectangular path, and each parallelogram alien shoots randomly. You can kill the parallelogram alien with three shot, and you will gain 15 points per 1 parallelogram alien. When you kill all aliens, you will pass to Level 4. In order to pass to level 4, you should press "N". Each alien shot that reaches to you will decrease your health by 1 point.
+
+In level 4, first you have to wait for an opponent. As soon as the server finds you a oppenent you will start the level four. There are 3 enemy alien types in level 4, triangle alien, circle alien and parallelogram alien. All aliens has the same affects on you. The player that "kills" an alien gets the alien's points. In order to get point a player should kill more alien than opponent. When opponent is dead, player wins the game and collects the points. After finishing the level, player can go home page and see the score of his/her. 
+
+If you are killed and your game is over. However, do not worry you can go home by pressing go home button and play bitBattle again!
 
 
 ## Project Structure
-In this project there is two main folders: frontend and backend.
+In this project there is three main folders: frontend, backend and multiplayer server.
 Backend includes the database operations. 
 In the src/main/java/edu/metu/ceng453/bitBattle/backend folder, there are 6 .java files. 
 
@@ -50,6 +54,11 @@ In the src/main/java/edu/metu/ceng453/bitBattle/backend folder, there are 6 .jav
     * In addtion to all methods above, there is myHash method to hash a given password in the playerControl.java file.
     
 In the src/main/resources folder, there is a file named application.properties. In this file, we specify the database connection properties.
+
+Frontend includes the GUI. In frontend there are design, alien, level folders and java files. In the design folder, there are fxml and png files. The design of the pages of the GUI is mainly implemented in fxml files. In the alien folder, there are alien interface, alien abstract class, alien Factory class, triangle alien class, circle alien class and parallelogram alien class. They includes alien's constructions and basic methods that belongs to the aliens. In the level folder there are abstract level controller class and each level's controller classes. Basicly, the methods that belongs to the levels are implemented in those classes. SigninController, registerController, leaderboardController includes the methods related to those pages. 
+
+The main GUI structure is stated in below:
+
 
 ## Database Structure
 
