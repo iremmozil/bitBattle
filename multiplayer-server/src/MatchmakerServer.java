@@ -49,7 +49,8 @@ public class MatchmakerServer {
 
                 if (object instanceof Event.AlienIsDead) {
                     // TODO: Mark alien as dead
-                    connection.aliens.set(((Event.AlienIsDead) object).alienIndex,0);
+                    connection.aliens.remove(((Event.AlienIsDead) object).alienIndex);
+                    connection.opponent.aliens.remove(((Event.AlienIsDead) object).alienIndex);
                     return;
                 }
 
@@ -130,7 +131,7 @@ public class MatchmakerServer {
         public void run() {
             Event.AlienFired alienFired = new Event.AlienFired();
 
-            while (player1.isConnected() && player2.isConnected()) {
+            while (player1.isConnected() && player2.isConnected() && player1.aliens.size() != 0) {
                 Random rand = new Random();
                 int ind = rand.nextInt(player1.aliens.size());
                 if (player1.aliens.get(ind) == 0 || player2.aliens.get(ind) == 0) {
@@ -141,7 +142,7 @@ public class MatchmakerServer {
                 server.sendToTCP(player2.getID(),alienFired);
 
                 try {
-                    Thread.sleep(700);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
