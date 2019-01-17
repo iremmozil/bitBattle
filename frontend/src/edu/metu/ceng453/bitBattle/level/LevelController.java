@@ -233,7 +233,7 @@ public abstract class LevelController extends Main {
     }
     //alien with the given index will be shoot
     void alienShoot(int n, AnchorPane anchor){
-        Platform.runLater(() -> aliens.get(n).fire(anchor));
+        Platform.runLater(() -> {aliens.get(n).fire(anchor);});
     }
 
     //check if one of the spaceships is hit
@@ -277,7 +277,8 @@ public abstract class LevelController extends Main {
             if (getHealth() > 0){
                 setHealth(getHealth() -1);
                 healthCount.setText(Integer.toString(getHealth()));
-            }else{
+            }
+            if (getHealth() == 0){
                 isSpaceshipDown = true;
                 updateDatabase();
             }

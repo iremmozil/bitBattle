@@ -164,11 +164,12 @@
                   <Image preserveRatio="true" smooth="true" url="@greencircle.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="opponent" id="opponent" fitHeight="34.0" fitWidth="70.0" layoutX="315.0" layoutY="592.0">
+            <ImageView id="opponent" fx:id="opponent" fitHeight="34.0" fitWidth="70.0" layoutX="315.0" layoutY="592.0">
                <image>
                   <Image url="@opponent.png" />
                </image>
             </ImageView>
+            <ProgressIndicator fx:id="finding" layoutX="221.0" layoutY="405.0" />
          </children>
       </AnchorPane>
    </children>

@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,6 +35,8 @@ public class levelFourController extends LevelController{
     @FXML Label scoreLabel;
     @FXML Label endLevel;
     @FXML Label gameOver;
+    @FXML
+    ProgressIndicator finding;
 
     @FXML Button homeButton;
     int Counter = 0;
@@ -52,6 +55,7 @@ public class levelFourController extends LevelController{
 
     public void initialize() {
         String host = "192.168.2.105";
+        finding.setVisible(true);
         player = new Client();
         player.start();
         Event.register(player);
@@ -71,6 +75,7 @@ public class levelFourController extends LevelController{
                 if (object instanceof Event.StartandMoveAliens) {
                     animateAliens();
                     start = true;
+                    finding.setVisible(false);
                     spaceship.setLayoutX(((Event.StartandMoveAliens) object).spaceshipx);
                     opponent.setLayoutX(((Event.StartandMoveAliens) object).opponentx);
                     return;
@@ -146,14 +151,17 @@ public class levelFourController extends LevelController{
                 if (!isFinished){
                     checkisSpaceShipDead(anchorFour, healthCount, gameOver, homeButton, scoreLabel);
                 }
-
                 if(isLevelFinished()){
                     isFinished = true;
                     if(opponentHitCounter > spaceshipHitCounter){
                         setGameScore(loserScore);
+                        gameOver.setVisible(true);
+                        scoreLabel.setText(Integer.toString(getGameScore()));
                     }
-                    homeButton.setVisible(true);
-                    levelFinished(endLevel);
+                    else {
+                        homeButton.setVisible(true);
+                        levelFinished(endLevel);
+                    }
                 }
                 if (opponentDead){
                     isFinished = true;
