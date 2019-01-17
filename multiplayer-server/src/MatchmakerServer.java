@@ -79,8 +79,8 @@ public class MatchmakerServer {
             if (playerList.size() > 1) {
                 System.out.println("Players came!\n");
                 new Thread( () -> {
-                    PlayerConnection player1 = new PlayerConnection();
-                    PlayerConnection player2 = new PlayerConnection();
+                    PlayerConnection player1;
+                    PlayerConnection player2;
 
                     // When playList has 2 entities, pop them and start the threads with player sockets
                     // TODO: Acquire lock here for playerList
@@ -93,8 +93,13 @@ public class MatchmakerServer {
                     player1.opponent = player2;
                     player2.opponent = player1;
 
-                    server.sendToTCP(player1.getID(), new Event.StartandMoveAliens());
-                    server.sendToTCP(player2.getID(), new Event.StartandMoveAliens());
+                    Event.StartandMoveAliens startandMoveAliens = new Event.StartandMoveAliens();
+                    startandMoveAliens.spaceshipx = 105; //TODO: MAGIC NUMBER
+                    startandMoveAliens.opponentx = 315;
+                    server.sendToTCP(player1.getID(), startandMoveAliens);
+                    startandMoveAliens.spaceshipx = 315;
+                    startandMoveAliens.opponentx = 105;
+                    server.sendToTCP(player2.getID(), startandMoveAliens);
 
                     new Thread(new syncAlienTask(player1, player2)).start();
 

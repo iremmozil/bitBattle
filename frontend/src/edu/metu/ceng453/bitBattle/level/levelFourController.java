@@ -213,6 +213,7 @@ public class levelFourController extends LevelController{
             if (alien.isShotDown(anchor,o)){
                 isShot = true;
                 if (alien.getHealth() == 0){
+                    int ind = aliens.indexOf(alien);
                     aliens.remove(alien);
                     if (o.getId() == "bullet"){
                         this.setGameScore(this.getGameScore() + alien.getPoint());
@@ -222,6 +223,7 @@ public class levelFourController extends LevelController{
                         opponentHitCounter++;
                     }
                     Event.AlienIsDead deadAlien = new Event.AlienIsDead();
+                    deadAlien.alienIndex = ind;
                     player.sendTCP(deadAlien);
                 }
                 break;
