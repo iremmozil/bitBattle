@@ -37,6 +37,8 @@ public class LeaderboardController extends Main{
     public void initialize() throws IOException {
 
         try {
+            obsListAllTime.add(String.format("%2s %5s %8s %16s", "Rank", "Player", "Score", "Date"));
+            obsListSevenDays.add(String.format("%2s %5s %8s %16s", "Rank", "Player", "Score", "Date"));
             System.out.println("GET Request Handling");
             HttpGet request = new HttpGet(protocol + host + port + leaderboardPath);
             String allTimeListItem = "allTimeListItem";
@@ -81,7 +83,7 @@ public class LeaderboardController extends Main{
             HttpEntity entity = playerResponse.getEntity();
             responseString = EntityUtils.toString(entity, "UTF-8");
             String item;
-            item = String.format("%2d %12s %5s %12s", i+1, responseString, game.get("score"), String.valueOf(game.get("gameTime")).substring(0,10));
+            item = String.format("%2d %12s %8s %13s", i+1, responseString, game.get("score"), String.valueOf(game.get("gameTime")).substring(0,10));
 
             if (ListItem.equals("allTimeListItem")){
                 obsListAllTime.add(item);
