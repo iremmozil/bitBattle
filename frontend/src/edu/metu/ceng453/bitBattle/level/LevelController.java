@@ -170,7 +170,7 @@ public abstract class LevelController extends Main {
     void makeAlienShoot(AnchorPane anchor) {
         Counter++;
         if (Counter % alienShootTime == 0) { //aliens shoot when the counter counter is 1100*n
-            alienRandomize(anchor);
+            randomAlienShoot(anchor);
         }
     }
     void checkisSpaceShipDead(AnchorPane anchor, Label healthCount, Label gameOver, Button homeButton, Label scoreLabel){
@@ -224,7 +224,7 @@ public abstract class LevelController extends Main {
     }
 
     //Decide which alien is gonna shoot
-    private void alienRandomize(AnchorPane anchor){
+    private void randomAlienShoot(AnchorPane anchor){
         Random rand = new Random();
         if (aliens.size() > 0){
             int n = rand.nextInt(aliens.size()) + 0;
