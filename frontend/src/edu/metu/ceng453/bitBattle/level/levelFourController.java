@@ -70,6 +70,8 @@ public class levelFourController extends LevelController{
                 if (object instanceof Event.StartandMoveAliens) {
                     animateAliens();
                     start = true;
+                    spaceship.setLayoutX(((Event.StartandMoveAliens) object).spaceshipx);
+                    opponent.setLayoutX(((Event.StartandMoveAliens) object).opponentx);
                     return;
                 }
 
@@ -208,6 +210,7 @@ public class levelFourController extends LevelController{
             if (alien.isShotDown(anchor,o)){
                 isShot = true;
                 if (alien.getHealth() == 0){
+                    int ind = aliens.indexOf(alien);
                     aliens.remove(alien);
                     if (o.getId() == "bullet"){
                         this.setGameScore(this.getGameScore() + alien.getPoint());
@@ -217,6 +220,7 @@ public class levelFourController extends LevelController{
                         opponentHitCounter++;
                     }
                     Event.AlienIsDead deadAlien = new Event.AlienIsDead();
+                    deadAlien.alienIndex = ind;
                     player.sendTCP(deadAlien);
                 }
                 break;
