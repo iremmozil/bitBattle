@@ -156,12 +156,14 @@ public class levelFourController extends LevelController{
                     if(opponentHitCounter > spaceshipHitCounter){
                         setGameScore(loserScore);
                         gameOver.setVisible(true);
+                        homeButton.setVisible(true);
                         scoreLabel.setText(Integer.toString(getGameScore()));
                     }
                     else {
                         homeButton.setVisible(true);
                         levelFinished(endLevel);
                     }
+                    updateDatabase();
                 }
                 if (opponentDead){
                     isFinished = true;
