@@ -30,6 +30,8 @@ public class Event {
     }
 
     static public class StartandMoveAliens {
+        public double spaceshipx;
+        public double opponentx;
 
     }
 
