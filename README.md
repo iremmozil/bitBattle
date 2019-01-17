@@ -57,7 +57,7 @@ In the src/main/resources folder, there is a file named application.properties. 
 
 Frontend includes the GUI. In frontend there are design, alien, level folders and java files. In the design folder, there are fxml and png files. The design of the pages of the GUI is mainly implemented in fxml files. In the alien folder, there are alien interface, alien abstract class, alien Factory class, triangle alien class, circle alien class and parallelogram alien class. They includes alien's constructions and basic methods that belongs to the aliens. In the level folder there are abstract level controller class and each level's controller classes. Basicly, the methods that belongs to the levels are implemented in those classes. SigninController, registerController, leaderboardController includes the methods related to those pages. 
 
-The main GUI structure is stated in below:
+The main GUI structure is stated in:
 tp-repo/frontend/gui-images/GUI.png
 
 ## Database Structure
