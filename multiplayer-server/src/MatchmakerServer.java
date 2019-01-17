@@ -148,12 +148,12 @@ public class MatchmakerServer {
                 }
             }
 
-            if (player1.isConnected()) {
+            if (!player1.isConnected()) {
                 server.sendToTCP(player2.getID(), new Event.OpponentDisconnected());
                 player1.close();
             }
 
-            else if (player2.isConnected()) {
+            else if (!player2.isConnected()) {
                 server.sendToTCP(player1.getID(), new Event.OpponentDisconnected());
                 player2.close();
             }
