@@ -60,6 +60,8 @@ Frontend includes the GUI. In frontend there are design, alien, level folders an
 The main GUI structure is stated in:
 tp-repo/frontend/gui-images/GUI.png
 
+**Test cases** are included in **Wiki**.
+
 ## Database Structure
 
 In the database, we have 2 tables named Player and Leaderboard.
