@@ -6,6 +6,7 @@ import edu.metu.ceng453.bitBattle.Main;
 import edu.metu.ceng453.bitBattle.alien.Alien;
 import edu.metu.ceng453.bitBattle.alien.AlienFactory;
 import javafx.animation.PathTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -232,7 +233,7 @@ public abstract class LevelController extends Main {
     }
     //alien with the given index will be shoot
     void alienShoot(int n, AnchorPane anchor){
-        aliens.get(n).fire(anchor);
+        Platform.runLater(() -> {aliens.get(n).fire(anchor);});
     }
 
     //check if one of the spaceships is hit
@@ -276,7 +277,8 @@ public abstract class LevelController extends Main {
             if (getHealth() > 0){
                 setHealth(getHealth() -1);
                 healthCount.setText(Integer.toString(getHealth()));
-            }else{
+            }
+            if (getHealth() == 0){
                 isSpaceshipDown = true;
                 updateDatabase();
             }
