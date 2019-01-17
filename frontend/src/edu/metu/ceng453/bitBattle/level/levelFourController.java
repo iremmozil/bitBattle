@@ -6,6 +6,7 @@ import com.esotericsoftware.kryonet.Listener;
 import edu.metu.ceng453.bitBattle.Event;
 import edu.metu.ceng453.bitBattle.alien.Alien;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -70,6 +71,8 @@ public class levelFourController extends LevelController{
                 if (object instanceof Event.StartandMoveAliens) {
                     animateAliens();
                     start = true;
+                    spaceship.setLayoutX(((Event.StartandMoveAliens) object).spaceshipx);
+                    opponent.setLayoutX(((Event.StartandMoveAliens) object).opponentx);
                     return;
                 }
 
@@ -79,7 +82,9 @@ public class levelFourController extends LevelController{
                 }
 
                 if (object instanceof Event.FirePlayer) {
-                    fire(anchorFour,"obullet");
+                    Platform.runLater (() -> {
+                            fire(anchorFour,"obullet");
+                    });
                     return;
                 }
 
