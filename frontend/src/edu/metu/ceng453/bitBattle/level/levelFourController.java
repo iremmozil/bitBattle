@@ -54,7 +54,7 @@ public class levelFourController extends LevelController{
     static Client player;
 
     public void initialize() {
-        String host = "192.168.2.105";
+        String host = "192.168.110.146";
         finding.setVisible(true);
         player = new Client();
         player.start();
@@ -73,6 +73,7 @@ public class levelFourController extends LevelController{
                 }
 
                 if (object instanceof Event.StartandMoveAliens) {
+                    System.out.println("baslaması lazım");
                     animateAliens();
                     start = true;
                     finding.setVisible(false);

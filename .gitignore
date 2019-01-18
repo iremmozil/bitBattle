@@ -256,6 +256,4 @@ gradle/wrapper/gradle-wrapper.properties
 
 # End of https://www.gitignore.io/api/java,linux,eclipse,jetbrains
 
-!frontend/frontend.jar
-!backend/backend.jar
 frontend/src/META-INF/
